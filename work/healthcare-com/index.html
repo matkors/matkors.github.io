@@ -32,8 +32,10 @@
       <a href="#problem"><span class="tn">01</span>The problem</a>
       <a href="#constraint"><span class="tn">02</span>The constraint</a>
       <a href="#built"><span class="tn">03</span>What I built</a>
-      <a href="#results"><span class="tn">04</span>The results</a>
-      <a href="#learned"><span class="tn">05</span>What it taught me</a>
+      <a href="#ladder"><span class="tn">04</span>The decision ladder</a>
+      <a href="#testing"><span class="tn">05</span>How you test it</a>
+      <a href="#results"><span class="tn">06</span>How it is measured</a>
+      <a href="#learned"><span class="tn">07</span>What it taught me</a>
     </nav>
   </aside>
 
@@ -53,6 +55,12 @@
         <div class="gi"><span class="l">Built</span><span class="v">Three inbound agents</span></div>
         <div class="gi"><span class="l">Status</span><span class="v">In production</span></div>
       </div>
+      <div class="nda" data-reveal>
+        <div class="lbl">Under contract</div>
+        <p class="ndah">I am under contract. I cannot show you this one.</p>
+        <p class="ndab">No screenshots, no flows, no prompts, no numbers. Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause I intend to keep.</p>
+        <p class="ndas">So this page is the shape of the problem, the constraints I had to build inside, and the method I brought to it. That method is mine and I can show it in full. I would rather show you the limit honestly than dress up something vague and call it a case study.</p>
+      </div>
       <div class="pull" data-reveal>
       <p>Most voice AI is a booking bot for a salon. This one sits inside health insurance, where an agent that says the wrong thing about coverage is not a bad customer experience, it is a compliance problem.</p>
       </div>
@@ -60,17 +68,33 @@
         <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
         <h2 class="sec">Callers arrive without knowing what they need</h2>
       </div>
+      <p class="lead" data-reveal>Health insurance is a category where people call confused.</p>
       <div class="prose" data-reveal>
-      <p>Health insurance is a category where people call confused. They do not know which plan type applies to them, whether they qualify for a subsidy, or whether the thing they are worried about is even covered. A legacy phone menu asks them to self-select into a category they cannot yet identify, so they pick wrong, get routed wrong, and either hang up or waste a licensed agent&rsquo;s time.</p>
-      <p>At high inbound volume that misrouting is expensive in both directions: callers who needed help do not get it, and expensive humans spend their day redirecting people.</p>
+      <p>They do not know which plan type applies to them, whether they qualify for a subsidy, or whether the thing they are actually worried about is even covered. Often they cannot name the product they are calling about. They can only describe a situation: I lost my job, my daughter ages off my plan in March, my doctor is not on the list any more.</p>
+      <p>A phone menu asks that person to self-select into a category they cannot yet identify. So they pick wrong, get routed wrong, and either hang up or spend a licensed agent&rsquo;s time being redirected. At volume the misrouting is expensive in both directions.</p>
       </div>
+      <ul class="bul" data-reveal>
+        <li><b>The caller cannot classify themselves.</b> The one thing the old system demands of them is the one thing they cannot do.</li>
+        <li><b>The right answer is frequently a human.</b> Not every call should be contained, and a system optimized for containment will fight that.</li>
+        <li><b>Timing is loaded.</b> A lot of these calls come from someone who just lost coverage, and the tone of the first fifteen seconds matters more than the routing logic.</li>
+      </ul>
       <div data-reveal id="constraint">
         <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
         <h2 class="sec">The agent is not allowed to improvise</h2>
       </div>
       <div class="prose" data-reveal>
-      <p>Everything the agent says has to hold up against AI disclosure requirements and CMS marketing rules. It cannot improvise about plans, prices or eligibility, and it cannot imply a government affiliation.</p>
+      <p>Everything the agent says has to hold up against AI disclosure requirements and CMS marketing rules. It cannot improvise about plans, prices or eligibility, and it cannot imply that it speaks for the government.</p>
       <p>That inverts the usual build. In a normal voice project the hard part is making the agent sound natural and handle the long tail. Here the hard part is making it refuse cleanly, stay inside a defined scope, and hand off <em>before</em> it guesses. A model that is helpful in the general case is actively dangerous in this one.</p>
+      </div>
+      <div class="reqbox" data-reveal>
+        <div class="lbl">What the law requires before the agent is useful at all</div>
+        <ol class="reqlist">
+          <li><b>Disclose that it is AI</b><span>The caller has to know they are not talking to a person, early enough to matter and clearly enough that a distressed caller actually registers it.</span></li>
+          <li><b>State it is not the government</b><span>Nothing may imply endorsement by Medicare, CMS or any federal agency. On Medicare paths that is explicit required wording, not a tone judgment.</span></li>
+          <li><b>Carry the Medicare marketing disclaimer</b><span>Third-party marketing of Medicare Advantage carries a CMS-mandated disclaimer about not offering every plan available in the caller&rsquo;s area, plus the pointer to 1-800-MEDICARE.</span></li>
+          <li><b>Handle recording and consent correctly</b><span>Recording notice where required, and consent rules that govern who may be called and how. These are the company&rsquo;s to determine; mine to implement exactly as written.</span></li>
+          <li><b>Never assert an outcome it was not given</b><span>No eligibility, no premium, no coverage decision. Not a softened version, not a hedged version. It routes to someone licensed to say it.</span></li>
+        </ol>
       </div>
       <div class="pull" data-reveal>
       <p>The interesting work is not the conversation. It is the boundary around the conversation.</p>
@@ -79,38 +103,66 @@
         <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
         <h2 class="sec">Three agents, one guardrail layer</h2>
       </div>
+      <p class="lead" data-reveal>Three separate inbound agents, sharing one set of rules about what may be said.</p>
       <ul class="bul" data-reveal>
         <li><b>A routing agent.</b> Works out what a caller actually needs from how they describe their situation, rather than asking them to pick a menu option, and sends them down the right path. Built for high inbound volume.</li>
         <li><b>A job loss intake line.</b> For people who just lost their health insurance along with their job. It qualifies the caller and warm transfers to a licensed human rather than trying to solve it, because that is not a call an agent should be closing.</li>
-        <li><b>A Medicare Advantage agent.</b> Runs inside that funnel, where the compliance bar is higher again.</li>
+        <li><b>A Medicare Advantage agent.</b> Runs inside that funnel, where the compliance bar is higher again and the required wording is strictest.</li>
       </ul>
-      <div class="flowlabel"><b>Flow</b> How a call moves through it</div>
-      <div class="flow-wrap" data-pipe>
-        <ol class="flow">
-          <li class="flow-line"></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">01</span><span class="fbody"><b>Inbound call</b><span>intent unknown</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">02</span><span class="fbody"><b>Classify</b><span>what does this caller actually need</span></span></li>
-          <li class="fstep key"><span class="fnode"></span><span class="fnum">03</span><span class="fbody"><b>Guardrails</b><span>disclosure, scope limits, nothing improvised</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">04</span><span class="fbody"><b>Route</b><span>coverage, Medicare, or crisis path</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">05</span><span class="fbody"><b>Warm transfer</b><span>handed to a licensed human</span></span></li>
-        </ol>
-        <p class="flow-note">The guardrail step is the whole job. Everything else is plumbing.</p>
+      <div class="prose" data-reveal>
+      <p>I scoped all three from scratch. Sat with non-technical executives, mapped the use cases with senior stakeholders, designed the flows, presented them back in plain language, and coordinated across product, engineering, compliance and operations to get them live. Nobody handed me a spec.</p>
       </div>
+      <div data-reveal id="ladder">
+        <div class="secnum">04 &nbsp;&middot;&nbsp; The decision ladder</div>
+        <h2 class="sec">How an agent decides what it may say</h2>
+      </div>
+      <p class="lead" data-reveal>This is my framework rather than anything of theirs, so I can show it in full. It is how I approach any voice agent in a regulated category.</p>
+      <div class="ladderlabel"><b>Framework</b> How a regulated agent decides what it may say</div>
+      <ol class="ladder" data-reveal>
+        <li class="rung"><span class="rn">01</span><span class="rb"><b>Answer</b><span>The question is in scope and the answer already exists in approved copy. Say it, plainly, and move on.</span></span></li>
+        <li class="rung"><span class="rn">02</span><span class="rb"><b>Answer with attached disclosure</b><span>In scope, but regulation attaches specific words to it. The wording fires every single time, not when the model judges it relevant.</span></span></li>
+        <li class="rung"><span class="rn">03</span><span class="rb"><b>Refuse and redirect</b><span>Out of scope but adjacent. Say clearly that it cannot answer that, say who can, and offer the handoff. Never improvise a partial answer to be helpful.</span></span></li>
+        <li class="rung stop"><span class="rn">04</span><span class="rb"><b>Stop and transfer</b><span>Anything touching eligibility, price or a coverage decision. Hand to a licensed human immediately.</span></span></li>
+      </ol>
+      <p class="laddernote" data-reveal>The failure mode almost everyone ships is an agent that treats the last rung as an error state. It is not an error. On this kind of line it is the product working correctly, and designing it as a first-class path rather than a fallback is most of the job.</p>
+      <div data-reveal id="testing">
+        <div class="secnum">05 &nbsp;&middot;&nbsp; How you test it</div>
+        <h2 class="sec">Testing something that is not allowed to be wrong</h2>
+      </div>
+      <p class="lead" data-reveal>In a normal build you test the happy path and patch the rest later. Here the refusal path is the product, so it gets tested hardest.</p>
+      <ul class="bul" data-reveal>
+        <li><b>Write the adversarial cases first.</b> A caller asking &ldquo;so will my insulin be covered?&rdquo; in six different phrasings, including the polite ones and the desperate ones. If the agent will break, it breaks there.</li>
+        <li><b>Treat every transfer as an assertion.</b> A handoff that dials into nothing is worse than no agent at all, and it only shows up if you test the receiving end rather than the intent to transfer.</li>
+        <li><b>Regression-test disclosures after any prompt change.</b> An edit that improves the greeting can quietly stop required wording firing three turns later. That is a compliance event, not a bug.</li>
+        <li><b>Tune for silence, not just accuracy.</b> Latency is what makes a real caller hang up. A correct answer that arrives two seconds late loses the call anyway.</li>
+        <li><b>Listen to real calls, continuously.</b> Same discipline I run on every voice system I keep alive. Nothing in a test suite predicts what a person in a bad week actually says.</li>
+      </ul>
       <div data-reveal id="results">
-        <div class="secnum">04 &nbsp;&middot;&nbsp; The results</div>
-        <h2 class="sec">What I am able to share</h2>
-      </div>
-      <div class="gate" data-reveal>
-        <div class="lbl">Confidentiality</div>
-        <p>My contract with Healthcare.com is specific, and their operational detail sits inside it: call volumes, conversion and containment figures, internal product names, and the flows themselves. Publishing any of that would breach it, so this page stops at the shape of the problem and the approach. All three agents are built and in production. I am happy to talk through the reasoning on a call, within the same limits.</p>
-      </div>
-      <div data-reveal id="learned">
-        <div class="secnum">05 &nbsp;&middot;&nbsp; What it taught me</div>
-        <h2 class="sec">Compliance review is the project, not overhead</h2>
+        <div class="secnum">06 &nbsp;&middot;&nbsp; How it is measured</div>
+        <h2 class="sec">The numbers I watch, and cannot publish</h2>
       </div>
       <div class="prose" data-reveal>
-      <p>I scoped all three by sitting with non-technical executives, mapped use cases with senior stakeholders, built the flows, presented them back in plain language, and coordinated across product, engineering, compliance and operations to ship. Nobody handed me a spec.</p>
-      <p>The thing I would tell anyone building in a regulated category: get compliance into the design conversation before you build, not after. Every hour spent agreeing what the agent may not say saves a week of rework, and it is the only way the thing actually ships rather than sitting in review.</p>
+      <p>I can tell you which measures matter on a build like this. I cannot tell you what any of them read at Healthcare.com.</p>
+      </div>
+      <ul class="bul" data-reveal>
+        <li><b>Transfer success rate.</b> Did the caller actually reach a human. The single most important number and the one most often not instrumented.</li>
+        <li><b>Disclosure fire rate.</b> Required wording is binary. It is either 100% or the system is broken.</li>
+        <li><b>Time to human on the paths where speed matters.</b> On a loss-of-coverage call this beats almost everything else.</li>
+        <li><b>Containment, read carefully.</b> Useful as a cost measure, dangerous as a goal. An agent that contains a call it should have escalated looks great on this metric and is doing the opposite of its job.</li>
+        <li><b>Where it refused.</b> Refusals cluster around the gaps in approved copy, which makes them the best backlog of what to write next.</li>
+      </ul>
+      <div class="gate" data-reveal>
+        <div class="lbl">What sits behind this line</div>
+        <p>Call volumes, conversion and containment figures, internal product names, platform configuration, the conversation flows themselves, and the commercial terms of my engagement. All of it is either work product owned by Healthcare.com or covered by the confidentiality clause. On a call I can go a layer deeper on reasoning and method, and no deeper on their data.</p>
+      </div>
+      <div data-reveal id="learned">
+        <div class="secnum">07 &nbsp;&middot;&nbsp; What it taught me</div>
+        <h2 class="sec">Compliance review is the project, not overhead</h2>
+      </div>
+      <p class="lead" data-reveal>Get compliance into the design conversation before you build, not after.</p>
+      <div class="prose" data-reveal>
+      <p>Every hour spent agreeing what the agent may not say saves a week of rework, and it is the only way the thing ships rather than sitting in review indefinitely. In this category the compliance team is not a gate at the end of the process. They are a design input at the start, and treating them that way is the difference between three agents in production and three agents in a slide deck.</p>
+      <p>The second thing: building for a company in a regulated industry means accepting that you will not get to show anyone the work. I decided that was worth it. You learn more shipping one agent under real constraints than ten where nothing is at stake.</p>
       </div>
       <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>
       <div class="stack" data-reveal>

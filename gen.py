@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from build_cases import HEAD, FOOT, flow, chips, stats, pending, nextprev
-from figs import fig, figpair, toc, sec_id, lead, layer, notes
+from figs import fig, figpair, toc, sec_id, lead, layer, notes, nda, ladder, reqs
 
 
 def P(*t):
@@ -57,48 +57,102 @@ hc = HEAD.format(
     toc=toc([('problem', '01', 'The problem'),
              ('constraint', '02', 'The constraint'),
              ('built', '03', 'What I built'),
-             ('results', '04', 'The results'),
-             ('learned', '05', 'What it taught me')]))
+             ('ladder', '04', 'The decision ladder'),
+             ('testing', '05', 'How you test it'),
+             ('results', '06', 'How it is measured'),
+             ('learned', '07', 'What it taught me')]))
 
 hc += '\n'.join([
     glance([('Role', 'Voice AI engineer, contract'),
             ('Period', 'May 2026 &ndash; present'),
             ('Built', 'Three inbound agents'),
             ('Status', 'In production')]),
+
+    nda('I am under contract. I cannot show you this one.',
+        'No screenshots, no flows, no prompts, no numbers. Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause I intend to keep.',
+        'So this page is the shape of the problem, the constraints I had to build inside, and the method I brought to it. That method is mine and I can show it in full. I would rather show you the limit honestly than dress up something vague and call it a case study.'),
+
     pull('Most voice AI is a booking bot for a salon. This one sits inside health insurance, where an agent that says the wrong thing about coverage is not a bad customer experience, it is a compliance problem.'),
 
     sec_id('01', 'The problem', 'Callers arrive without knowing what they need', 'problem'),
-    prose('Health insurance is a category where people call confused. They do not know which plan type applies to them, whether they qualify for a subsidy, or whether the thing they are worried about is even covered. A legacy phone menu asks them to self-select into a category they cannot yet identify, so they pick wrong, get routed wrong, and either hang up or waste a licensed agent&rsquo;s time.',
-          'At high inbound volume that misrouting is expensive in both directions: callers who needed help do not get it, and expensive humans spend their day redirecting people.'),
+    lead('Health insurance is a category where people call confused.'),
+    prose('They do not know which plan type applies to them, whether they qualify for a subsidy, or whether the thing they are actually worried about is even covered. Often they cannot name the product they are calling about. They can only describe a situation: I lost my job, my daughter ages off my plan in March, my doctor is not on the list any more.',
+          'A phone menu asks that person to self-select into a category they cannot yet identify. So they pick wrong, get routed wrong, and either hang up or spend a licensed agent&rsquo;s time being redirected. At volume the misrouting is expensive in both directions.'),
+    bul([
+        '<b>The caller cannot classify themselves.</b> The one thing the old system demands of them is the one thing they cannot do.',
+        '<b>The right answer is frequently a human.</b> Not every call should be contained, and a system optimized for containment will fight that.',
+        '<b>Timing is loaded.</b> A lot of these calls come from someone who just lost coverage, and the tone of the first fifteen seconds matters more than the routing logic.',
+    ]),
 
     sec_id('02', 'The constraint', 'The agent is not allowed to improvise', 'constraint'),
-    prose('Everything the agent says has to hold up against AI disclosure requirements and CMS marketing rules. It cannot improvise about plans, prices or eligibility, and it cannot imply a government affiliation.',
+    prose('Everything the agent says has to hold up against AI disclosure requirements and CMS marketing rules. It cannot improvise about plans, prices or eligibility, and it cannot imply that it speaks for the government.',
           'That inverts the usual build. In a normal voice project the hard part is making the agent sound natural and handle the long tail. Here the hard part is making it refuse cleanly, stay inside a defined scope, and hand off <em>before</em> it guesses. A model that is helpful in the general case is actively dangerous in this one.'),
+
+    reqs([('Disclose that it is AI',
+           'The caller has to know they are not talking to a person, early enough to matter and clearly enough that a distressed caller actually registers it.'),
+          ('State it is not the government',
+           'Nothing may imply endorsement by Medicare, CMS or any federal agency. On Medicare paths that is explicit required wording, not a tone judgment.'),
+          ('Carry the Medicare marketing disclaimer',
+           'Third-party marketing of Medicare Advantage carries a CMS-mandated disclaimer about not offering every plan available in the caller&rsquo;s area, plus the pointer to 1-800-MEDICARE.'),
+          ('Handle recording and consent correctly',
+           'Recording notice where required, and consent rules that govern who may be called and how. These are the company&rsquo;s to determine; mine to implement exactly as written.'),
+          ('Never assert an outcome it was not given',
+           'No eligibility, no premium, no coverage decision. Not a softened version, not a hedged version. It routes to someone licensed to say it.')],
+         'What the law requires before the agent is useful at all'),
+
     pull('The interesting work is not the conversation. It is the boundary around the conversation.'),
 
     sec_id('03', 'What I built', 'Three agents, one guardrail layer', 'built'),
+    lead('Three separate inbound agents, sharing one set of rules about what may be said.'),
     bul([
         '<b>A routing agent.</b> Works out what a caller actually needs from how they describe their situation, rather than asking them to pick a menu option, and sends them down the right path. Built for high inbound volume.',
         '<b>A job loss intake line.</b> For people who just lost their health insurance along with their job. It qualifies the caller and warm transfers to a licensed human rather than trying to solve it, because that is not a call an agent should be closing.',
-        '<b>A Medicare Advantage agent.</b> Runs inside that funnel, where the compliance bar is higher again.',
+        '<b>A Medicare Advantage agent.</b> Runs inside that funnel, where the compliance bar is higher again and the required wording is strictest.',
     ]),
-    flow([('Inbound call', 'intent unknown', 0),
-          ('Classify', 'what does this caller actually need', 0),
-          ('Guardrails', 'disclosure, scope limits, nothing improvised', 1),
-          ('Route', 'coverage, Medicare, or crisis path', 0),
-          ('Warm transfer', 'handed to a licensed human', 0)],
-         'The guardrail step is the whole job. Everything else is plumbing.',
-         label='How a call moves through it'),
+    prose('I scoped all three from scratch. Sat with non-technical executives, mapped the use cases with senior stakeholders, designed the flows, presented them back in plain language, and coordinated across product, engineering, compliance and operations to get them live. Nobody handed me a spec.'),
 
-    sec_id('04', 'The results', 'What I am able to share', 'results'),
+    sec_id('04', 'The decision ladder', 'How an agent decides what it may say', 'ladder'),
+    lead('This is my framework rather than anything of theirs, so I can show it in full. It is how I approach any voice agent in a regulated category.'),
+    ladder([
+        ('Answer',
+         'The question is in scope and the answer already exists in approved copy. Say it, plainly, and move on.', 0),
+        ('Answer with attached disclosure',
+         'In scope, but regulation attaches specific words to it. The wording fires every single time, not when the model judges it relevant.', 0),
+        ('Refuse and redirect',
+         'Out of scope but adjacent. Say clearly that it cannot answer that, say who can, and offer the handoff. Never improvise a partial answer to be helpful.', 0),
+        ('Stop and transfer',
+         'Anything touching eligibility, price or a coverage decision. Hand to a licensed human immediately.', 1),
+    ],
+    'The failure mode almost everyone ships is an agent that treats the last rung as an error state. It is not an error. On this kind of line it is the product working correctly, and designing it as a first-class path rather than a fallback is most of the job.'),
+
+    sec_id('05', 'How you test it', 'Testing something that is not allowed to be wrong', 'testing'),
+    lead('In a normal build you test the happy path and patch the rest later. Here the refusal path is the product, so it gets tested hardest.'),
+    bul([
+        '<b>Write the adversarial cases first.</b> A caller asking &ldquo;so will my insulin be covered?&rdquo; in six different phrasings, including the polite ones and the desperate ones. If the agent will break, it breaks there.',
+        '<b>Treat every transfer as an assertion.</b> A handoff that dials into nothing is worse than no agent at all, and it only shows up if you test the receiving end rather than the intent to transfer.',
+        '<b>Regression-test disclosures after any prompt change.</b> An edit that improves the greeting can quietly stop required wording firing three turns later. That is a compliance event, not a bug.',
+        '<b>Tune for silence, not just accuracy.</b> Latency is what makes a real caller hang up. A correct answer that arrives two seconds late loses the call anyway.',
+        '<b>Listen to real calls, continuously.</b> Same discipline I run on every voice system I keep alive. Nothing in a test suite predicts what a person in a bad week actually says.',
+    ]),
+
+    sec_id('06', 'How it is measured', 'The numbers I watch, and cannot publish', 'results'),
+    prose('I can tell you which measures matter on a build like this. I cannot tell you what any of them read at Healthcare.com.'),
+    bul([
+        '<b>Transfer success rate.</b> Did the caller actually reach a human. The single most important number and the one most often not instrumented.',
+        '<b>Disclosure fire rate.</b> Required wording is binary. It is either 100% or the system is broken.',
+        '<b>Time to human on the paths where speed matters.</b> On a loss-of-coverage call this beats almost everything else.',
+        '<b>Containment, read carefully.</b> Useful as a cost measure, dangerous as a goal. An agent that contains a call it should have escalated looks great on this metric and is doing the opposite of its job.',
+        '<b>Where it refused.</b> Refusals cluster around the gaps in approved copy, which makes them the best backlog of what to write next.',
+    ]),
     '''      <div class="gate" data-reveal>
-        <div class="lbl">Confidentiality</div>
-        <p>My contract with Healthcare.com is specific, and their operational detail sits inside it: call volumes, conversion and containment figures, internal product names, and the flows themselves. Publishing any of that would breach it, so this page stops at the shape of the problem and the approach. All three agents are built and in production. I am happy to talk through the reasoning on a call, within the same limits.</p>
+        <div class="lbl">What sits behind this line</div>
+        <p>Call volumes, conversion and containment figures, internal product names, platform configuration, the conversation flows themselves, and the commercial terms of my engagement. All of it is either work product owned by Healthcare.com or covered by the confidentiality clause. On a call I can go a layer deeper on reasoning and method, and no deeper on their data.</p>
       </div>''',
 
-    sec_id('05', 'What it taught me', 'Compliance review is the project, not overhead', 'learned'),
-    prose('I scoped all three by sitting with non-technical executives, mapped use cases with senior stakeholders, built the flows, presented them back in plain language, and coordinated across product, engineering, compliance and operations to ship. Nobody handed me a spec.',
-          'The thing I would tell anyone building in a regulated category: get compliance into the design conversation before you build, not after. Every hour spent agreeing what the agent may not say saves a week of rework, and it is the only way the thing actually ships rather than sitting in review.'),
+    sec_id('07', 'What it taught me', 'Compliance review is the project, not overhead', 'learned'),
+    lead('Get compliance into the design conversation before you build, not after.'),
+    prose('Every hour spent agreeing what the agent may not say saves a week of rework, and it is the only way the thing ships rather than sitting in review indefinitely. In this category the compliance team is not a gate at the end of the process. They are a design input at the start, and treating them that way is the difference between three agents in production and three agents in a slide deck.',
+          'The second thing: building for a company in a regulated industry means accepting that you will not get to show anyone the work. I decided that was worth it. You learn more shipping one agent under real constraints than ten where nothing is at stake.'),
 
     '      <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>',
     chips([('Retell AI', 'retell.svg', 0), ('VAPI', 'vapi.png', 0),

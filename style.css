@@ -683,3 +683,108 @@ dialog.lb .lbclose:hover{background:var(--acc);color:#0a0b0c;border-color:var(--
   dialog.lb .lbclose{top:-11px;right:-6px;width:30px;height:30px}
   dialog.lb img{max-height:74vh}
 }
+
+/* ============ confidentiality notice ============ */
+/* stated loudly, near the top: the reader should hit the limit before
+   they start looking for screenshots that are never coming */
+.nda{
+  margin:32px 0 6px;padding:26px 28px;border-radius:12px;
+  border:1px solid rgba(255,146,71,.3);
+  background:
+    linear-gradient(135deg,rgba(255,146,71,.085),rgba(255,107,74,.03) 55%,transparent),
+    var(--panel);
+}
+.nda .lbl{
+  font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--acc);margin-bottom:14px;
+}
+.nda .ndah{
+  font-size:clamp(20px,2.5vw,25px);font-weight:560;letter-spacing:-.028em;
+  color:var(--t1);line-height:1.22;margin-bottom:14px;
+  max-width:24ch;text-wrap:balance;
+}
+.nda .ndab{
+  font-size:16px;line-height:1.62;color:var(--t2);max-width:62ch;text-wrap:pretty;
+}
+.nda .ndas{
+  font-size:14.5px;line-height:1.65;color:var(--t3);max-width:64ch;
+  margin-top:13px;padding-top:14px;border-top:1px solid var(--b-subtle);
+  text-wrap:pretty;
+}
+
+/* ============ externally imposed requirements ============ */
+.reqbox{
+  margin:26px 0 0;padding:22px 24px 6px;border:1px solid var(--b-std);
+  border-radius:10px;background:var(--panel);
+}
+.reqbox .lbl{
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--t4);margin-bottom:16px;
+}
+ol.reqlist{list-style:none;margin:0;padding:0;counter-reset:req}
+ol.reqlist li{
+  counter-increment:req;position:relative;padding:0 0 16px 34px;
+  margin-bottom:16px;border-bottom:1px solid var(--b-subtle);
+}
+ol.reqlist li:last-child{border-bottom:none}
+ol.reqlist li::before{
+  content:counter(req,decimal-leading-zero);position:absolute;left:0;top:2px;
+  font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--acc);
+  letter-spacing:.06em;
+}
+ol.reqlist b{
+  display:block;font-size:15.5px;font-weight:560;color:var(--t1);
+  letter-spacing:-.014em;margin-bottom:4px;
+}
+ol.reqlist span{font-size:14.5px;line-height:1.62;color:var(--t3);text-wrap:pretty}
+
+/* ============ the decision ladder ============ */
+.ladderlabel{
+  display:inline-flex;align-items:center;gap:9px;margin:26px 0 10px;
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--t4);
+}
+.ladderlabel b{
+  color:var(--acc);font-weight:500;
+  border:1px solid rgba(255,146,71,.3);border-radius:4px;padding:2px 6px;
+}
+ol.ladder{
+  list-style:none;margin:0;padding:0;
+  border:1px solid var(--b-std);border-radius:10px;overflow:hidden;
+  background:var(--panel);
+}
+.rung{
+  display:flex;gap:16px;align-items:flex-start;padding:18px 22px;
+  border-bottom:1px solid var(--b-subtle);position:relative;
+  transition:background .25s ease;
+}
+.rung:last-child{border-bottom:none}
+.rung:hover{background:var(--raised)}
+/* each rung is one step further from answering, so indent as we descend */
+.rung:nth-child(2){padding-left:42px}
+.rung:nth-child(3){padding-left:62px}
+.rung:nth-child(4){padding-left:82px}
+.rung .rn{
+  font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--t4);
+  letter-spacing:.06em;flex:none;padding-top:3px;width:18px;
+}
+.rung .rb{min-width:0}
+.rung .rb b{
+  display:block;font-size:15.5px;font-weight:560;color:var(--t1);
+  letter-spacing:-.014em;margin-bottom:4px;
+}
+.rung .rb span{font-size:14.5px;line-height:1.62;color:var(--t3);text-wrap:pretty}
+.rung.stop{background:rgba(255,146,71,.05)}
+.rung.stop .rn,.rung.stop .rb b{color:var(--acc)}
+.rung.stop::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--acc);
+}
+.laddernote{
+  margin:16px 0 0;font-size:14.5px;line-height:1.68;color:var(--t3);
+  max-width:64ch;text-wrap:pretty;
+}
+@media (max-width:620px){
+  .rung:nth-child(2),.rung:nth-child(3),.rung:nth-child(4){padding-left:22px}
+  .nda{padding:20px 20px}
+  .reqbox{padding:18px 18px 4px}
+}

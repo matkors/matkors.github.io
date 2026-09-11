@@ -66,3 +66,44 @@ def layer(name, title):
     """A sub-heading inside 'What I built'."""
     return ('      <div class="secnum" data-reveal>%s &nbsp;&middot;&nbsp; %s</div>'
             % (name, title))
+
+
+def nda(headline, body, sub=None):
+    """The confidentiality notice, stated loudly and early.
+
+    Deliberately not buried at the bottom: a reader should hit the limit
+    before they go looking for screenshots that are never coming.
+    """
+    out = ['      <div class="nda" data-reveal>',
+           '        <div class="lbl">Under contract</div>',
+           '        <p class="ndah">%s</p>' % headline,
+           '        <p class="ndab">%s</p>' % body]
+    if sub:
+        out.append('        <p class="ndas">%s</p>' % sub)
+    out.append('      </div>')
+    return '\n'.join(out)
+
+
+def ladder(rungs, note=None):
+    """The escalation ladder: my own framework, not client work product."""
+    out = ['      <div class="ladderlabel"><b>Framework</b> How a regulated agent decides what it may say</div>',
+           '      <ol class="ladder" data-reveal>']
+    for i, (title, body, stop) in enumerate(rungs, 1):
+        cls = ' stop' if stop else ''
+        out.append('        <li class="rung%s"><span class="rn">%02d</span>'
+                   '<span class="rb"><b>%s</b><span>%s</span></span></li>' % (cls, i, title, body))
+    out.append('      </ol>')
+    if note:
+        out.append('      <p class="laddernote" data-reveal>%s</p>' % note)
+    return '\n'.join(out)
+
+
+def reqs(items, label):
+    """A numbered list of externally imposed requirements."""
+    out = ['      <div class="reqbox" data-reveal>',
+           '        <div class="lbl">%s</div>' % label,
+           '        <ol class="reqlist">']
+    for title, body in items:
+        out.append('          <li><b>%s</b><span>%s</span></li>' % (title, body))
+    out += ['        </ol>', '      </div>']
+    return '\n'.join(out)
