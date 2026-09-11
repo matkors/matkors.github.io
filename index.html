@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matviy Korsunskiy — AI systems for marketing and operations</title>
-<meta name="description" content="I build lifecycle and CRM automation for small service businesses, and production voice agents inside companies where the rules bite.">
+<meta name="description" content="No-code automation, CRM and AI systems. n8n, GoHighLevel, Claude, APIs. Some of it answers the phone.">
 <meta property="og:title" content="Matviy Korsunskiy">
 <meta property="og:description" content="AI systems for marketing and operations. Three pieces of work, each with a constraint that made the obvious approach wrong.">
 <meta property="og:type" content="website">
@@ -233,6 +233,27 @@ article:hover .logo{border-color:var(--b-strong)}
 .stat.hi .v{color:var(--acc)}
 .stat .k{font-size:12px;line-height:1.4;color:var(--t3)}
 
+/* ============ skills ============ */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px 34px;margin-top:8px}
+.skill-group h4{
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.17em;text-transform:uppercase;color:var(--acc);
+  margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--b-subtle);
+}
+.skill-group ul{list-style:none;margin:0;padding:0}
+.skill-group li{
+  font-size:13.5px;line-height:1.75;color:var(--t2);
+  display:flex;align-items:baseline;gap:8px;
+}
+.skill-group li::before{content:"";width:3px;height:3px;border-radius:50%;background:var(--t4);flex:none}
+.skill-group li.k{color:var(--t1);font-weight:540}
+.skill-group li.k::before{background:var(--acc)}
+
+.also{margin-top:34px;padding-top:26px;border-top:1px solid var(--b-subtle);max-width:62ch}
+.also p{margin-bottom:11px;color:var(--t3);font-size:14.5px;line-height:1.68}
+.also p:last-child{margin-bottom:0}
+.also b{color:var(--t2);font-weight:540}
+
 /* ============ footer ============ */
 footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)}
 .cta{
@@ -279,7 +300,7 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
   <aside class="rail">
     <img class="pf" src="portrait.jpg" alt="Matviy Korsunskiy" width="56" height="56">
     <div class="nm">Matviy Korsunskiy</div>
-    <div class="role">AI systems for marketing and operations</div>
+    <div class="role">Automation, CRM and AI systems for marketing and operations</div>
     <div class="avail"><span class="dot"></span>Available for contract</div>
     <nav>
       <a href="mailto:matkorstt@gmail.com">Email</a>
@@ -291,19 +312,19 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
   <main class="col">
 
     <div class="hero">
-      <h1 class="headline">I build AI systems that run on someone else&rsquo;s business.</h1>
+      <h1 class="headline">I build the automation a business actually runs on.</h1>
       <div data-reveal>
-        <p class="lede">Lifecycle and CRM automation for small service companies, and <b>production voice agents inside places where the rules bite.</b></p>
+        <p class="lede">Mostly no-code: <b>n8n, GoHighLevel, APIs and Claude</b> wired into CRM, lead generation and lifecycle systems. Some of it answers the phone.</p>
       </div>
       <div class="intro" data-reveal>
-        <p>Most of what I do is sit down with someone non-technical, work out what their system actually needs to do, then build it and keep it running. Data in, a way to tell whether it is working, and an interface the client actually opens.</p>
+        <p>Most of what I do is sit down with someone non-technical, work out what their system actually needs to do, then build it and keep it running. Data in, a way to tell whether it is working, and an interface the client actually opens. I taught myself the whole stack inside a year and my degree is in criminal justice, so I came at this from the problem rather than the tooling.</p>
         <p>Three pieces of work below. Each one had a constraint that made the obvious approach wrong.</p>
       </div>
     </div>
 
     <article>
       <div data-reveal>
-        <div class="tag">01 &nbsp;·&nbsp; Voice, regulated</div>
+        <div class="tag">01 &nbsp;·&nbsp; Regulated industry</div>
         <div class="co">
           <div class="logo"><img src="logos/healthcare-logo.png" alt="Healthcare.com" width="42" height="42" loading="lazy"></div>
           <div>
@@ -338,7 +359,7 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
 
     <article>
       <div data-reveal>
-        <div class="tag">02 &nbsp;·&nbsp; Voice, retained</div>
+        <div class="tag">02 &nbsp;·&nbsp; Retained, 8 months</div>
         <div class="co">
           <div class="logo"><img src="logos/wol-logo.png" alt="World of Luxury" width="42" height="42" loading="lazy"></div>
           <div>
@@ -377,7 +398,7 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
 
     <article>
       <div data-reveal>
-        <div class="tag">03 &nbsp;·&nbsp; Outbound</div>
+        <div class="tag">03 &nbsp;·&nbsp; Lead generation</div>
         <div class="co">
           <div class="logo"><img src="logos/flock-logo.png" alt="Flock Bio" width="42" height="42" loading="lazy"></div>
           <div>
@@ -408,6 +429,50 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
         <div class="stat hi"><span class="v" data-count="30" data-suffix="%">30%</span><span class="k">reply rate, cold LinkedIn</span></div>
         <div class="stat"><span class="v" data-count="10" data-prefix="~" data-suffix="&times;">~10&times;</span><span class="k">the channel benchmark</span></div>
         <div class="stat"><span class="v">[NNN]</span><span class="k">prospects over [N] weeks</span></div>
+      </div>
+    </article>
+
+
+    <article>
+      <div data-reveal>
+        <div class="tag">What I work with</div>
+      </div>
+      <div class="skills" data-reveal>
+        <div class="skill-group">
+          <h4>Automation &amp; workflow</h4>
+          <ul>
+            <li class="k">n8n</li>
+            <li class="k">GoHighLevel</li>
+            <li>REST APIs and webhooks</li>
+            <li>Airtable, Google Sheets</li>
+            <li>Cal.com, Boulevard, Shopify</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h4>AI</h4>
+          <ul>
+            <li class="k">Claude</li>
+            <li>Prompt and context engineering</li>
+            <li>Agent evaluation and testing</li>
+            <li>Conversation flow design</li>
+            <li>Retell AI, VAPI</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h4>Growth &amp; GTM</h4>
+          <ul>
+            <li class="k">Lead generation systems</li>
+            <li>Apify, Clay</li>
+            <li>Meta Ads, Instantly</li>
+            <li>Lifecycle and review automation</li>
+            <li>KPI tracking and reporting</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="also" data-reveal>
+        <p><b>Also built:</b> a three-location booking agent for a Florida med spa on VAPI and n8n, wired into Boulevard scheduling and a custom services database. A full local-presence system on GoHighLevel for home service businesses, covering site, forms, multi-channel capture, routing, follow-up and review generation.</p>
+        <p><b>Before this:</b> I mentored the paid community of a voice AI educator for three months, answering n8n and automation questions for a mostly non-technical audience, and ran the largest business club event at GWU with a team of seven. Trilingual in English, Russian and Ukrainian. Four-time US national champion in ballroom dance, which is where I learned what practising something properly looks like.</p>
       </div>
     </article>
 
