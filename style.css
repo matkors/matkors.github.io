@@ -557,3 +557,72 @@ code{
 }
 .notes b{color:var(--t2);font-weight:540}
 .stats{margin-top:6px}
+
+/* ============ zoomable figures ============ */
+.fig .frame{position:relative;cursor:zoom-in}
+.fig .frame img{transition:transform .35s cubic-bezier(.2,.7,.3,1),opacity .25s ease}
+.fig .frame:hover img{transform:scale(1.012)}
+.fig .frame::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 50% 50%,rgba(255,146,71,.07),transparent 62%);
+  opacity:0;transition:opacity .3s ease;
+}
+.fig .frame:hover::after{opacity:1}
+.zoomcue{
+  position:absolute;right:11px;bottom:11px;z-index:2;pointer-events:none;
+  display:flex;align-items:center;gap:6px;
+  padding:6px 10px;border-radius:6px;
+  background:rgba(10,11,12,.82);border:1px solid var(--b-strong);
+  backdrop-filter:blur(6px);
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--t2);
+  opacity:0;transform:translateY(4px);
+  transition:opacity .26s ease,transform .26s ease;
+}
+.fig .frame:hover .zoomcue{opacity:1;transform:none}
+
+/* ---- lightbox ---- */
+dialog.lb{
+  padding:0;border:none;background:transparent;color:var(--t2);
+  width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;
+  overflow:hidden;
+}
+/* filling the viewport is what makes an outside-click land on the dialog
+   itself rather than on the image, so the backdrop close actually works */
+dialog.lb[open]{display:flex;align-items:center;justify-content:center}
+dialog.lb .lbinner{
+  position:relative;display:flex;flex-direction:column;align-items:center;
+  max-width:92vw;
+}
+dialog.lb::backdrop{
+  background:rgba(6,7,8,.78);
+  backdrop-filter:blur(9px) saturate(.9);
+  -webkit-backdrop-filter:blur(9px) saturate(.9);
+}
+dialog.lb img{
+  display:block;max-width:92vw;max-height:82vh;width:auto;height:auto;
+  border:1px solid var(--b-strong);border-radius:11px;background:#1a1a1e;
+  box-shadow:0 32px 90px rgba(0,0,0,.6);
+}
+dialog.lb .lbcap{
+  margin-top:13px;font-size:13.5px;line-height:1.6;color:var(--t3);
+  max-width:70ch;text-wrap:pretty;
+}
+dialog.lb .lbclose{
+  position:absolute;top:-13px;right:-13px;z-index:3;
+  width:34px;height:34px;border-radius:50%;cursor:pointer;
+  display:grid;place-items:center;
+  background:var(--panel);border:1px solid var(--b-strong);color:var(--t2);
+  font-size:17px;line-height:1;transition:all .2s ease;
+}
+dialog.lb .lbclose:hover{background:var(--acc);color:#0a0b0c;border-color:var(--acc);transform:rotate(90deg)}
+@media (prefers-reduced-motion:no-preference){
+  dialog.lb[open]{animation:lbin .28s cubic-bezier(.2,.7,.3,1)}
+  dialog.lb[open]::backdrop{animation:fadein .28s ease}
+  @keyframes lbin{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+  @keyframes fadein{from{opacity:0}to{opacity:1}}
+}
+@media (max-width:620px){
+  dialog.lb .lbclose{top:-11px;right:-6px;width:30px;height:30px}
+  dialog.lb img{max-height:74vh}
+}
