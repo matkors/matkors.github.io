@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matviy Korsunskiy — AI systems for marketing and operations</title>
+<meta name="description" content="I build lifecycle and CRM automation for small service businesses, and production voice agents inside regulated companies.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17130f; --body:#2e2823; --mute:#6d6459; --faint:#968b7e;
+    --rule:#e2dace; --hair:#eee8de; --accent:#A8480B; --accent-soft:#fdf5ee;
+    --paper:#fbf9f6; --card:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#f4efe8; --body:#d8d1c7; --mute:#9a9186; --faint:#7d7568;
+      --rule:#39332c; --hair:#2b2620; --accent:#e08a4a; --accent-soft:#241c14;
+      --paper:#131110; --card:#1b1815;
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--paper); color:var(--body);
+    font-family:"Source Serif 4",Georgia,serif; font-size:17px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:0 24px}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid transparent}
+  a:hover{border-bottom-color:var(--accent)}
+  strong{color:var(--ink); font-weight:600}
+
+  /* header */
+  header{padding:72px 0 44px; border-bottom:1px solid var(--rule)}
+  .who{display:flex; gap:26px; align-items:flex-start; flex-wrap:wrap}
+  .portrait{
+    width:104px; height:104px; border-radius:50%; object-fit:cover; flex:none;
+    background:var(--hair); border:1px solid var(--rule);
+  }
+  .who .txt{flex:1; min-width:260px}
+  h1{
+    font-family:Archivo,sans-serif; font-size:31px; line-height:1.08;
+    letter-spacing:-.025em; font-weight:700; color:var(--ink); margin:0 0 8px;
+  }
+  .tag{font-size:17px; color:var(--mute); margin:0 0 16px}
+  .links{font-family:"IBM Plex Mono",monospace; font-size:12.5px; letter-spacing:.01em}
+  .links a{margin-right:18px; display:inline-block}
+  .intro{margin-top:30px; font-size:18px; line-height:1.55}
+  .intro p{margin:0 0 12px}
+  .intro p:last-child{margin-bottom:0}
+
+  /* sections */
+  .cases{padding:8px 0 0}
+  article{padding:44px 0; border-bottom:1px solid var(--rule)}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--accent); margin-bottom:10px;
+  }
+  h2{
+    font-family:Archivo,sans-serif; font-size:23px; line-height:1.15;
+    letter-spacing:-.02em; font-weight:700; color:var(--ink); margin:0 0 6px;
+  }
+  .client{font-size:15px; color:var(--mute); margin:0 0 20px}
+  h3{
+    font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:500;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--faint);
+    margin:24px 0 7px;
+  }
+  article p{margin:0 0 11px}
+
+  /* flow diagram */
+  .flow{
+    display:flex; align-items:stretch; flex-wrap:wrap; gap:0;
+    background:var(--card); border:1px solid var(--rule); border-radius:5px;
+    padding:18px 16px; margin:20px 0 4px; overflow-x:auto;
+  }
+  .node{
+    font-family:Archivo,sans-serif; font-size:12px; line-height:1.3; color:var(--ink);
+    background:var(--accent-soft); border:1px solid var(--rule); border-radius:4px;
+    padding:9px 11px; min-width:104px; flex:1; font-weight:500;
+  }
+  .node span{
+    display:block; font-family:"IBM Plex Mono",monospace; font-size:10px;
+    color:var(--mute); font-weight:400; margin-top:3px; letter-spacing:.01em;
+  }
+  .node.key{border-color:var(--accent); border-width:1.5px}
+  .arw{
+    flex:none; align-self:center; padding:0 9px; color:var(--faint);
+    font-family:"IBM Plex Mono",monospace; font-size:14px;
+  }
+  .loop{
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--faint);
+    margin:6px 0 0; letter-spacing:.02em;
+  }
+  .caption{font-size:13.5px; color:var(--mute); margin:10px 0 0; font-style:italic}
+
+  /* outcome list */
+  ul.out{list-style:none; padding:0; margin:10px 0 0}
+  ul.out li{
+    padding:7px 0; border-top:1px solid var(--hair);
+    display:flex; gap:14px; align-items:baseline; font-size:15.5px;
+  }
+  ul.out li b{
+    font-family:Archivo,sans-serif; font-weight:700; color:var(--ink);
+    font-size:16px; min-width:118px; flex:none; letter-spacing:-.01em;
+  }
+
+  footer{padding:44px 0 76px}
+  footer p{margin:0 0 10px}
+  .note{
+    font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--faint);
+    margin-top:28px; line-height:1.6;
+  }
+
+  @media (max-width:620px){
+    body{font-size:16px}
+    header{padding:48px 0 32px}
+    h1{font-size:26px}
+    .flow{flex-direction:column; gap:8px}
+    .arw{transform:rotate(90deg); padding:0; align-self:flex-start; margin-left:14px}
+    .node{width:100%}
+    ul.out li{flex-direction:column; gap:2px}
+    ul.out li b{min-width:0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="who">
+    <img class="portrait" src="portrait.jpg" alt="Matviy Korsunskiy">
+    <div class="txt">
+      <h1>Matviy Korsunskiy</h1>
+      <p class="tag">I build lifecycle and CRM automation for small service businesses, and production voice agents inside companies where the rules bite.</p>
+      <div class="links">
+        <a href="mailto:matkorstt@gmail.com">matkorstt@gmail.com</a>
+        <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
+        <a href="https://github.com/matkors">GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="intro">
+    <p>Most of what I do is sit with someone non-technical, work out what their system actually needs to do, and then go build and run it. Data in, a way to tell whether it is working, and an interface the client actually opens.</p>
+    <p>Three pieces of work below. Each one had a constraint that made the obvious approach wrong.</p>
+  </div>
+</header>
+
+<div class="cases">
+
+<!-- ============ CASE 1 ============ -->
+<article>
+  <div class="eyebrow">Voice · Regulated</div>
+  <h2>A voice agent that is not allowed to improvise</h2>
+  <p class="client">Contract voice engineering for a $150M health insurance marketplace · 2026, ongoing</p>
+
+  <p>Most voice AI is a booking bot for a salon. This one sits inside health insurance, where an agent that says the wrong thing about coverage is not a bad customer experience, it is a compliance problem. Everything the agent says has to hold up against AI disclosure requirements and CMS marketing rules, and it cannot improvise about plans, prices or eligibility.</p>
+
+  <p>I built two agents. The first is a smart IVR that works out what a caller actually needs and routes them, sized for a call volume in the tens of thousands per week. The second is an intake line for people who have just lost their health insurance along with their job, which qualifies the caller and warm transfers them to a licensed human rather than trying to solve it.</p>
+
+  <h3>How it works</h3>
+  <div class="flow">
+    <div class="node">Inbound call<span>caller intent unknown</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node">Classify<span>what do they need</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node key">Guardrails<span>disclosure, scope limits</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node">Route<span>coverage or crisis path</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node">Warm transfer<span>licensed human</span></div>
+  </div>
+  <p class="caption">The guardrail step is the whole job. Everything else is plumbing.</p>
+
+  <h3>What it took</h3>
+  <p>I scoped both agents by sitting with non-technical executives, built the flows, presented them back, and coordinated across departments to get them shipped. The engagement has been self directed throughout: nobody handed me a spec.</p>
+</article>
+
+<!-- ============ CASE 2 ============ -->
+<article>
+  <div class="eyebrow">Voice · Retained</div>
+  <h2>An inbound receptionist that has been running for eight months</h2>
+  <p class="client">Luxury watch dealer, roughly $500K a year on Shopify · Retell and n8n</p>
+
+  <p>Building a voice agent is the easy part. Keeping one alive on someone's real phone line, month after month, is the part most people never get to. This one answers every inbound call, looks up orders against Shopify, handles what it can and escalates what it cannot.</p>
+
+  <p>The part I care about most is the loop at the end. Every week I listen to real conversations, find the places it handled something badly, and fix them. That is the difference between a demo and a system.</p>
+
+  <h3>How it works</h3>
+  <div class="flow">
+    <div class="node">Inbound call<span>customer or prospect</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node">Agent<span>qualify, answer</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node">Shopify lookup<span>order status</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node">Resolve or escalate<span>human if high value</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node key">Weekly review<span>real calls, then fixes</span></div>
+  </div>
+  <p class="loop">&#8627; the review loop feeds back into the agent every week</p>
+
+  <h3>Results</h3>
+  <ul class="out">
+    <li><b>[NN–NN]</b> calls handled per month</li>
+    <li><b>[NN]%</b> handled without a human</li>
+    <li><b>[N] months</b> retained and still running</li>
+    <li><b>$[NN]K+</b> in opportunities surfaced in the first three weeks</li>
+  </ul>
+</article>
+
+<!-- ============ CASE 3 ============ -->
+<article>
+  <div class="eyebrow">Outbound · Lead generation</div>
+  <h2>A LinkedIn pipeline that replied at ten times benchmark</h2>
+  <p class="client">US biotech, DNA library · Apify, n8n and Clay</p>
+
+  <p>The client needed to reach a narrow technical audience where the usual volume approach does not work, because the list is small and the wrong message burns it. So the system spends its effort on targeting and enrichment rather than send volume.</p>
+
+  <p>Apify builds the raw list, n8n orchestrates, Clay enriches each prospect enough that the message can say something true and specific about them, and replies get tracked back so the targeting improves rather than repeating.</p>
+
+  <h3>How it works</h3>
+  <div class="flow">
+    <div class="node">Apify<span>source the list</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node">n8n<span>orchestration</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node key">Clay<span>enrich per prospect</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node">LinkedIn<span>sequenced outreach</span></div>
+    <div class="arw">&rarr;</div>
+    <div class="node">Reply tracking<span>feeds targeting</span></div>
+  </div>
+
+  <h3>Results</h3>
+  <ul class="out">
+    <li><b>30%</b> reply rate, roughly ten times the benchmark for cold LinkedIn outreach</li>
+    <li><b>[NNN]</b> prospects contacted over [N] weeks</li>
+  </ul>
+</article>
+
+</div>
+
+<footer>
+  <p>I am in Eastern time and currently taking contract work.</p>
+  <p>The fastest way to reach me is <a href="mailto:matkorstt@gmail.com">matkorstt@gmail.com</a>, or on <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>.</p>
+  <p class="note">
+    Client names and internal details are omitted where I am under confidentiality.<br>
+    Happy to go deeper on any of this on a call.
+  </p>
+</footer>
+
+</div>
+</body>
+</html>
