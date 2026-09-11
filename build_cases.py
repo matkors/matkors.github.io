@@ -38,6 +38,7 @@ HEAD = '''<!doctype html>
       <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
     </nav>
     <div class="tz">Eastern time<br>New Jersey, US</div>
+{toc}
   </aside>
 
   <main class="col">

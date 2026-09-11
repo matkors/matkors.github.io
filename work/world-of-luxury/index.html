@@ -28,6 +28,13 @@
       <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
     </nav>
     <div class="tz">Eastern time<br>New Jersey, US</div>
+    <nav class="toc">
+      <a href="#problem"><span class="tn">01</span>The problem</a>
+      <a href="#constraint"><span class="tn">02</span>The constraint</a>
+      <a href="#built"><span class="tn">03</span>What I built</a>
+      <a href="#results"><span class="tn">04</span>The results</a>
+      <a href="#learned"><span class="tn">05</span>What it taught me</a>
+    </nav>
   </aside>
 
   <main class="col">
@@ -49,151 +56,104 @@
       <div class="pull" data-reveal>
       <p>The voice was never the hard part. The hard part was matching a misheard watch name against five thousand products that change every day, fast enough that the caller does not notice the pause.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="problem">
         <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
         <h2 class="sec">They had already tried a human</h2>
       </div>
+      <p class="lead" data-reveal>The showroom is open Monday to Friday, ten to five. Their customers are not.</p>
       <div class="prose" data-reveal>
-      <p>The showroom is open Monday to Friday, ten to five. Their customers are not. People shop for a $40,000 watch at eleven at night and on Sunday afternoons, and every one of those calls used to land in a voicemail box nobody was going to action before Monday.</p>
-      <p>They had already tried the obvious fix and hired a virtual assistant to cover the gap. It did not work well enough. A VA who does not know the inventory cannot answer the question the caller actually has, which is almost always <em>do you have this specific piece and what does it cost</em>. Taking a message is not the same as answering.</p>
-      <p>For a dealer whose average inquiry is worth more than most people&rsquo;s cars, a missed or badly handled call is not an inconvenience. It is the margin on a piece walking to whichever competitor picked up.</p>
+      <p>People shop for a $40,000 watch at eleven at night and on Sunday afternoons. Those calls used to hit a voicemail box nobody was going to action before Monday.</p>
+      <p>They tried the obvious fix first and hired a virtual assistant. It did not work.</p>
+      <p>A VA who does not know the inventory cannot answer the only question that matters: <em>do you have this piece, and what does it cost</em>. Taking a message is not answering.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="constraint">
         <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
-        <h2 class="sec">Five thousand products, changing daily, matched from speech</h2>
+        <h2 class="sec">Five thousand products, changing daily</h2>
       </div>
+      <p class="lead" data-reveal>The agent had to hit live inventory mid-call, and fast. A lookup that takes eight seconds has already damaged the conversation.</p>
       <div class="prose" data-reveal>
-      <p>The catalogue is roughly 5,000 products on Shopify and it moves every day as pieces sell and new stock lands. An agent working from a static export is wrong within 24 hours, and quoting a watch that sold last week is worse than not answering at all.</p>
-      <p>So the agent had to hit live inventory mid-call, and fast. A lookup that takes eight seconds has already damaged the conversation.</p>
-      </div>
-      <div class="prose" data-reveal>
+      <p>The catalogue moves every day as pieces sell and new stock lands, so anything working from a static export is wrong within 24 hours.</p>
       <p>Then the matching itself, which is where the real difficulty sat:</p>
       </div>
       <ul class="bul" data-reveal>
-        <li><b>People mispronounce watch names constantly.</b> Jaeger-LeCoultre, Audemars Piguet, Breguet. Speech-to-text mangles them, and a mangled string matches nothing.</li>
-        <li><b>Model numbers are hostile to matching.</b> They mix digits, letters, dashes and symbols, capitalisation is inconsistent, and some carry a &ldquo;pre-owned&rdquo; marker while others do not.</li>
-        <li><b>Around a hundred products are near-duplicates,</b> separated only by price or one or two characters of reference. Exact match returns nothing. Loose match returns the wrong watch, confidently.</li>
-        <li><b>Callers ask about orders too,</b> so the agent has to work out which kind of lookup it is running before it runs one.</li>
+        <li><b>People mispronounce watch names.</b> Jaeger-LeCoultre, Audemars Piguet, Breguet. Speech-to-text mangles them, and a mangled string matches nothing.</li>
+        <li><b>Model numbers resist matching.</b> Digits, letters, dashes and symbols, inconsistent capitalisation, and a &ldquo;pre-owned&rdquo; marker that only some products carry.</li>
+        <li><b>Around a hundred products are near-duplicates,</b> separated by price or two characters of reference. Exact match returns nothing. Loose match returns the wrong watch, confidently.</li>
+        <li><b>Callers ask about orders too,</b> so the agent has to decide which kind of lookup it is running before it runs one.</li>
       </ul>
-      <div data-reveal>
+      <div data-reveal id="built">
         <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
         <h2 class="sec">Six workflows in three layers</h2>
       </div>
-      <div class="prose" data-reveal>
-      <p>The agent is the visible part. Underneath it are six n8n workflows doing the work, split into a data layer that keeps a mirror of Shopify current, a lookup layer the agent calls mid-conversation, and a logging layer that turns every call into something the owner can act on.</p>
-      </div>
+      <p class="lead" data-reveal>The agent is the visible part. Underneath it, six n8n workflows do the work.</p>
       <div class="secnum" data-reveal>Layer 1 &nbsp;&middot;&nbsp; Keeping 5,000 products current</div>
       <div class="prose" data-reveal>
-      <p>The obvious approach, an n8n Shopify node in a loop, broke immediately. It returns 50 records per call, which made a full catalogue pull slow, and running the loop hard enough to finish kept tripping limits and deactivating the workflow outright.</p>
-      <p>I replaced it with a custom HTTP request against the Shopify Admin API, walking Shopify&rsquo;s <code>page_info</code> cursor and pulling roughly 250 records per iteration, about five times the throughput. The loop maintains its own state, checks for a next page, batches results, and <b>PATCHes into Airtable rather than creating</b>, so a product that changed price updates in place instead of duplicating. A Wait node paces the order sync so it never trips a rate limit. Products and orders both run on a schedule, current before the evening traffic starts.</p>
-      </div>
-      <div class="flow-wrap" data-pipe>
-        <ol class="flow">
-          <li class="flow-line"></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">01</span><span class="fbody"><b>Set initial state</b><span>cursor empty, loop open</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">02</span><span class="fbody"><b>Build request</b><span>next page_info cursor</span></span></li>
-          <li class="fstep key"><span class="fnode"></span><span class="fnum">03</span><span class="fbody"><b>Shopify Admin API</b><span>~250 records per call, not 50</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">04</span><span class="fbody"><b>Parse + batch</b><span>shape for Airtable</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">05</span><span class="fbody"><b>PATCH to Airtable</b><span>upsert, never duplicate</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">06</span><span class="fbody"><b>Has more?</b><span>loop back or finish</span></span></li>
-        </ol>
-        <p class="flow-note">The n8n Shopify node capped at 50 per call and kept deactivating the workflow. This loop is the reason the rest works.</p>
+      <p>The obvious approach broke immediately. n8n&rsquo;s Shopify node returns 50 records per call, and looping it hard enough to finish a full pull kept tripping limits and deactivating the workflow.</p>
+      <p>I replaced it with a custom HTTP request walking Shopify&rsquo;s <code>page_info</code> cursor at roughly 250 records per iteration. Five times the throughput, and stable enough to run unattended.</p>
+      <p>It <b>PATCHes</b> into Airtable rather than creating, so a product that changed price updates in place instead of duplicating.</p>
       </div>
       <figure class="fig" data-reveal>
         <div class="figlabel"><b>Fig 1</b> Product sync &mdash; the pagination loop</div>
         <div class="frame"><img src="/shots/sync-products.png" alt="Product sync &mdash; the pagination loop" loading="lazy"></div>
-        <figcaption>The loop that keeps the mirror current. <b>Build Request</b> assembles the next cursor, the HTTP node pulls a page from Shopify, results are parsed and batched, then <b>PATCHed</b> into Airtable so changed products update in place. <b>Has More Products?</b> feeds the arrow back round to Build Request until Shopify stops returning a cursor.</figcaption>
+        <figcaption><b>Build Request</b> assembles the next cursor, the HTTP node pulls a page, results are parsed and batched, then upserted into Airtable. <b>Has More Products?</b> feeds the arrow back round until Shopify stops returning a cursor.</figcaption>
       </figure>
       <figure class="fig" data-reveal>
         <div class="figlabel"><b>Fig 2</b> Order sync &mdash; same shape, paced</div>
         <div class="frame"><img src="/shots/sync-orders.png" alt="Order sync &mdash; same shape, paced" loading="lazy"></div>
-        <figcaption>Orders run the identical pattern with one addition: a <b>Wait</b> node between iterations. Without it the loop finishes faster and trips Shopify&rsquo;s rate limit, which is what was silently deactivating the workflow before.</figcaption>
+        <figcaption>Identical pattern with one addition: a <b>Wait</b> node between iterations. Without it the loop runs fast enough to trip Shopify&rsquo;s rate limit, which is what was silently killing the workflow before.</figcaption>
       </figure>
       <div class="secnum" data-reveal>Layer 2 &nbsp;&middot;&nbsp; Finding the right watch mid-call</div>
       <div class="prose" data-reveal>
-      <p>Three lookup workflows sit behind webhooks the agent calls as tools. Each one runs the same shape: pull the argument out of the tool call, normalise it, search Airtable, rank the candidates, format a response the agent can read aloud.</p>
+      <p>Three lookup workflows sit behind webhooks the agent calls as tools. Each runs the same shape: extract the argument, normalise it, search Airtable, rank the candidates, format for speech.</p>
       </div>
       <div class="figpair" data-reveal>
         <figure class="fig" style="margin:0">
           <div class="frame"><img src="/shots/product-page-annotated.png" alt="A product page showing the three matchable fields" loading="lazy"></div>
-          <figcaption>A real listing. These three fields are everything the agent has to work with, and every one of them is hostile to exact matching.</figcaption>
+          <figcaption>A real listing. These three fields are everything the agent has to work with.</figcaption>
         </figure>
         <ul class="legend">
-          <li><span class="n">1</span><span><b>Product name</b>Long, brand-heavy, and the thing callers mispronounce. Speech-to-text mangles Audemars Piguet reliably.</span></li>
-          <li><span class="n">2</span><span><b>Price</b>The tiebreaker. When a name matches a cluster of near-identical pieces, price is what separates them.</span></li>
-          <li><span class="n">3</span><span><b>Model number</b>Digits, letters, dots and a <code>Preowned-</code> prefix that only some products carry. Exact matching on this fails.</span></li>
+          <li><span class="n">1</span><span><b>Product name</b>Long and brand-heavy. This is what callers mispronounce and what speech-to-text mangles.</span></li>
+          <li><span class="n">2</span><span><b>Price</b>The tiebreaker. When a name hits a cluster of near-identical pieces, price separates them.</span></li>
+          <li><span class="n">3</span><span><b>Model number</b>Digits, letters, dots, and a <code>Preowned-</code> prefix only some products carry.</span></li>
         </ul>
       </div>
-      <ul class="bul" data-reveal>
-        <li><b>Product by name and price.</b> Extract and normalise, search, then fuzzy match and rank to a single best candidate, returned with description, price and details like water resistance.</li>
-        <li><b>Product by model number.</b> The reference is normalised on the way into Airtable to strip the inconsistencies that make exact matching fail, then fuzzy matched against. <b>90 to 95% correct across 5,000 SKUs.</b></li>
-        <li><b>Order by number.</b> Orders resolve on a four-digit order number or a confirmation number, ranked the same way.</li>
-      </ul>
-      <div class="prose" data-reveal>
-      <p><b>The detail I am most pleased with:</b> if an order lookup misses, the workflow does not give up and tell the caller it cannot find them. It invokes a second, single-page sync workflow to pull the newest orders straight from Shopify, then answers. Someone who ordered an hour ago still gets a real answer, without running a full catalogue pull mid-conversation.</p>
-      </div>
-      <div class="flow-wrap" data-pipe>
-        <ol class="flow">
-          <li class="flow-line"></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">01</span><span class="fbody"><b>Tool call from agent</b><span>raw argument, often messy</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">02</span><span class="fbody"><b>Extract + normalise</b><span>strip case, dashes, pre-owned markers</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">03</span><span class="fbody"><b>Airtable search</b><span>candidate set</span></span></li>
-          <li class="fstep key"><span class="fnode"></span><span class="fnum">04</span><span class="fbody"><b>Fuzzy match + rank</b><span>best single result</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">05</span><span class="fbody"><b>Not found?</b><span>trigger on-call sync, then retry</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">06</span><span class="fbody"><b>Format response</b><span>phrased for speech</span></span></li>
-        </ol>
-        <p class="flow-note">Ranking rather than filtering is what makes the near-duplicate cluster survivable.</p>
-      </div>
       <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 3</b> Product lookup by name and price</div>
-        <div class="frame"><img src="/shots/lookup-details.png" alt="Product lookup by name and price" loading="lazy"></div>
-        <figcaption>Webhook in, <b>Extract &amp; Normalize</b> pulls the argument out of the tool call, Airtable returns a candidate set, then <b>Fuzzy Match &amp; Rank</b> reduces it to one before the response is formatted for speech.</figcaption>
+        <div class="figlabel"><b>Fig 3</b> Lookup by name and price</div>
+        <div class="frame"><img src="/shots/lookup-details.png" alt="Lookup by name and price" loading="lazy"></div>
+        <figcaption><b>Extract &amp; Normalize</b> pulls the argument out of the tool call, Airtable returns candidates, then <b>Fuzzy Match &amp; Rank</b> reduces them to one.</figcaption>
       </figure>
       <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 4</b> Product lookup by model number</div>
-        <div class="frame"><img src="/shots/lookup-reference.png" alt="Product lookup by model number" loading="lazy"></div>
-        <figcaption>The same shape pointed at the reference field. The normalisation step is doing the heavy lifting here, stripping the case, punctuation and <code>Preowned-</code> inconsistencies that make a direct match return nothing.</figcaption>
+        <div class="figlabel"><b>Fig 4</b> Lookup by model number</div>
+        <div class="frame"><img src="/shots/lookup-reference.png" alt="Lookup by model number" loading="lazy"></div>
+        <figcaption>Same shape pointed at the reference field. Normalisation does the heavy lifting here, stripping the case and punctuation that make a direct match return nothing. <b>90 to 95% correct across 5,000 SKUs.</b></figcaption>
       </figure>
       <figure class="fig" data-reveal>
         <div class="figlabel"><b>Fig 5</b> Order lookup, with a live fallback</div>
         <div class="frame"><img src="/shots/order-lookup.png" alt="Order lookup, with a live fallback" loading="lazy"></div>
-        <figcaption>Note the branch to <b>Run Order Sync</b>. If the order is not in Airtable yet, the workflow calls a single-page sync to pull the newest orders straight from Shopify and then answers, rather than telling the caller it cannot find them.</figcaption>
+        <figcaption>Note the branch to <b>Run Order Sync</b>. If the order is not in Airtable yet, this calls a single-page sync to pull the newest orders from Shopify and then answers, rather than telling the caller it cannot find them.</figcaption>
       </figure>
       <div class="prose" data-reveal>
-      <p><b>Disambiguation instead of guessing.</b> When a model-number match returns more than one candidate, the agent does not pick. It asks for the price or the product name and narrows to one. Guessing confidently on a $40,000 watch is the worst available outcome.</p>
-      <p><b>A pronunciation dictionary.</b> None of the matching helps if the string leaving the agent is wrong. I built a dictionary of the brand and model vocabulary and gave it to the agent, so it spells names correctly on the way into the workflow instead of forwarding whatever the transcription heard.</p>
+      <p><b>It asks rather than guesses.</b> When a model-number match returns more than one candidate, the agent requests the price or product name and narrows to one. Guessing confidently on a $40,000 watch is the worst available outcome.</p>
+      <p><b>A pronunciation dictionary fixes the input.</b> None of the matching helps if the string leaving the agent is already wrong, so the agent holds the brand and model vocabulary and spells names correctly on the way into the workflow.</p>
       </div>
       <div class="secnum" data-reveal>Layer 3 &nbsp;&middot;&nbsp; Turning calls into something the owner uses</div>
       <div class="prose" data-reveal>
-      <p>Every completed call fires a webhook into a CRM workflow that formats timing and duration, then writes the call, the transcript, the recording and the caller into Airtable, <b>including a link to the exact product they asked about</b>. It looks the client up, creates them if they are new, and updates their record if they are not.</p>
-      <p>A scheduled notifier then assembles the overnight activity and emails it out before the shop opens, so the owner starts the day with every after-hours lead, what they wanted, and the recording to listen to. That report is what turned this from a phone system into something they renewed.</p>
-      </div>
-      <div class="flow-wrap" data-pipe>
-        <ol class="flow">
-          <li class="flow-line"></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">01</span><span class="fbody"><b>Call ends</b><span>webhook fires</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">02</span><span class="fbody"><b>Format + enrich</b><span>duration, timing, product link</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">03</span><span class="fbody"><b>Write to CRM</b><span>call data, transcript, recording</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">04</span><span class="fbody"><b>Match client</b><span>create or update</span></span></li>
-          <li class="fstep key"><span class="fnode"></span><span class="fnum">05</span><span class="fbody"><b>Morning digest</b><span>emailed before the shop opens</span></span></li>
-        </ol>
-        <p class="flow-note">The owner never opens a dashboard. The leads arrive in his inbox with recordings attached.</p>
+      <p>Every completed call writes the transcript, the recording and the caller into Airtable, <b>including a link to the exact product they asked about</b>.</p>
+      <p>A scheduled notifier assembles the overnight activity and emails it before the shop opens. The owner never opens a dashboard.</p>
       </div>
       <figure class="fig" data-reveal>
         <div class="figlabel"><b>Fig 6</b> The morning digest</div>
         <div class="frame"><img src="/shots/notifier.png" alt="The morning digest" loading="lazy"></div>
-        <figcaption>A scheduled trigger pulls the overnight calls, checks client limits and usage, formats the summary and sends it by email before the shop opens. The <b>If</b> gate means a quiet night sends nothing rather than an empty report.</figcaption>
+        <figcaption>Scheduled trigger, pull the overnight calls, check client limits and usage, format and send. The <b>If</b> gate means a quiet night sends nothing rather than an empty report.</figcaption>
       </figure>
-      <div class="prose" data-reveal>
-      <p><b>The agent itself</b> started on VAPI and I later migrated it to Retell. Much of the work after that was prompt and voice engineering: tuning for latency so replies land fast enough to feel like conversation, and getting the tool-calling logic right so it knows when a question is about a product, when it is about an order, and when it is neither.</p>
+      <div class="pull" data-reveal>
+      <p>That report is what turned this from a phone system into something they renewed.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="results">
         <div class="secnum">04 &nbsp;&middot;&nbsp; The results</div>
-        <h2 class="sec">Measured by hand, not from a dashboard</h2>
+        <h2 class="sec">Coded by hand, not pulled from a dashboard</h2>
       </div>
-      <div class="prose" data-reveal>
-      <p>I went through every call in a recent sample and coded each one by arrival time, intent, outcome and whether a lead was actually captured. Call counts on their own tell you nothing. What matters is what happened at the end.</p>
-      </div>
+      <p class="lead" data-reveal>I went through every call in a recent sample and coded each one by arrival time, intent, outcome, and whether a lead was actually captured.</p>
       <div class="stats" data-stats>
         <div class="stat hi"><span class="v" data-count="89" data-suffix="%">89%</span><span class="k">of calls arrive after hours</span></div>
         <div class="stat"><span class="v">90&ndash;95%</span><span class="k">correct product from 5,000 SKUs</span></div>
@@ -201,28 +161,27 @@
         <div class="stat"><span class="v">$21&ndash;302K</span><span class="k">range of pieces asked about</span></div>
       </div>
       <div class="prose" data-reveal>
-      <p><b>89% is what justifies the system.</b> Nearly nine in ten calls land outside the hours anyone is there to answer them, and a large share are weekends. <b>72% of genuine inquiries</b> become a captured lead, measured after excluding wrong numbers, people trying to reach a different dealer, one caller chasing a Macy&rsquo;s order, and a couple who were abusive. Counting those would have flattered the number and taught me nothing.</p>
-      <p><b>The value range is what callers actually asked about</b> in that window: a Richard Mille at $302,500, a Jaeger-LeCoultre tourbillon at $41,000, a Corum at $21,000, plus Breguet, Patek Philippe and an Audemars Piguet Royal Oak Grande Complication. These are not $50 support calls.</p>
+      <p>Nearly nine in ten calls land outside the hours anyone is there to answer them, and a large share are weekends.</p>
+      <p><b>72% of genuine inquiries</b> become a captured lead. That figure excludes wrong numbers, people trying to reach a different dealer, one caller chasing a Macy&rsquo;s order, and a couple who were abusive. Counting those would have flattered the number and taught me nothing.</p>
+      <p>The value range is what callers actually asked about: a Richard Mille at $302,500, a Jaeger-LeCoultre tourbillon at $41,000, a Corum at $21,000, plus Breguet, Patek Philippe and an Audemars Piguet Royal Oak Grande Complication.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="learned">
         <div class="secnum">05 &nbsp;&middot;&nbsp; What it taught me</div>
         <h2 class="sec">The failures are invisible in the success rate</h2>
       </div>
+      <p class="lead" data-reveal>This agent was not good at the start. It got good because I listen to real calls every week and fix what broke.</p>
       <div class="prose" data-reveal>
-      <p>This agent was not good at the start. It got good because I listen to real calls every week and fix what broke. Three from the last pass, none of which show up in any success metric:</p>
+      <p>Three from the last pass, none of which show up in any metric:</p>
       </div>
       <ul class="bul" data-reveal>
-        <li><b>A broken email domain.</b> The agent was reading the contact address out as &ldquo;world of luxurious dot com&rdquo;, and once as &ldquo;world of flux dot com&rdquo;. Every seller routed to email was handed an address that does not exist. A silent, total loss on an entire lead category, and every one of those calls logged as successful.</li>
-        <li><b>Lead capture asked too late.</b> Several callers answered three or four product questions, then hung up the moment the agent asked for a first name. The ask was arriving cold at the end instead of being earned earlier in the call.</li>
-        <li><b>No recovery from a misheard name.</b> One caller&rsquo;s name came through as &ldquo;12&rdquo;. The agent had no path back, and the call timed out losing a $21,000 inquiry at the final step.</li>
+        <li><b>A broken email domain.</b> The agent was reading the contact address out as &ldquo;world of luxurious dot com&rdquo;. Every seller routed to email got an address that does not exist, and every one of those calls logged as successful.</li>
+        <li><b>Lead capture asked too late.</b> Callers answered three or four product questions, then hung up the moment the agent asked for a name. The ask arrived cold at the end instead of being earned earlier.</li>
+        <li><b>No recovery from a misheard name.</b> One caller&rsquo;s name came through as &ldquo;12&rdquo;. The agent had no path back and the call timed out, losing a $21,000 inquiry at the final step.</li>
       </ul>
       <div class="pull" data-reveal>
       <p>A voice agent is not a build, it is an operation. The version that shipped in month one and the version running now share a prompt and almost nothing else.</p>
       </div>
-      <div data-reveal>
-        <div class="secnum">&mdash; &nbsp;&middot;&nbsp; Stack</div>
-        <h2 class="sec">What it runs on</h2>
-      </div>
+      <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>
       <div class="stack" data-reveal>
         <span class="chip"><img src="/logos/tools/retell.svg" alt="" class="wide">Retell AI</span>
         <span class="chip"><img src="/logos/tools/vapi.png" alt="">VAPI</span>

@@ -28,6 +28,13 @@
       <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
     </nav>
     <div class="tz">Eastern time<br>New Jersey, US</div>
+    <nav class="toc">
+      <a href="#problem"><span class="tn">01</span>The problem</a>
+      <a href="#constraint"><span class="tn">02</span>The constraint</a>
+      <a href="#built"><span class="tn">03</span>What I built</a>
+      <a href="#results"><span class="tn">04</span>The results</a>
+      <a href="#learned"><span class="tn">05</span>What it taught me</a>
+    </nav>
   </aside>
 
   <main class="col">
@@ -49,7 +56,7 @@
       <div class="pull" data-reveal>
       <p>The list was small and the wrong message would burn it. So the system spends its effort on targeting and enrichment instead of send volume.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="problem">
         <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
         <h2 class="sec">A market too narrow to spray</h2>
       </div>
@@ -57,7 +64,7 @@
       <p>Flock Bio sells high-throughput pooled DNA libraries to a specific technical audience: people running CRISPR screens, protein and enzyme engineering, promoter MPRAs, CAR-T libraries. The buyer is usually a scientist, not a procurement function.</p>
       <p>They needed pipeline, and the default answer in outbound is volume. That answer does not work here.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="constraint">
         <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
         <h2 class="sec">You only get one pass at the list</h2>
       </div>
@@ -68,7 +75,7 @@
       <div class="pull" data-reveal>
       <p>One message that proves you read their work beats forty that prove you did not.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="built">
         <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
         <h2 class="sec">A pipeline that spends its budget on enrichment</h2>
       </div>
@@ -87,7 +94,7 @@
         </ol>
         <p class="flow-note">Enrichment is the expensive step and the one that earns the reply rate.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="results">
         <div class="secnum">04 &nbsp;&middot;&nbsp; The results</div>
         <h2 class="sec">An order of magnitude above the channel</h2>
       </div>
@@ -100,7 +107,7 @@
       <p>Cold LinkedIn outreach benchmarks sit in the low single digits. A 30% reply rate on a technical B2B audience is an order of magnitude above that, and it came from targeting quality rather than send volume.</p>
       </div>
       <div class="shot-pending">LinkedIn outreach metrics screenshot goes here<br>save it into /shots/ and I will place it</div>
-      <div data-reveal>
+      <div data-reveal id="learned">
         <div class="secnum">05 &nbsp;&middot;&nbsp; What it taught me</div>
         <h2 class="sec">Enrichment is cheaper than a burned list</h2>
       </div>
@@ -108,10 +115,7 @@
       <p>The instinct in outbound is to treat send volume as the lever because it is the one that is easy to turn. On a narrow list that instinct is actively destructive: every generic message you send removes a prospect you cannot replace.</p>
       <p>Spending real money and compute per prospect felt expensive until you price the alternative, which is spending a finite list to learn nothing. That trade is the whole system, and it is the part that transfers to any market where the total number of real buyers is small.</p>
       </div>
-      <div data-reveal>
-        <div class="secnum">&mdash; &nbsp;&middot;&nbsp; Stack</div>
-        <h2 class="sec">What it runs on</h2>
-      </div>
+      <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>
       <div class="stack" data-reveal>
         <span class="chip"><img src="/logos/tools/apify.png" alt="">Apify</span>
         <span class="chip"><img src="/logos/tools/n8n.png" alt="">n8n</span>

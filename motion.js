@@ -100,6 +100,27 @@ window.addEventListener('load', function () {
       }
     }
 
+
+    /* ---- scroll-spy for the case-page nav ---- */
+    var toc = document.querySelector('.toc');
+    if (toc) {
+      var links = [].slice.call(toc.querySelectorAll('a'));
+      links.forEach(function (a) {
+        var id = a.getAttribute('href').slice(1);
+        var target = document.getElementById(id);
+        if (!target) return;
+        ScrollTrigger.create({
+          trigger: target, start: 'top 45%', end: 'bottom 45%',
+          onToggle: function (self) {
+            if (self.isActive) {
+              links.forEach(function (l) { l.classList.remove('on'); });
+              a.classList.add('on');
+            }
+          }
+        });
+      });
+    }
+
     /* ---- aurora slow drift, always on when motion allowed ---- */
     gsap.to('.aurora', {
       backgroundPosition: '100% 100%', duration: 26,

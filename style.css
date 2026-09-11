@@ -498,3 +498,29 @@ code{
 @media (max-width:900px){
   .figpair{grid-template-columns:1fr;gap:18px}
 }
+
+/* ============ in-page nav in the rail ============ */
+.toc{
+  display:flex;flex-direction:column;gap:1px;margin-top:24px;
+  padding-top:20px;border-top:1px solid var(--b-subtle);
+}
+.toc a{
+  display:flex;align-items:baseline;gap:10px;padding:6px 0;
+  font-size:13px;color:var(--t4);transition:color .18s ease;
+  border-left:1px solid transparent;padding-left:11px;margin-left:-12px;
+}
+.toc a .tn{
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;
+  letter-spacing:.06em;flex:none;width:15px;
+}
+.toc a:hover{color:var(--t2)}
+.toc a.on{color:var(--t1);border-left-color:var(--acc)}
+.toc a.on .tn{color:var(--acc)}
+
+/* tighter reading rhythm on case pages */
+.col .prose p{margin-bottom:14px}
+.col .prose p:last-child{margin-bottom:0}
+.lead{
+  font-size:17.5px;line-height:1.6;color:var(--t1);
+  letter-spacing:-.014em;max-width:58ch;margin-bottom:16px;text-wrap:pretty;
+}

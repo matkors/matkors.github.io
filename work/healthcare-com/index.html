@@ -28,6 +28,13 @@
       <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
     </nav>
     <div class="tz">Eastern time<br>New Jersey, US</div>
+    <nav class="toc">
+      <a href="#problem"><span class="tn">01</span>The problem</a>
+      <a href="#constraint"><span class="tn">02</span>The constraint</a>
+      <a href="#built"><span class="tn">03</span>What I built</a>
+      <a href="#results"><span class="tn">04</span>The results</a>
+      <a href="#learned"><span class="tn">05</span>What it taught me</a>
+    </nav>
   </aside>
 
   <main class="col">
@@ -49,7 +56,7 @@
       <div class="pull" data-reveal>
       <p>Most voice AI is a booking bot for a salon. This one sits inside health insurance, where an agent that says the wrong thing about coverage is not a bad customer experience, it is a compliance problem.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="problem">
         <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
         <h2 class="sec">Callers arrive without knowing what they need</h2>
       </div>
@@ -57,7 +64,7 @@
       <p>Health insurance is a category where people call confused. They do not know which plan type applies to them, whether they qualify for a subsidy, or whether the thing they are worried about is even covered. A legacy phone menu asks them to self-select into a category they cannot yet identify, so they pick wrong, get routed wrong, and either hang up or waste a licensed agent&rsquo;s time.</p>
       <p>At high inbound volume that misrouting is expensive in both directions: callers who needed help do not get it, and expensive humans spend their day redirecting people.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="constraint">
         <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
         <h2 class="sec">The agent is not allowed to improvise</h2>
       </div>
@@ -68,7 +75,7 @@
       <div class="pull" data-reveal>
       <p>The interesting work is not the conversation. It is the boundary around the conversation.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="built">
         <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
         <h2 class="sec">Three agents, one guardrail layer</h2>
       </div>
@@ -88,7 +95,7 @@
         </ol>
         <p class="flow-note">The guardrail step is the whole job. Everything else is plumbing.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="results">
         <div class="secnum">04 &nbsp;&middot;&nbsp; The results</div>
         <h2 class="sec">What I am able to share</h2>
       </div>
@@ -96,7 +103,7 @@
         <div class="lbl">Confidentiality</div>
         <p>My contract with Healthcare.com is specific, and their operational detail sits inside it: call volumes, conversion and containment figures, internal product names, and the flows themselves. Publishing any of that would breach it, so this page stops at the shape of the problem and the approach. All three agents are built and in production. I am happy to talk through the reasoning on a call, within the same limits.</p>
       </div>
-      <div data-reveal>
+      <div data-reveal id="learned">
         <div class="secnum">05 &nbsp;&middot;&nbsp; What it taught me</div>
         <h2 class="sec">Compliance review is the project, not overhead</h2>
       </div>
@@ -104,10 +111,7 @@
       <p>I scoped all three by sitting with non-technical executives, mapped use cases with senior stakeholders, built the flows, presented them back in plain language, and coordinated across product, engineering, compliance and operations to ship. Nobody handed me a spec.</p>
       <p>The thing I would tell anyone building in a regulated category: get compliance into the design conversation before you build, not after. Every hour spent agreeing what the agent may not say saves a week of rework, and it is the only way the thing actually ships rather than sitting in review.</p>
       </div>
-      <div data-reveal>
-        <div class="secnum">&mdash; &nbsp;&middot;&nbsp; Stack</div>
-        <h2 class="sec">What it runs on</h2>
-      </div>
+      <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>
       <div class="stack" data-reveal>
         <span class="chip"><img src="/logos/tools/retell.svg" alt="" class="wide">Retell AI</span>
         <span class="chip"><img src="/logos/tools/vapi.png" alt="">VAPI</span>
