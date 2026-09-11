@@ -20,8 +20,8 @@
   --raised:#17181b;
 
   --t1:#f4f5f6;
-  --t2:#c6cbd2;
-  --t3:#868b93;
+  --t2:#cfd4da;
+  --t3:#8d939b;
   --t4:#5c6068;
 
   --acc:#ff9247;
@@ -38,7 +38,7 @@ body{
   background:var(--bg);color:var(--t2);
   font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   font-feature-settings:"cv01","ss03","calt";
-  font-size:15.5px;font-weight:400;line-height:1.62;
+  font-size:16.5px;font-weight:400;line-height:1.68;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
   overflow-x:hidden;
 }
@@ -80,7 +80,7 @@ strong{color:var(--t1);font-weight:540}
 .rail{position:sticky;top:56px;padding:84px 0 40px}
 .pf{width:56px;height:56px;border-radius:50%;object-fit:cover;display:block;margin-bottom:16px;border:1px solid var(--b-strong)}
 .rail .nm{font-size:18px;font-weight:560;letter-spacing:-.022em;color:var(--t1);line-height:1.25;margin-bottom:8px}
-.rail .role{font-size:13.5px;line-height:1.55;color:var(--t3);margin-bottom:20px}
+.rail .role{font-size:14px;line-height:1.6;color:var(--t3);margin-bottom:20px}
 .avail{
   display:inline-flex;align-items:center;gap:7px;margin-bottom:24px;
   font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.05em;
@@ -94,7 +94,7 @@ strong{color:var(--t1);font-weight:540}
 }
 .rail nav{display:flex;flex-direction:column;gap:10px;padding-top:22px;border-top:1px solid var(--b-subtle)}
 .rail nav a{
-  font-size:13.5px;color:var(--t3);font-weight:450;width:fit-content;position:relative;
+  font-size:14px;color:var(--t3);font-weight:450;width:fit-content;position:relative;
   padding-bottom:2px;
 }
 .rail nav a::after{
@@ -118,10 +118,10 @@ h1{
   letter-spacing:-.032em;color:var(--t1);margin-bottom:22px;
   text-wrap:balance;max-width:19ch;
 }
-.lede{font-size:17.5px;line-height:1.58;color:var(--t2);letter-spacing:-.012em;max-width:54ch;text-wrap:pretty}
+.lede{font-size:19px;line-height:1.56;color:var(--t2);letter-spacing:-.012em;max-width:54ch;text-wrap:pretty}
 .lede b{color:var(--t1);font-weight:540}
-.intro{margin-top:34px;max-width:60ch}
-.intro p{margin-bottom:13px;text-wrap:pretty}
+.intro{margin-top:36px;max-width:62ch}
+.intro p{margin-bottom:16px;line-height:1.72;text-wrap:pretty}
 .intro p:last-child{margin-bottom:0}
 
 article{margin-top:64px;padding-top:56px;border-top:1px solid var(--b-subtle)}
@@ -135,14 +135,14 @@ h2{
 }
 .client{
   font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.04em;
-  color:var(--t4);margin-bottom:24px;line-height:1.6;
+  color:var(--t3);margin-bottom:26px;line-height:1.65;
 }
-.prose{max-width:62ch}
-.prose p{margin-bottom:13px;text-wrap:pretty}
+.prose{max-width:64ch}
+.prose p{margin-bottom:16px;line-height:1.72;text-wrap:pretty}
 .prose p:last-child{margin-bottom:0}
 h3{
   font-family:"JetBrains Mono",monospace;font-size:9.5px;font-weight:500;
-  letter-spacing:.17em;text-transform:uppercase;color:var(--t4);margin:34px 0 14px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin:36px 0 15px;
 }
 
 /* ============ company header ============ */
@@ -168,11 +168,11 @@ article:hover .logo{border-color:var(--b-strong)}
 .co-name:hover{color:var(--acc)}
 .co-name:hover .ext{color:var(--acc);transform:translate(2px,-2px)}
 .co-sub{
-  font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.04em;
+  font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.04em;
   color:var(--t4);margin-top:5px;line-height:1.6;
 }
 .built{
-  font-size:16.5px;font-weight:540;letter-spacing:-.02em;color:var(--t2);
+  font-size:17.5px;font-weight:540;letter-spacing:-.02em;color:var(--t2);
   margin-bottom:20px;padding-left:14px;border-left:2px solid var(--acc);
   line-height:1.4;max-width:40ch;
 }
@@ -200,13 +200,13 @@ article:hover .logo{border-color:var(--b-strong)}
 .pipe .step:hover{opacity:1}
 .step-bar{height:2px;background:var(--b-std);border-radius:2px;margin-bottom:12px;transform-origin:left}
 .step.key .step-bar{background:linear-gradient(90deg,var(--acc),var(--acc2));box-shadow:0 0 12px rgba(255,146,71,.35)}
-.step-t{font-size:12.5px;font-weight:540;color:var(--t1);letter-spacing:-.01em;line-height:1.3;margin-bottom:4px}
+.step-t{font-size:13.5px;font-weight:540;color:var(--t1);letter-spacing:-.01em;line-height:1.3;margin-bottom:4px}
 .step.key .step-t{color:var(--acc)}
-.step-d{font-family:"JetBrains Mono",monospace;font-size:9.5px;line-height:1.5;color:var(--t4)}
+.step-d{font-family:"JetBrains Mono",monospace;font-size:10.5px;line-height:1.5;color:var(--t3)}
 .pipe-note{
   margin-top:14px;padding-top:13px;border-top:1px solid var(--b-subtle);
-  font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--t4);
-  letter-spacing:.02em;line-height:1.6;
+  font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--t3);
+  letter-spacing:.02em;line-height:1.65;
 }
 
 /* ============ stats ============ */
@@ -231,7 +231,7 @@ article:hover .logo{border-color:var(--b-strong)}
   letter-spacing:-.035em;color:var(--t1);line-height:1;margin-bottom:7px;display:block;
 }
 .stat.hi .v{color:var(--acc)}
-.stat .k{font-size:12px;line-height:1.42;color:var(--t3);text-wrap:balance}
+.stat .k{font-size:12.5px;line-height:1.42;color:var(--t3);text-wrap:balance}
 
 /* ============ skills ============ */
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px 34px;margin-top:8px}
@@ -242,7 +242,7 @@ article:hover .logo{border-color:var(--b-strong)}
 }
 .skill-group ul{list-style:none;margin:0;padding:0}
 .skill-group li{
-  font-size:13.5px;line-height:1.75;color:var(--t2);
+  font-size:14.5px;line-height:1.8;color:var(--t2);
   display:flex;align-items:baseline;gap:8px;
 }
 .skill-group li::before{content:"";width:3px;height:3px;border-radius:50%;background:var(--t4);flex:none}
@@ -250,7 +250,7 @@ article:hover .logo{border-color:var(--b-strong)}
 .skill-group li.k::before{background:var(--acc)}
 
 .also{margin-top:34px;padding-top:26px;border-top:1px solid var(--b-subtle);max-width:62ch}
-.also p{margin-bottom:11px;color:var(--t3);font-size:14.5px;line-height:1.68}
+.also p{margin-bottom:14px;color:var(--t3);font-size:15.5px;line-height:1.75}
 .also p:last-child{margin-bottom:0}
 .also b{color:var(--t2);font-weight:540}
 
