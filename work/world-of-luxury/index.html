@@ -76,10 +76,10 @@
       <p>Then the matching itself, which is where the real difficulty sat:</p>
       </div>
       <ul class="bul" data-reveal>
-        <li><b>People mispronounce watch names.</b> Jaeger-LeCoultre, Audemars Piguet, Breguet. Speech-to-text mangles them, and a mangled string matches nothing.</li>
-        <li><b>Model numbers resist matching.</b> Digits, letters, dashes and symbols, inconsistent capitalisation, and a &ldquo;pre-owned&rdquo; marker that only some products carry.</li>
-        <li><b>Around a hundred products are near-duplicates,</b> separated by price or two characters of reference. Exact match returns nothing. Loose match returns the wrong watch, confidently.</li>
-        <li><b>Callers ask about orders too,</b> so the agent has to decide which kind of lookup it is running before it runs one.</li>
+        <li><b>Speech-to-text mangles the brand names.</b> Jaeger-LeCoultre, Audemars Piguet, Breguet. A mangled string matches nothing.</li>
+        <li><b>Model numbers resist matching.</b> Mixed digits, letters and symbols, inconsistent capitalisation, and a pre-owned marker only some products carry.</li>
+        <li><b>Around a hundred products are near-duplicates.</b> Exact match returns nothing; loose match returns the wrong watch, confidently.</li>
+        <li><b>Callers ask about orders too,</b> so the agent has to pick which lookup to run.</li>
       </ul>
       <div data-reveal id="built">
         <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
@@ -160,11 +160,10 @@
         <div class="stat"><span class="v">8 mo</span><span class="k">retained, still running</span></div>
         <div class="stat"><span class="v">$21&ndash;302K</span><span class="k">range of pieces asked about</span></div>
       </div>
-      <div class="prose" data-reveal>
-      <p>Nearly nine in ten calls land outside the hours anyone is there to answer them, and a large share are weekends.</p>
-      <p><b>72% of genuine inquiries</b> become a captured lead. That figure excludes wrong numbers, people trying to reach a different dealer, one caller chasing a Macy&rsquo;s order, and a couple who were abusive. Counting those would have flattered the number and taught me nothing.</p>
-      <p>The value range is what callers actually asked about: a Richard Mille at $302,500, a Jaeger-LeCoultre tourbillon at $41,000, a Corum at $21,000, plus Breguet, Patek Philippe and an Audemars Piguet Royal Oak Grande Complication.</p>
-      </div>
+      <ul class="notes" data-reveal>
+        <li><b>72% of genuine inquiries</b> become a captured lead, after excluding wrong numbers, a caller chasing a Macy&rsquo;s order, and two who were abusive. Counting those would have flattered the number.</li>
+        <li><b>The value range is what callers asked about:</b> Richard Mille $302,500, Jaeger-LeCoultre tourbillon $41,000, Corum $21,000, plus Breguet, Patek Philippe and an AP Royal Oak Grande Complication.</li>
+      </ul>
       <div data-reveal id="learned">
         <div class="secnum">05 &nbsp;&middot;&nbsp; What it taught me</div>
         <h2 class="sec">The failures are invisible in the success rate</h2>

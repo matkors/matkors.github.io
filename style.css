@@ -524,3 +524,36 @@ code{
   font-size:17.5px;line-height:1.6;color:var(--t1);
   letter-spacing:-.014em;max-width:58ch;margin-bottom:16px;text-wrap:pretty;
 }
+
+/* flow diagrams get the same framing as figures so they stop floating */
+.flow-wrap{
+  border:1px solid var(--b-std);border-radius:10px;
+  background:var(--panel);padding:22px 24px 20px;margin:22px 0 0;
+}
+.flow-wrap .flow{padding-left:26px}
+.flow-wrap .fnode{left:-26px}
+.flow-wrap .flow-note{
+  margin:16px 0 0 0;padding-top:14px;
+  border-top:1px solid var(--b-subtle);max-width:none;
+}
+.flowlabel{
+  display:inline-flex;align-items:center;gap:9px;margin-bottom:10px;
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--t4);
+}
+.flowlabel b{
+  color:var(--acc);font-weight:500;
+  border:1px solid rgba(255,146,71,.3);border-radius:4px;padding:2px 6px;
+}
+
+/* compact supporting notes under a stats block */
+.notes{list-style:none;padding:0;margin:18px 0 0;max-width:64ch}
+.notes li{
+  position:relative;padding-left:16px;margin-bottom:9px;
+  font-size:14px;line-height:1.6;color:var(--t3);text-wrap:pretty;
+}
+.notes li::before{
+  content:"";position:absolute;left:0;top:10px;width:6px;height:1px;background:var(--t4);
+}
+.notes b{color:var(--t2);font-weight:540}
+.stats{margin-top:6px}

@@ -54,6 +54,14 @@ def lead(text):
     return '      <p class="lead" data-reveal>%s</p>' % text
 
 
+def notes(items):
+    """Compact supporting notes under a stats block. Not paragraphs."""
+    lines = ['      <ul class="notes" data-reveal>']
+    lines += ['        <li>%s</li>' % i for i in items]
+    lines.append('      </ul>')
+    return '\n'.join(lines)
+
+
 def layer(name, title):
     """A sub-heading inside 'What I built'."""
     return ('      <div class="secnum" data-reveal>%s &nbsp;&middot;&nbsp; %s</div>'

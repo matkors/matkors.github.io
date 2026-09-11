@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from build_cases import HEAD, FOOT, flow, chips, stats, pending, nextprev
-from figs import fig, figpair, toc, sec_id, lead, layer
+from figs import fig, figpair, toc, sec_id, lead, layer, notes
 
 
 def P(*t):
@@ -87,7 +87,8 @@ hc += '\n'.join([
           ('Guardrails', 'disclosure, scope limits, nothing improvised', 1),
           ('Route', 'coverage, Medicare, or crisis path', 0),
           ('Warm transfer', 'handed to a licensed human', 0)],
-         'The guardrail step is the whole job. Everything else is plumbing.'),
+         'The guardrail step is the whole job. Everything else is plumbing.',
+         label='How a call moves through it'),
 
     sec_id('04', 'The results', 'What I am able to share', 'results'),
     '''      <div class="gate" data-reveal>
@@ -139,10 +140,10 @@ wol += '\n'.join([
     prose('The catalogue moves every day as pieces sell and new stock lands, so anything working from a static export is wrong within 24 hours.',
           'Then the matching itself, which is where the real difficulty sat:'),
     bul([
-        '<b>People mispronounce watch names.</b> Jaeger-LeCoultre, Audemars Piguet, Breguet. Speech-to-text mangles them, and a mangled string matches nothing.',
-        '<b>Model numbers resist matching.</b> Digits, letters, dashes and symbols, inconsistent capitalisation, and a &ldquo;pre-owned&rdquo; marker that only some products carry.',
-        '<b>Around a hundred products are near-duplicates,</b> separated by price or two characters of reference. Exact match returns nothing. Loose match returns the wrong watch, confidently.',
-        '<b>Callers ask about orders too,</b> so the agent has to decide which kind of lookup it is running before it runs one.',
+        '<b>Speech-to-text mangles the brand names.</b> Jaeger-LeCoultre, Audemars Piguet, Breguet. A mangled string matches nothing.',
+        '<b>Model numbers resist matching.</b> Mixed digits, letters and symbols, inconsistent capitalisation, and a pre-owned marker only some products carry.',
+        '<b>Around a hundred products are near-duplicates.</b> Exact match returns nothing; loose match returns the wrong watch, confidently.',
+        '<b>Callers ask about orders too,</b> so the agent has to pick which lookup to run.',
     ]),
 
     sec_id('03', 'What I built', 'Six workflows in three layers', 'built'),
@@ -189,9 +190,8 @@ wol += '\n'.join([
            ('90&ndash;95%', 'correct product from 5,000 SKUs', 0, None),
            ('8 mo', 'retained, still running', 0, None),
            ('$21&ndash;302K', 'range of pieces asked about', 0, None)]),
-    prose('Nearly nine in ten calls land outside the hours anyone is there to answer them, and a large share are weekends.',
-          '<b>72% of genuine inquiries</b> become a captured lead. That figure excludes wrong numbers, people trying to reach a different dealer, one caller chasing a Macy&rsquo;s order, and a couple who were abusive. Counting those would have flattered the number and taught me nothing.',
-          'The value range is what callers actually asked about: a Richard Mille at $302,500, a Jaeger-LeCoultre tourbillon at $41,000, a Corum at $21,000, plus Breguet, Patek Philippe and an Audemars Piguet Royal Oak Grande Complication.'),
+    notes(['<b>72% of genuine inquiries</b> become a captured lead, after excluding wrong numbers, a caller chasing a Macy&rsquo;s order, and two who were abusive. Counting those would have flattered the number.',
+           '<b>The value range is what callers asked about:</b> Richard Mille $302,500, Jaeger-LeCoultre tourbillon $41,000, Corum $21,000, plus Breguet, Patek Philippe and an AP Royal Oak Grande Complication.']),
 
     sec_id('05', 'What it taught me', 'The failures are invisible in the success rate', 'learned'),
     lead('This agent was not good at the start. It got good because I listen to real calls every week and fix what broke.'),
@@ -249,7 +249,8 @@ fb += '\n'.join([
           ('Clay', 'enrich until the message can say something true', 1),
           ('LinkedIn', 'sequenced outreach, deliberately low volume', 0),
           ('Reply tracking', 'outcomes feed back into targeting', 0)],
-         'Enrichment is the expensive step and the one that earns the reply rate.'),
+         'Enrichment is the expensive step and the one that earns the reply rate.',
+         label='The pipeline'),
 
     sec_id('04', 'The results', 'An order of magnitude above the channel', 'results'),
     stats([('30%', 'reply rate, cold LinkedIn', 1, ('30', '%')),

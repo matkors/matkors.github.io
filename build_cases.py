@@ -85,9 +85,12 @@ FOOT = '''
 '''
 
 
-def flow(steps, note=None):
-    out = ['      <div class="flow-wrap" data-pipe>', '        <ol class="flow">',
-           '          <li class="flow-line"></li>']
+def flow(steps, note=None, label=None):
+    out = []
+    if label:
+        out.append('      <div class="flowlabel"><b>Flow</b> %s</div>' % label)
+    out += ['      <div class="flow-wrap" data-pipe>', '        <ol class="flow">',
+            '          <li class="flow-line"></li>']
     for i, (t, d, k) in enumerate(steps, 1):
         kc = ' key' if k else ''
         out.append(f'          <li class="fstep{kc}"><span class="fnode"></span>'
