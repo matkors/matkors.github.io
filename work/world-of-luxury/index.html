@@ -99,9 +99,30 @@
         </ol>
         <p class="flow-note">The n8n Shopify node capped at 50 per call and kept deactivating the workflow. This loop is the reason the rest works.</p>
       </div>
+      <figure class="fig" data-reveal>
+        <div class="figlabel"><b>Fig 1</b> Product sync &mdash; the pagination loop</div>
+        <div class="frame"><img src="/shots/sync-products.png" alt="Product sync &mdash; the pagination loop" loading="lazy"></div>
+        <figcaption>The loop that keeps the mirror current. <b>Build Request</b> assembles the next cursor, the HTTP node pulls a page from Shopify, results are parsed and batched, then <b>PATCHed</b> into Airtable so changed products update in place. <b>Has More Products?</b> feeds the arrow back round to Build Request until Shopify stops returning a cursor.</figcaption>
+      </figure>
+      <figure class="fig" data-reveal>
+        <div class="figlabel"><b>Fig 2</b> Order sync &mdash; same shape, paced</div>
+        <div class="frame"><img src="/shots/sync-orders.png" alt="Order sync &mdash; same shape, paced" loading="lazy"></div>
+        <figcaption>Orders run the identical pattern with one addition: a <b>Wait</b> node between iterations. Without it the loop finishes faster and trips Shopify&rsquo;s rate limit, which is what was silently deactivating the workflow before.</figcaption>
+      </figure>
       <div class="secnum" data-reveal>Layer 2 &nbsp;&middot;&nbsp; Finding the right watch mid-call</div>
       <div class="prose" data-reveal>
       <p>Three lookup workflows sit behind webhooks the agent calls as tools. Each one runs the same shape: pull the argument out of the tool call, normalise it, search Airtable, rank the candidates, format a response the agent can read aloud.</p>
+      </div>
+      <div class="figpair" data-reveal>
+        <figure class="fig" style="margin:0">
+          <div class="frame"><img src="/shots/product-page-annotated.png" alt="A product page showing the three matchable fields" loading="lazy"></div>
+          <figcaption>A real listing. These three fields are everything the agent has to work with, and every one of them is hostile to exact matching.</figcaption>
+        </figure>
+        <ul class="legend">
+          <li><span class="n">1</span><span><b>Product name</b>Long, brand-heavy, and the thing callers mispronounce. Speech-to-text mangles Audemars Piguet reliably.</span></li>
+          <li><span class="n">2</span><span><b>Price</b>The tiebreaker. When a name matches a cluster of near-identical pieces, price is what separates them.</span></li>
+          <li><span class="n">3</span><span><b>Model number</b>Digits, letters, dots and a <code>Preowned-</code> prefix that only some products carry. Exact matching on this fails.</span></li>
+        </ul>
       </div>
       <ul class="bul" data-reveal>
         <li><b>Product by name and price.</b> Extract and normalise, search, then fuzzy match and rank to a single best candidate, returned with description, price and details like water resistance.</li>
@@ -123,6 +144,21 @@
         </ol>
         <p class="flow-note">Ranking rather than filtering is what makes the near-duplicate cluster survivable.</p>
       </div>
+      <figure class="fig" data-reveal>
+        <div class="figlabel"><b>Fig 3</b> Product lookup by name and price</div>
+        <div class="frame"><img src="/shots/lookup-details.png" alt="Product lookup by name and price" loading="lazy"></div>
+        <figcaption>Webhook in, <b>Extract &amp; Normalize</b> pulls the argument out of the tool call, Airtable returns a candidate set, then <b>Fuzzy Match &amp; Rank</b> reduces it to one before the response is formatted for speech.</figcaption>
+      </figure>
+      <figure class="fig" data-reveal>
+        <div class="figlabel"><b>Fig 4</b> Product lookup by model number</div>
+        <div class="frame"><img src="/shots/lookup-reference.png" alt="Product lookup by model number" loading="lazy"></div>
+        <figcaption>The same shape pointed at the reference field. The normalisation step is doing the heavy lifting here, stripping the case, punctuation and <code>Preowned-</code> inconsistencies that make a direct match return nothing.</figcaption>
+      </figure>
+      <figure class="fig" data-reveal>
+        <div class="figlabel"><b>Fig 5</b> Order lookup, with a live fallback</div>
+        <div class="frame"><img src="/shots/order-lookup.png" alt="Order lookup, with a live fallback" loading="lazy"></div>
+        <figcaption>Note the branch to <b>Run Order Sync</b>. If the order is not in Airtable yet, the workflow calls a single-page sync to pull the newest orders straight from Shopify and then answers, rather than telling the caller it cannot find them.</figcaption>
+      </figure>
       <div class="prose" data-reveal>
       <p><b>Disambiguation instead of guessing.</b> When a model-number match returns more than one candidate, the agent does not pick. It asks for the price or the product name and narrows to one. Guessing confidently on a $40,000 watch is the worst available outcome.</p>
       <p><b>A pronunciation dictionary.</b> None of the matching helps if the string leaving the agent is wrong. I built a dictionary of the brand and model vocabulary and gave it to the agent, so it spells names correctly on the way into the workflow instead of forwarding whatever the transcription heard.</p>
@@ -143,6 +179,11 @@
         </ol>
         <p class="flow-note">The owner never opens a dashboard. The leads arrive in his inbox with recordings attached.</p>
       </div>
+      <figure class="fig" data-reveal>
+        <div class="figlabel"><b>Fig 6</b> The morning digest</div>
+        <div class="frame"><img src="/shots/notifier.png" alt="The morning digest" loading="lazy"></div>
+        <figcaption>A scheduled trigger pulls the overnight calls, checks client limits and usage, formats the summary and sends it by email before the shop opens. The <b>If</b> gate means a quiet night sends nothing rather than an empty report.</figcaption>
+      </figure>
       <div class="prose" data-reveal>
       <p><b>The agent itself</b> started on VAPI and I later migrated it to Retell. Much of the work after that was prompt and voice engineering: tuning for latency so replies land fast enough to feel like conversation, and getting the tool-calling logic right so it knows when a question is about a product, when it is about an order, and when it is neither.</p>
       </div>
@@ -189,7 +230,6 @@
         <span class="chip"><img src="/logos/tools/airtable.png" alt="">Airtable</span>
         <span class="chip"><img src="/logos/tools/shopify.png" alt="">Shopify</span>
       </div>
-      <div class="shot-pending">n8n workflow screenshots go here<br>product sync loop &middot; fuzzy match &middot; order lookup &middot; CRM &middot; notifier<br>save them into /shots/ and I will lay them out with captions</div>
     <h2 class="sec">Other work</h2>
     <div class="nextprev" data-reveal>
       <a class="npcard" href="/work/healthcare-com/"><span class="l">Case study</span><span class="n">Healthcare.com</span></a>

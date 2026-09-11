@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from build_cases import HEAD, FOOT, flow, chips, stats, pending, nextprev
+from figs import fig, figpair
 
 
 def P(*t):
@@ -146,9 +147,21 @@ wol += '\n'.join([
           ('PATCH to Airtable', 'upsert, never duplicate', 0),
           ('Has more?', 'loop back or finish', 0)],
          'The n8n Shopify node capped at 50 per call and kept deactivating the workflow. This loop is the reason the rest works.'),
+    fig('Fig 1', 'Product sync &mdash; the pagination loop', 'sync-products.png',
+        'The loop that keeps the mirror current. <b>Build Request</b> assembles the next cursor, the HTTP node pulls a page from Shopify, results are parsed and batched, then <b>PATCHed</b> into Airtable so changed products update in place. <b>Has More Products?</b> feeds the arrow back round to Build Request until Shopify stops returning a cursor.'),
+    fig('Fig 2', 'Order sync &mdash; same shape, paced', 'sync-orders.png',
+        'Orders run the identical pattern with one addition: a <b>Wait</b> node between iterations. Without it the loop finishes faster and trips Shopify&rsquo;s rate limit, which is what was silently deactivating the workflow before.'),
 
     '''      <div class="secnum" data-reveal>Layer 2 &nbsp;&middot;&nbsp; Finding the right watch mid-call</div>''',
     prose('Three lookup workflows sit behind webhooks the agent calls as tools. Each one runs the same shape: pull the argument out of the tool call, normalise it, search Airtable, rank the candidates, format a response the agent can read aloud.'),
+    figpair('product-page-annotated.png', 'A product page showing the three matchable fields',
+            [('Product name',
+              'Long, brand-heavy, and the thing callers mispronounce. Speech-to-text mangles Audemars Piguet reliably.'),
+             ('Price',
+              'The tiebreaker. When a name matches a cluster of near-identical pieces, price is what separates them.'),
+             ('Model number',
+              'Digits, letters, dots and a <code>Preowned-</code> prefix that only some products carry. Exact matching on this fails.')],
+            'A real listing. These three fields are everything the agent has to work with, and every one of them is hostile to exact matching.'),
     bul([
         '<b>Product by name and price.</b> Extract and normalise, search, then fuzzy match and rank to a single best candidate, returned with description, price and details like water resistance.',
         '<b>Product by model number.</b> The reference is normalised on the way into Airtable to strip the inconsistencies that make exact matching fail, then fuzzy matched against. <b>90 to 95% correct across 5,000 SKUs.</b>',
@@ -162,6 +175,12 @@ wol += '\n'.join([
           ('Not found?', 'trigger on-call sync, then retry', 0),
           ('Format response', 'phrased for speech', 0)],
          'Ranking rather than filtering is what makes the near-duplicate cluster survivable.'),
+    fig('Fig 3', 'Product lookup by name and price', 'lookup-details.png',
+        'Webhook in, <b>Extract &amp; Normalize</b> pulls the argument out of the tool call, Airtable returns a candidate set, then <b>Fuzzy Match &amp; Rank</b> reduces it to one before the response is formatted for speech.'),
+    fig('Fig 4', 'Product lookup by model number', 'lookup-reference.png',
+        'The same shape pointed at the reference field. The normalisation step is doing the heavy lifting here, stripping the case, punctuation and <code>Preowned-</code> inconsistencies that make a direct match return nothing.'),
+    fig('Fig 5', 'Order lookup, with a live fallback', 'order-lookup.png',
+        'Note the branch to <b>Run Order Sync</b>. If the order is not in Airtable yet, the workflow calls a single-page sync to pull the newest orders straight from Shopify and then answers, rather than telling the caller it cannot find them.'),
     prose('<b>Disambiguation instead of guessing.</b> When a model-number match returns more than one candidate, the agent does not pick. It asks for the price or the product name and narrows to one. Guessing confidently on a $40,000 watch is the worst available outcome.',
           '<b>A pronunciation dictionary.</b> None of the matching helps if the string leaving the agent is wrong. I built a dictionary of the brand and model vocabulary and gave it to the agent, so it spells names correctly on the way into the workflow instead of forwarding whatever the transcription heard.'),
 
@@ -174,6 +193,8 @@ wol += '\n'.join([
           ('Match client', 'create or update', 0),
           ('Morning digest', 'emailed before the shop opens', 1)],
          'The owner never opens a dashboard. The leads arrive in his inbox with recordings attached.'),
+    fig('Fig 6', 'The morning digest', 'notifier.png',
+        'A scheduled trigger pulls the overnight calls, checks client limits and usage, formats the summary and sends it by email before the shop opens. The <b>If</b> gate means a quiet night sends nothing rather than an empty report.'),
 
     prose('<b>The agent itself</b> started on VAPI and I later migrated it to Retell. Much of the work after that was prompt and voice engineering: tuning for latency so replies land fast enough to feel like conversation, and getting the tool-calling logic right so it knows when a question is about a product, when it is about an order, and when it is neither.'),
 
@@ -198,9 +219,6 @@ wol += '\n'.join([
     sec('&mdash;', 'Stack', 'What it runs on'),
     chips([('Retell AI', 'retell.svg', 1), ('VAPI', 'vapi.png', 0),
            ('n8n', 'n8n.png', 0), ('Airtable', 'airtable.png', 0), ('Shopify', 'shopify.png', 0)]),
-    pending(['n8n workflow screenshots go here',
-             'product sync loop &middot; fuzzy match &middot; order lookup &middot; CRM &middot; notifier',
-             'save them into /shots/ and I will lay them out with captions']),
 ])
 wol += FOOT.format(nextprev=nextprev([
     ('Case study', 'Healthcare.com', '/work/healthcare-com/'),

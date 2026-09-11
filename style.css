@@ -452,3 +452,49 @@ code{
   background:rgba(255,255,255,.05);border:1px solid var(--b-subtle);
   border-radius:4px;padding:1px 5px;color:var(--t1);
 }
+
+/* ============ figures ============ */
+.fig{margin:26px 0 0}
+.fig + .fig{margin-top:20px}
+.figlabel{
+  display:inline-flex;align-items:center;gap:9px;margin-bottom:10px;
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--t4);
+}
+.figlabel b{
+  color:var(--acc);font-weight:500;
+  border:1px solid rgba(255,146,71,.3);border-radius:4px;padding:2px 6px;
+}
+.fig .frame{
+  border:1px solid var(--b-std);border-radius:10px;overflow:hidden;
+  background:#1a1a1e;line-height:0;
+  transition:border-color .25s ease;
+}
+.fig:hover .frame{border-color:var(--b-strong)}
+.fig .frame img{width:100%;display:block}
+.fig figcaption{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:13.5px;line-height:1.65;color:var(--t3);margin-top:11px;
+  letter-spacing:0;max-width:64ch;text-wrap:pretty;
+}
+.fig figcaption b{color:var(--t2);font-weight:540}
+
+/* image beside a numbered legend */
+.figpair{display:grid;grid-template-columns:1fr 268px;gap:26px;align-items:start;margin:26px 0 0}
+.legend{list-style:none;padding:0;margin:0}
+.legend li{
+  display:flex;gap:11px;align-items:baseline;
+  padding:11px 0;border-bottom:1px solid var(--b-subtle);
+  font-size:13.5px;line-height:1.55;color:var(--t3);
+}
+.legend li:last-child{border-bottom:none}
+.legend .n{
+  flex:none;width:19px;height:19px;border-radius:50%;background:var(--acc);
+  color:#0a0b0c;font-family:"JetBrains Mono",monospace;font-size:10.5px;
+  font-weight:600;display:grid;place-items:center;line-height:1;
+}
+.legend b{color:var(--t1);font-weight:560;display:block;margin-bottom:2px}
+
+@media (max-width:900px){
+  .figpair{grid-template-columns:1fr;gap:18px}
+}
