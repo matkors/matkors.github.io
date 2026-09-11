@@ -1,4 +1,4 @@
 preview.png
-*.png
+# png tracked
 !portrait.png
 .DS_Store
