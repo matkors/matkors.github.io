@@ -444,3 +444,11 @@ ul.bul li b{color:var(--t1);font-weight:560}
 }
 .secnum::after{content:"";flex:1;height:1px;background:var(--b-subtle);max-width:190px}
 h2.sec{margin:0 0 16px}
+
+/* layer sub-heads inside a section */
+.col .secnum{margin:44px 0 14px}
+code{
+  font-family:"JetBrains Mono",monospace;font-size:.88em;
+  background:rgba(255,255,255,.05);border:1px solid var(--b-subtle);
+  border-radius:4px;padding:1px 5px;color:var(--t1);
+}
