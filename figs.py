@@ -107,3 +107,17 @@ def reqs(items, label):
         out.append('          <li><b>%s</b><span>%s</span></li>' % (title, body))
     out += ['        </ol>', '      </div>']
     return '\n'.join(out)
+
+
+def seealso(intro, items):
+    """Point at the pages that can show the work, from the page that cannot."""
+    out = ['      <div class="seealso" data-reveal>',
+           '        <div class="lbl">Want the technical detail?</div>',
+           '        <p>%s</p>' % intro,
+           '        <div class="salinks">']
+    for name, sub, href in items:
+        out.append('          <a href="%s"><span class="sn">%s</span>'
+                   '<span class="ss">%s</span><span class="sa">&rarr;</span></a>'
+                   % (href, name, sub))
+    out += ['        </div>', '      </div>']
+    return '\n'.join(out)

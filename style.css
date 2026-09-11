@@ -788,3 +788,35 @@ ol.ladder{
   .nda{padding:20px 20px}
   .reqbox{padding:18px 18px 4px}
 }
+
+/* ============ pointer to the pages that can show the work ============ */
+.seealso{
+  margin:22px 0 6px;padding:20px 22px;border:1px solid var(--b-std);
+  border-radius:10px;background:var(--panel);
+}
+.seealso .lbl{
+  font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--t4);margin-bottom:9px;
+}
+.seealso > p{font-size:14.5px;line-height:1.6;color:var(--t3);max-width:60ch;margin-bottom:14px}
+.salinks{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.salinks a{
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;
+  padding:13px 15px;border:1px solid var(--b-std);border-radius:8px;
+  background:var(--raised);
+  transition:border-color .2s ease,background .2s ease;
+}
+.salinks a:hover{border-color:var(--acc);background:rgba(255,146,71,.06)}
+.salinks .sn{
+  grid-column:1;font-size:14.5px;font-weight:560;color:var(--t1);letter-spacing:-.014em;
+}
+.salinks .ss{
+  grid-column:1;font-family:"JetBrains Mono",monospace;font-size:10px;
+  letter-spacing:.03em;color:var(--t4);margin-top:4px;line-height:1.5;
+}
+.salinks .sa{
+  grid-column:2;grid-row:1 / span 2;
+  font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--acc);
+  transition:transform .24s cubic-bezier(.4,0,.2,1);
+}
+.salinks a:hover .sa{transform:translateX(4px)}
