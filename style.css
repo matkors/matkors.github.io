@@ -378,25 +378,47 @@ ul.bul li b{color:var(--t1);font-weight:560}
 .npcard .n{font-size:15.5px;font-weight:540;color:var(--t1);letter-spacing:-.015em}
 
 /* ============ section head ============ */
-.sechead{margin-top:72px;padding-top:34px;border-top:1px solid var(--b-subtle)}
+.sechead{margin-top:76px;padding-top:38px;border-top:1px solid var(--b-subtle)}
 .sectitle{
-  font-size:clamp(22px,2.6vw,28px);font-weight:560;letter-spacing:-.026em;
-  color:var(--t1);line-height:1.15;margin:0 0 9px;
+  font-size:clamp(23px,2.8vw,30px);font-weight:600;letter-spacing:-.028em;
+  color:var(--t1);line-height:1.12;margin:0;
 }
-.secsub{color:var(--t3);max-width:54ch;margin:0;font-size:15.5px;line-height:1.6;text-wrap:pretty}
-.sechead + article{margin-top:44px;padding-top:44px}
+/* the heading owns the first project - no rule between them */
+.sechead + article{margin-top:30px;padding-top:0;border-top:none}
+
+/* ============ results block ============ */
+.resultblock{
+  margin-top:30px;border:1px solid var(--b-std);border-radius:10px;
+  overflow:hidden;background:var(--panel);
+  transition:border-color .25s ease;
+}
+.resultblock:hover{border-color:var(--b-strong)}
+.resultblock .stats{
+  border:none;border-radius:0;background:var(--b-subtle);
+  margin:0;
+}
+.resultblock .stat{background:var(--panel)}
+.resultblock .stat::before{display:none}
 
 /* ============ read-more ============ */
 .more{
-  display:inline-flex;align-items:center;gap:11px;margin-top:26px;
-  padding:11px 18px;border:1px solid var(--b-std);border-radius:8px;
-  background:var(--panel);font-size:14.5px;font-weight:540;color:var(--t2);
-  letter-spacing:-.008em;
-  transition:border-color .2s ease,background .2s ease,color .2s ease;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:15px 20px;border-top:1px solid var(--b-subtle);
+  background:rgba(255,255,255,.012);
+  font-size:14.5px;font-weight:540;color:var(--t2);letter-spacing:-.008em;
+  transition:background .22s ease,color .22s ease;
 }
-.more:hover{border-color:var(--acc);background:var(--raised);color:var(--t1)}
-.marrow{
-  font-family:"JetBrains Mono",monospace;color:var(--acc);
-  transition:transform .22s cubic-bezier(.4,0,.2,1);display:inline-block;
+.more:hover{background:rgba(255,146,71,.07);color:var(--t1)}
+.more .marrow{
+  font-family:"JetBrains Mono",monospace;font-size:15px;color:var(--acc);
+  transition:transform .24s cubic-bezier(.4,0,.2,1);
+  display:inline-block;line-height:1;flex:none;
 }
-.more:hover .marrow{transform:translateX(4px)}
+.more:hover .marrow{transform:translateX(5px)}
+
+/* standalone variant for a case with no results grid */
+.more.solo{
+  margin-top:30px;border:1px solid var(--b-std);border-top:1px solid var(--b-std);
+  border-radius:10px;background:var(--panel);
+}
+.more.solo:hover{border-color:var(--acc);background:rgba(255,146,71,.06)}
