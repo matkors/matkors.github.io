@@ -40,13 +40,35 @@
       <div data-reveal>
         <p class="lede">Mostly no-code: <b>n8n, GoHighLevel, APIs and Claude</b> wired into CRM, lead generation and lifecycle systems. Some of it answers the phone.</p>
       </div>
+
+      <div class="proof" data-reveal>
+        <div class="pi">
+          <span class="v">3</span>
+          <span class="k">production voice agents live inside a regulated industry</span>
+        </div>
+        <div class="pi">
+          <span class="v" data-count="89" data-suffix="%">89%</span>
+          <span class="k">of one client&rsquo;s calls arrive after hours, now captured</span>
+        </div>
+        <div class="pi">
+          <span class="v" data-count="42" data-suffix=".6%">42.6%</span>
+          <span class="k">reply rate on cold LinkedIn, about ten times benchmark</span>
+        </div>
+        <div class="pi">
+          <span class="v">8 mo</span>
+          <span class="k">longest system running unbroken in production</span>
+        </div>
+      </div>
+
       <div class="intro" data-reveal>
-        <p>Most of what I do is sit down with someone non-technical, work out what their system actually needs to do, then build it and keep it running. Data in, a way to tell whether it is working, and an interface the client actually opens. I taught myself the whole stack inside a year and my degree is in criminal justice, so I came at this from the problem rather than the tooling.</p>
-              </div>
+        <p>Most of what I do is sit down with someone non-technical, work out what their system actually needs to do, then build it and keep it running. Data in, a way to tell whether it is working, and an interface the client actually opens.</p>
+        <p>I taught myself the whole stack inside a year and my degree is in criminal justice, so I came at this from the problem rather than the tooling.</p>
+      </div>
     </div>
 
     <div class="sechead" data-reveal>
       <h2 class="sectitle">Recent Projects</h2>
+      <p class="secsub">Three systems, each with a constraint that made the obvious approach wrong.</p>
     </div>
 
     <article>
@@ -59,14 +81,21 @@
             <div class="co-sub">National health insurance marketplace &nbsp;·&nbsp; contract voice engineering &nbsp;·&nbsp; 2026, ongoing</div>
           </div>
         </div>
-        <p class="built">A voice agent that is not allowed to improvise</p>
+        <p class="built">Three production voice agents that are not allowed to improvise</p>
       </div>
-      <div class="prose" data-reveal>
-        <p>Most voice AI is a booking bot for a salon. This one sits inside health insurance, where an agent that says the wrong thing about coverage is not a bad customer experience, it is a compliance problem. Everything it says has to hold up against AI disclosure requirements and CMS marketing rules, and it cannot improvise about plans, prices or eligibility.</p>
-        <p>I built three. The first works out what a caller actually needs and routes them, built for high inbound volume. The second is an intake line for people who just lost their health insurance along with their job, qualifying the caller and warm transferring to a licensed human rather than trying to solve it. The third runs inside their Medicare Advantage funnel, where the compliance bar is higher again.</p>
+      <div data-reveal>
+        <p class="hook">Most voice AI books appointments. This one sits inside health insurance, where saying the wrong thing about coverage is a compliance problem, not a bad review.</p>
+        <ul class="hl">
+          <li><b>Routing.</b> Works out what a caller actually needs and sends them to the right place. Built for high inbound volume.</li>
+          <li><b>Loss-of-coverage intake.</b> Qualifies people who just lost their insurance along with their job, then warm transfers to a licensed human instead of trying to solve it.</li>
+          <li><b>Medicare Advantage funnel.</b> Same build, higher bar. AI disclosure and CMS marketing rules constrain every line it is allowed to say.</li>
+        </ul>
       </div>
 
-      <a class="more solo" href="/work/healthcare-com/"><span>Read the Healthcare.com case study</span><span class="marrow">&rarr;</span></a>
+      <a class="more solo" href="/work/healthcare-com/">
+        <span class="mlabel"><b>Read the Healthcare.com case study</b><span class="msub">How you constrain an agent that cannot improvise &middot; details limited by contract</span></span>
+        <span class="marrow">&rarr;</span>
+      </a>
     </article>
 
     <article>
@@ -81,22 +110,19 @@
         </div>
         <p class="built">An inbound receptionist still running after eight months</p>
       </div>
-      <div class="prose" data-reveal>
-        <p>Building a voice agent is the easy part. Keeping one alive on someone&rsquo;s real phone line, month after month, is the part most people never reach. This one answers every inbound call, looks up orders against Shopify, handles what it can and escalates what it cannot.</p>
-        <p>The number that matters is 89%. Their showroom is open Monday to Friday, ten to five, and almost nine in ten calls land outside that window, a lot of them at eleven at night and on weekends. Every one of those used to be a voicemail. They are now qualified, logged, and waiting on someone&rsquo;s desk in the morning, on inquiries for pieces running from $21,000 to over $300,000.</p>
-        <p>The part I care about is the loop at the end. Every week I listen to real conversations, find where it handled something badly, and fix it. That is the difference between a demo and a system.</p>
+      <div data-reveal>
+        <p class="hook">Building a voice agent is the easy part. Keeping one alive on someone&rsquo;s real phone line for eight months is the part most people never reach.</p>
+        <ul class="hl">
+          <li><b>Answers every inbound call</b>, looks up live order status against Shopify, and writes a qualified lead into the CRM before it hangs up.</li>
+          <li><b>Nearly nine in ten calls land outside showroom hours.</b> Every one used to be a voicemail. They now sit on someone&rsquo;s desk by morning, on pieces running from $21,000 to over $300,000.</li>
+          <li><b>I listen to real conversations every week</b>, find where it handled something badly, and fix it. That loop is the whole difference between a demo and a system.</li>
+        </ul>
       </div>
 
-      <h3>Results</h3>
-      <div class="resultblock" data-reveal>
-<div class="stats" data-stats>
-        <div class="stat hi"><span class="v" data-count="89" data-suffix="%">89%</span><span class="k">of calls arrive after hours</span></div>
-        <div class="stat"><span class="v" data-count="72" data-suffix="%">72%</span><span class="k">of inquiries become leads</span></div>
-        <div class="stat"><span class="v">8 mo</span><span class="k">retained, still running</span></div>
-        <div class="stat"><span class="v">$21&ndash;302K</span><span class="k">range of pieces asked about</span></div>
-      </div>
-<a class="more" href="/work/world-of-luxury/"><span>Read the World of Luxury case study</span><span class="marrow">&rarr;</span></a>
-      </div>
+      <a class="more solo" href="/work/world-of-luxury/">
+        <span class="mlabel"><b>Read the case study and see the results</b><span class="msub">Six live workflows, the call data, and what 89% after hours really means</span></span>
+        <span class="marrow">&rarr;</span>
+      </a>
     </article>
 
     <article>
@@ -111,20 +137,19 @@
         </div>
         <p class="built">A LinkedIn pipeline that replied at ten times benchmark</p>
       </div>
-      <div class="prose" data-reveal>
-        <p>There is no job title that reliably identifies a scientist about to build a DNA library. So instead of searching for people who look right, the system finds posts about the right subject each week and harvests everyone who engaged with them.</p>
-        <p>Apify scrapes posts against 19 technical phrases, an LLM filters them for genuine industry discussion, the engagers are deduplicated by intent, Clay enriches and scores them, and HeyReach sends two different openers depending on whether the lead wrote the post or engaged with it.</p>
+      <div data-reveal>
+        <p class="hook">No job title reliably identifies a scientist about to build a DNA library. So the system stopped looking for people and started looking for conversations.</p>
+        <ul class="hl">
+          <li><b>Apify</b> scrapes posts against 19 technical phrases each week. An LLM keeps the genuine industry discussion and throws out the recruiters and the press releases.</li>
+          <li><b>Everyone who engaged</b> with those posts is deduplicated by intent, then enriched and scored in Clay.</li>
+          <li><b>HeyReach</b> sends one opener to the person who wrote the post and a different one to the people who engaged with it.</li>
+        </ul>
       </div>
 
-      <h3>Results</h3>
-      <div class="resultblock" data-reveal>
-<div class="stats" data-stats>
-        <div class="stat hi"><span class="v" data-count="42" data-suffix=".6%">42.6%</span><span class="k">reply rate, cold LinkedIn</span></div>
-        <div class="stat"><span class="v" data-count="10" data-prefix="~" data-suffix="&times;">~10&times;</span><span class="k">above channel benchmark</span></div>
-        <div class="stat"><span class="v">20</span><span class="k">replies from 47 messages</span></div>
-      </div>
-<a class="more" href="/work/flock-bio/"><span>Read the Flock Bio case study</span><span class="marrow">&rarr;</span></a>
-      </div>
+      <a class="more solo" href="/work/flock-bio/">
+        <span class="mlabel"><b>Read the case study and see the results</b><span class="msub">The full pipeline, the reply data, and the failure that stayed silent</span></span>
+        <span class="marrow">&rarr;</span>
+      </a>
     </article>
 
     <article>
