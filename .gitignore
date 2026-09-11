@@ -1,0 +1,4 @@
+preview.png
+*.png
+!portrait.png
+.DS_Store
