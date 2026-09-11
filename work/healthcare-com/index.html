@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Healthcare.com &mdash; voice agents under compliance | Matviy Korsunskiy</title>
+<meta name="description" content="Three production voice agents inside a national health insurance marketplace, built where the agent is not allowed to improvise.">
+<meta property="og:title" content="Healthcare.com &mdash; voice agents under compliance | Matviy Korsunskiy">
+<meta property="og:description" content="Three production voice agents inside a national health insurance marketplace, built where the agent is not allowed to improvise.">
+<meta property="og:type" content="article">
+<script>document.documentElement.classList.replace('no-js','js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="aurora"></div>
+<div class="grain"></div>
+
+<div class="shell">
+  <aside class="rail">
+    <a class="back" href="/"><span class="ar">&larr;</span> Matviy Korsunskiy</a>
+    <div class="role">Case study</div>
+    <div class="avail"><span class="dot"></span>Available for contract</div>
+    <nav>
+      <a href="mailto:matviykorsunskiy@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
+    </nav>
+    <div class="tz">Eastern time<br>New Jersey, US</div>
+  </aside>
+
+  <main class="col">
+    <div class="rv">
+      <div class="case-hero">
+        <div class="logo"><img src="/logos/healthcare-logo.png" alt="Healthcare.com"></div>
+        <div>
+          <h1>Healthcare.com</h1>
+          <div class="case-meta">Contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing &nbsp;·&nbsp; <a href="https://www.healthcare.com" target="_blank" rel="noopener">healthcare.com &#8599;</a></div>
+        </div>
+      </div>
+    </div>
+      <div class="pull" data-reveal>
+      <p>Most voice AI is a booking bot for a salon. This one sits inside health insurance, where an agent that says the wrong thing about coverage is not a bad customer experience, it is a compliance problem.</p>
+      </div>
+      <h2 class="sec" data-reveal>The constraint</h2>
+      <div class="prose" data-reveal>
+      <p>Everything the agent says has to hold up against AI disclosure requirements and CMS marketing rules. It cannot improvise about plans, prices or eligibility, and it cannot imply a government affiliation. In a normal voice project the hard part is making the agent sound natural. Here the hard part is making it refuse cleanly, stay inside a scope, and hand off before it guesses.</p>
+      <p>That changes the build. The interesting work is not the conversation, it is the boundary around the conversation.</p>
+      </div>
+      <h2 class="sec" data-reveal>What I built</h2>
+      <ul class="bul" data-reveal>
+        <li><b>A routing agent.</b> Works out what a caller actually needs and sends them down the right path. Built for high inbound volume.</li>
+        <li><b>A job loss intake line.</b> For people who just lost their health insurance along with their job. It qualifies the caller and warm transfers to a licensed human rather than trying to solve it, because that is not a call an agent should be closing.</li>
+        <li><b>A Medicare Advantage agent.</b> Runs inside that funnel, where the compliance bar is higher again.</li>
+      </ul>
+      <h2 class="sec" data-reveal>The shape of it</h2>
+      <div class="flow-wrap" data-pipe>
+        <ol class="flow">
+          <li class="flow-line"></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">01</span><span class="fbody"><b>Inbound call</b><span>intent unknown</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">02</span><span class="fbody"><b>Classify</b><span>what does this caller actually need</span></span></li>
+          <li class="fstep key"><span class="fnode"></span><span class="fnum">03</span><span class="fbody"><b>Guardrails</b><span>disclosure, scope limits, nothing improvised</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">04</span><span class="fbody"><b>Route</b><span>coverage, Medicare, or crisis path</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">05</span><span class="fbody"><b>Warm transfer</b><span>handed to a licensed human</span></span></li>
+        </ol>
+        <p class="flow-note">The guardrail step is the whole job. Everything else is plumbing.</p>
+      </div>
+      <h2 class="sec" data-reveal>How I worked</h2>
+      <div class="prose" data-reveal>
+      <p>I scoped all three by sitting with non-technical executives, mapped the use cases with senior stakeholders, built the flows, presented them back in plain language, and coordinated across product, engineering, compliance and operations to ship. Nobody handed me a spec.</p>
+      <p>Compliance reviewed and approved agent behaviour and messaging before anything went live. On a project like this that review cycle is not overhead, it is the project.</p>
+      </div>
+      <h2 class="sec" data-reveal>Stack</h2>
+      <div class="stack" data-reveal>
+        <span class="chip"><img src="/logos/tools/retell.svg" alt="" class="wide">Retell AI</span>
+        <span class="chip"><img src="/logos/tools/vapi.png" alt="">VAPI</span>
+        <span class="chip"><img src="/logos/tools/n8n.png" alt="">n8n</span>
+        <span class="chip"><img src="/logos/tools/claude.png" alt="">Claude</span>
+      </div>
+      <div class="gate" data-reveal>
+        <div class="lbl">Where this stops</div>
+        <p>My contract with Healthcare.com is specific about confidentiality, and their operational detail sits inside it: call volumes, internal product names, flows, performance data. So this page describes the shape of the problem and how I approached it, and stops there deliberately. Happy to talk through the approach and the reasoning on a call, within the same limits.</p>
+      </div>
+    <h2 class="sec">Other work</h2>
+    <div class="nextprev" data-reveal>
+      <a class="npcard" href="/work/world-of-luxury/"><span class="l">Case study</span><span class="n">World of Luxury</span></a>
+      <a class="npcard" href="/work/flock-bio/"><span class="l">Case study</span><span class="n">Flock Bio</span></a>
+    </div>
+
+    <footer>
+      <div data-reveal>
+        <p class="cta">If any of this is the shape of your problem, I&rsquo;d like to hear about it.</p>
+        <div class="btns">
+          <a class="btn solid magnetic" href="mailto:matviykorsunskiy@gmail.com">matviykorsunskiy@gmail.com</a>
+          <a class="btn ghost magnetic" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
+        </div>
+        <p class="disclaim">
+          Client names and internal details omitted where I am under confidentiality.<br>
+          Happy to go deeper on any of it on a call.
+        </p>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
+<script src="/motion.js" defer></script>
+</body>
+</html>

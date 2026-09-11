@@ -13,291 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#08090a;
-  --panel:#101113;
-  --raised:#17181b;
-
-  --t1:#f4f5f6;
-  --t2:#cfd4da;
-  --t3:#8d939b;
-  --t4:#5c6068;
-
-  --acc:#ff9247;
-  --acc2:#ff6b4a;
-
-  --b-subtle:rgba(255,255,255,.055);
-  --b-std:rgba(255,255,255,.09);
-  --b-strong:rgba(255,255,255,.15);
-}
-
-*{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{
-  background:var(--bg);color:var(--t2);
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  font-feature-settings:"cv01","ss03","calt";
-  font-size:16.5px;font-weight:400;line-height:1.68;
-  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-  overflow-x:hidden;
-}
-::selection{background:var(--acc);color:#08090a}
-a{color:var(--t1);text-decoration:none;transition:color .16s ease,border-color .16s ease}
-strong{color:var(--t1);font-weight:540}
-
-/* ============ ambient background ============ */
-.aurora{
-  position:fixed;inset:-20%;z-index:0;pointer-events:none;
-  filter:blur(90px);opacity:.5;
-  background:
-    radial-gradient(38% 44% at 22% 18%,rgba(255,146,71,.20),transparent 70%),
-    radial-gradient(32% 40% at 78% 12%,rgba(255,107,74,.13),transparent 70%),
-    radial-gradient(42% 46% at 62% 58%,rgba(255,146,71,.07),transparent 72%);
-  background-size:180% 180%;
-}
-.grain{
-  position:fixed;inset:-60%;z-index:1;pointer-events:none;opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  will-change:transform;
-}
-@media (prefers-reduced-motion:no-preference){
-  .grain{animation:gr 7s steps(6) infinite}
-  @keyframes gr{
-    0%{transform:translate(0,0)}   33%{transform:translate(-2.5%,1.5%)}
-    66%{transform:translate(1.8%,-2%)} 100%{transform:translate(0,0)}
-  }
-}
-
-/* ============ shell ============ */
-.shell{
-  max-width:1240px;margin:0 auto;padding:0 48px;
-  display:grid;grid-template-columns:236px minmax(0,1fr);gap:80px;
-  align-items:start;position:relative;z-index:2;
-}
-
-/* ============ rail ============ */
-.rail{position:sticky;top:56px;padding:84px 0 40px}
-.pf{width:56px;height:56px;border-radius:50%;object-fit:cover;display:block;margin-bottom:16px;border:1px solid var(--b-strong)}
-.rail .nm{font-size:18px;font-weight:560;letter-spacing:-.022em;color:var(--t1);line-height:1.25;margin-bottom:8px}
-.rail .role{font-size:14px;line-height:1.6;color:var(--t3);margin-bottom:20px}
-.avail{
-  display:inline-flex;align-items:center;gap:7px;margin-bottom:24px;
-  font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.05em;
-  color:var(--t3);background:var(--panel);border:1px solid var(--b-std);
-  border-radius:100px;padding:5px 11px 5px 9px;white-space:nowrap;
-}
-.dot{width:5px;height:5px;border-radius:50%;background:#2ea043;flex:none;box-shadow:0 0 0 3px rgba(46,160,67,.18)}
-@media (prefers-reduced-motion:no-preference){
-  .dot{animation:pulse 2.4s ease-in-out infinite}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(46,160,67,.18)}50%{box-shadow:0 0 0 6px rgba(46,160,67,.05)}}
-}
-.rail nav{display:flex;flex-direction:column;gap:10px;padding-top:22px;border-top:1px solid var(--b-subtle)}
-.rail nav a{
-  font-size:14px;color:var(--t3);font-weight:450;width:fit-content;position:relative;
-  padding-bottom:2px;
-}
-.rail nav a::after{
-  content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
-  background:var(--acc);transform:scaleX(0);transform-origin:right;
-  transition:transform .28s cubic-bezier(.4,0,.2,1);
-}
-.rail nav a:hover{color:var(--t1)}
-.rail nav a:hover::after{transform:scaleX(1);transform-origin:left}
-.rail .tz{
-  font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--t4);
-  letter-spacing:.04em;margin-top:22px;padding-top:20px;
-  border-top:1px solid var(--b-subtle);line-height:1.8;
-}
-
-/* ============ content ============ */
-.col{padding:84px 0 0;min-width:0}
-
-h1{
-  font-size:clamp(32px,3.6vw,45px);font-weight:540;line-height:1.08;
-  letter-spacing:-.032em;color:var(--t1);margin-bottom:22px;
-  text-wrap:balance;max-width:19ch;
-}
-.lede{font-size:19px;line-height:1.56;color:var(--t2);letter-spacing:-.012em;max-width:54ch;text-wrap:pretty}
-.lede b{color:var(--t1);font-weight:540}
-.intro{margin-top:36px;max-width:62ch}
-.intro p{margin-bottom:16px;line-height:1.72;text-wrap:pretty}
-.intro p:last-child{margin-bottom:0}
-
-article{margin-top:64px;padding-top:56px;border-top:1px solid var(--b-subtle)}
-.tag{
-  font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--acc);margin-bottom:13px;
-}
-h2{
-  font-size:clamp(21px,2.4vw,27px);font-weight:540;line-height:1.16;
-  letter-spacing:-.028em;color:var(--t1);margin-bottom:8px;text-wrap:balance;max-width:24ch;
-}
-.client{
-  font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.04em;
-  color:var(--t3);margin-bottom:26px;line-height:1.65;
-}
-.prose{max-width:64ch}
-.prose p{margin-bottom:16px;line-height:1.72;text-wrap:pretty}
-.prose p:last-child{margin-bottom:0}
-h3{
-  font-family:"JetBrains Mono",monospace;font-size:9.5px;font-weight:500;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin:36px 0 15px;
-}
-
-/* ============ company header ============ */
-.co{display:flex;align-items:center;gap:14px;margin-bottom:16px}
-.logo{
-  width:42px;height:42px;border-radius:9px;flex:none;
-  display:grid;place-items:center;overflow:hidden;
-  background:var(--panel);border:1px solid var(--b-std);
-  font-size:17px;font-weight:600;color:var(--t1);letter-spacing:-.02em;
-  transition:border-color .25s ease,transform .25s ease;
-}
-.logo img{width:100%;height:100%;object-fit:contain;padding:6px}
-article:hover .logo{border-color:var(--b-strong)}
-.co-name{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:clamp(21px,2.4vw,27px);font-weight:560;letter-spacing:-.028em;
-  color:var(--t1);line-height:1.15;
-}
-.co-name .ext{
-  font-size:.55em;color:var(--t4);transition:transform .22s ease,color .22s ease;
-  display:inline-block;
-}
-.co-name:hover{color:var(--acc)}
-.co-name:hover .ext{color:var(--acc);transform:translate(2px,-2px)}
-.co-sub{
-  font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.04em;
-  color:var(--t4);margin-top:5px;line-height:1.6;
-}
-.built{
-  font-size:17.5px;font-weight:540;letter-spacing:-.02em;color:var(--t2);
-  margin-bottom:20px;padding-left:14px;border-left:2px solid var(--acc);
-  line-height:1.4;max-width:40ch;
-}
-
-/* ============ flow ============ */
-.flow{position:relative;padding-left:30px;margin:0;list-style:none}
-.flow-line{
-  position:absolute;left:4px;top:9px;bottom:9px;width:1px;
-  background:linear-gradient(180deg,var(--b-strong),var(--b-std) 70%,transparent);
-  transform-origin:top;
-}
-.fstep{position:relative;display:flex;gap:16px;align-items:baseline;padding-bottom:19px}
-.fstep:last-child{padding-bottom:0}
-.fnode{
-  position:absolute;left:-30px;top:6px;width:9px;height:9px;border-radius:50%;
-  background:var(--bg);border:1.5px solid var(--b-strong);box-sizing:border-box;
-  transition:border-color .25s ease;
-}
-.fstep.key .fnode{
-  background:var(--acc);border-color:var(--acc);
-  box-shadow:0 0 0 4px rgba(255,146,71,.13),0 0 14px rgba(255,146,71,.4);
-}
-.fnum{
-  font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--t4);
-  letter-spacing:.06em;flex:none;width:16px;padding-top:1px;
-}
-.fstep.key .fnum{color:var(--acc)}
-.fbody{min-width:0}
-.fbody b{
-  font-size:15px;font-weight:540;color:var(--t1);letter-spacing:-.012em;
-  display:inline;margin-right:9px;
-}
-.fstep.key .fbody b{color:var(--acc)}
-.fbody span{
-  font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--t3);
-  line-height:1.6;letter-spacing:.01em;
-}
-.flow-note{
-  margin:18px 0 0 30px;padding-top:14px;border-top:1px solid var(--b-subtle);
-  font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--t3);
-  letter-spacing:.02em;line-height:1.7;max-width:58ch;
-}
-
-/* ============ stats ============ */
-.stats{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(152px,1fr));
-  gap:1px;background:var(--b-subtle);
-  border:1px solid var(--b-subtle);border-radius:9px;overflow:hidden;
-}
-.stat{
-  background:var(--panel);padding:18px 16px;position:relative;
-  transition:background .25s ease;
-}
-.stat::before{
-  content:"";position:absolute;left:0;top:0;width:100%;height:1px;
-  background:linear-gradient(90deg,var(--acc),transparent);
-  transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.4,0,.2,1);
-}
-.stat:hover{background:var(--raised)}
-.stat:hover::before{transform:scaleX(1)}
-.stat .v{
-  font-variant-numeric:tabular-nums;font-size:24px;font-weight:540;
-  letter-spacing:-.035em;color:var(--t1);line-height:1;margin-bottom:7px;display:block;
-}
-.stat.hi .v{color:var(--acc)}
-.stat .k{font-size:12.5px;line-height:1.42;color:var(--t3);text-wrap:balance}
-
-/* ============ skills ============ */
-.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px 34px;margin-top:8px}
-.skill-group h4{
-  font-family:"JetBrains Mono",monospace;font-size:9.5px;font-weight:500;
-  letter-spacing:.17em;text-transform:uppercase;color:var(--acc);
-  margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--b-subtle);
-}
-.skill-group ul{list-style:none;margin:0;padding:0}
-.skill-group li{
-  font-size:14.5px;line-height:1.8;color:var(--t2);
-  display:flex;align-items:baseline;gap:8px;
-}
-.skill-group li::before{content:"";width:3px;height:3px;border-radius:50%;background:var(--t4);flex:none}
-.skill-group li.k{color:var(--t1);font-weight:540}
-.skill-group li.k::before{background:var(--acc)}
-
-.also{margin-top:34px;padding-top:26px;border-top:1px solid var(--b-subtle);max-width:62ch}
-.also p{margin-bottom:14px;color:var(--t3);font-size:15.5px;line-height:1.75}
-.also p:last-child{margin-bottom:0}
-.also b{color:var(--t2);font-weight:540}
-
-/* ============ footer ============ */
-footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)}
-.cta{
-  font-size:clamp(19px,2.2vw,24px);font-weight:540;letter-spacing:-.026em;
-  color:var(--t1);line-height:1.28;margin-bottom:22px;max-width:26ch;text-wrap:balance;
-}
-.btns{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:36px}
-.btn{
-  display:inline-flex;align-items:center;font-size:13.5px;font-weight:540;
-  letter-spacing:-.005em;padding:9px 16px;border-radius:7px;
-  transition:background .2s ease,border-color .2s ease,color .2s ease;
-  will-change:transform;
-}
-.btn.solid{background:var(--acc);color:#08090a}
-.btn.solid:hover{background:#ffa970}
-.btn.ghost{background:rgba(255,255,255,.035);border:1px solid var(--b-std);color:var(--t2)}
-.btn.ghost:hover{background:rgba(255,255,255,.07);border-color:var(--b-strong);color:var(--t1)}
-.disclaim{font-family:"JetBrains Mono",monospace;font-size:9.5px;line-height:1.85;color:var(--t4);letter-spacing:.03em}
-
-/* ============ responsive ============ */
-@media (max-width:980px){
-  .shell{grid-template-columns:1fr;gap:0;padding:0 32px;max-width:720px}
-  .rail{position:static;padding:56px 0 0}
-  .rail nav{flex-direction:row;gap:20px;flex-wrap:wrap}
-  .col{padding-top:44px}
-}
-@media (max-width:560px){
-  body{font-size:15px}
-  .shell{padding:0 22px}
-  .flow{padding-left:24px}
-  .fnode{left:-24px}
-  .flow-note{margin-left:24px}
-  .fstep{flex-direction:column;gap:2px}
-  .fnum{width:auto}
-  article{margin-top:48px;padding-top:44px}
-}
-</style>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <div class="aurora"></div>
@@ -326,8 +42,12 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
       </div>
       <div class="intro" data-reveal>
         <p>Most of what I do is sit down with someone non-technical, work out what their system actually needs to do, then build it and keep it running. Data in, a way to tell whether it is working, and an interface the client actually opens. I taught myself the whole stack inside a year and my degree is in criminal justice, so I came at this from the problem rather than the tooling.</p>
-        <p>Three pieces of work below. Each one had a constraint that made the obvious approach wrong.</p>
-      </div>
+              </div>
+    </div>
+
+    <div class="sechead" data-reveal>
+      <h2 class="sectitle">Recent projects</h2>
+      <p class="secsub">Three systems running in production. Each had a constraint that made the obvious approach wrong.</p>
     </div>
 
     <article>
@@ -347,23 +67,7 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
         <p>I built three. The first works out what a caller actually needs and routes them, built for high inbound volume. The second is an intake line for people who just lost their health insurance along with their job, qualifying the caller and warm transferring to a licensed human rather than trying to solve it. The third runs inside their Medicare Advantage funnel, where the compliance bar is higher again.</p>
       </div>
 
-      <h3>How it works</h3>
-      <div class="flow-wrap" data-pipe>
-        <ol class="flow">
-          <li class="flow-line"></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">01</span><span class="fbody"><b>Inbound call</b><span>intent unknown</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">02</span><span class="fbody"><b>Classify</b><span>what does this caller actually need</span></span></li>
-          <li class="fstep key"><span class="fnode"></span><span class="fnum">03</span><span class="fbody"><b>Guardrails</b><span>disclosure, scope limits, nothing improvised</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">04</span><span class="fbody"><b>Route</b><span>coverage, Medicare, or crisis path</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">05</span><span class="fbody"><b>Warm transfer</b><span>handed to a licensed human</span></span></li>
-        </ol>
-        <p class="flow-note">The guardrail step is the whole job. Everything else is plumbing.</p>
-      </div>
-
-      <h3>What it took</h3>
-      <div class="prose" data-reveal>
-        <p>I scoped all three by sitting with non-technical executives, built the flows, presented them back, and coordinated across departments to ship. Nobody handed me a spec.</p>
-      </div>
+      <a class="more" href="/work/healthcare-com/" data-reveal><span>Read the Healthcare.com case study</span><span class="marrow">&rarr;</span></a>
     </article>
 
     <article>
@@ -384,19 +88,6 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
         <p>The part I care about is the loop at the end. Every week I listen to real conversations, find where it handled something badly, and fix it. That is the difference between a demo and a system.</p>
       </div>
 
-      <h3>How it works</h3>
-      <div class="flow-wrap" data-pipe>
-        <ol class="flow">
-          <li class="flow-line"></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">01</span><span class="fbody"><b>Inbound call</b><span>customer or prospect, usually after hours</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">02</span><span class="fbody"><b>Agent</b><span>qualify, answer, capture</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">03</span><span class="fbody"><b>Shopify lookup</b><span>order status against live data</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">04</span><span class="fbody"><b>Resolve or escalate</b><span>human if it is high value</span></span></li>
-          <li class="fstep key"><span class="fnode"></span><span class="fnum">05</span><span class="fbody"><b>Weekly review</b><span>I listen to real calls and fix what broke</span></span></li>
-        </ol>
-        <p class="flow-note">The review loop feeds back into the agent every week. That is the difference between a demo and a system.</p>
-      </div>
-
       <h3>Results</h3>
       <div class="stats" data-stats>
         <div class="stat hi"><span class="v" data-count="89" data-suffix="%">89%</span><span class="k">of calls arrive after hours</span></div>
@@ -404,6 +95,7 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
         <div class="stat"><span class="v">8 mo</span><span class="k">retained, still running</span></div>
         <div class="stat"><span class="v">$21&ndash;302K</span><span class="k">range of pieces asked about</span></div>
       </div>
+      <a class="more" href="/work/world-of-luxury/" data-reveal><span>Read the World of Luxury case study</span><span class="marrow">&rarr;</span></a>
     </article>
 
     <article>
@@ -423,26 +115,14 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
         <p>Apify sources the list, n8n orchestrates, Clay enriches each prospect enough that the message can say something true and specific about them, and replies feed back so the targeting improves rather than repeats.</p>
       </div>
 
-      <h3>How it works</h3>
-      <div class="flow-wrap" data-pipe>
-        <ol class="flow">
-          <li class="flow-line"></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">01</span><span class="fbody"><b>Apify</b><span>source the list</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">02</span><span class="fbody"><b>n8n</b><span>orchestration</span></span></li>
-          <li class="fstep key"><span class="fnode"></span><span class="fnum">03</span><span class="fbody"><b>Clay</b><span>enrich until the message can say something true</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">04</span><span class="fbody"><b>LinkedIn</b><span>sequenced outreach, low volume</span></span></li>
-          <li class="fstep"><span class="fnode"></span><span class="fnum">05</span><span class="fbody"><b>Reply tracking</b><span>feeds back into targeting</span></span></li>
-        </ol>
-      </div>
-
       <h3>Results</h3>
       <div class="stats" data-stats>
         <div class="stat hi"><span class="v" data-count="30" data-suffix="%">30%</span><span class="k">reply rate, cold LinkedIn</span></div>
         <div class="stat"><span class="v" data-count="10" data-prefix="~" data-suffix="&times;">~10&times;</span><span class="k">above channel benchmark</span></div>
         <div class="stat"><span class="v">3</span><span class="k">tools, no volume play</span></div>
       </div>
+      <a class="more" href="/work/flock-bio/" data-reveal><span>Read the Flock Bio case study</span><span class="marrow">&rarr;</span></a>
     </article>
-
 
     <article>
       <div data-reveal>
@@ -508,116 +188,6 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
-<script defer>
-window.addEventListener('load', function () {
-  // Fail safe: if any library did not load, the page is already fully visible.
-  if (!window.gsap || !window.ScrollTrigger) return;
-
-  gsap.registerPlugin(ScrollTrigger);
-  var hasSplit = !!window.SplitText;
-  if (hasSplit) gsap.registerPlugin(SplitText);
-
-  var mm = gsap.matchMedia();
-
-  mm.add({
-    motion: '(prefers-reduced-motion: no-preference)',
-    fine:   '(pointer: fine)'
-  }, function (ctx) {
-    var motion = ctx.conditions.motion, fine = ctx.conditions.fine;
-    if (!motion) return;
-
-    /* ---- smooth scroll, deliberately light ---- */
-    if (window.Lenis) {
-      var lenis = new Lenis({ autoRaf: false, anchors: true, duration: 0.85, syncTouch: false });
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
-      gsap.ticker.lagSmoothing(0);
-    }
-
-    /* ---- rail ---- */
-    gsap.from('.rail > *', { y: 14, autoAlpha: 0, filter: 'blur(5px)', duration: .75, stagger: .07, ease: 'power2.out', delay: .15 });
-
-    /* ---- headline: masked per-line rise ---- */
-    if (hasSplit) {
-      document.fonts.ready.then(function () {
-        SplitText.create('.headline', {
-          type: 'lines', mask: 'lines', autoSplit: true, aria: 'auto',
-          onSplit: function (self) {
-            return gsap.from(self.lines, { yPercent: 115, duration: .95, stagger: .09, ease: 'power3.out' });
-          }
-        });
-      });
-    }
-
-    /* ---- generic block reveals ---- */
-    gsap.utils.toArray('[data-reveal]').forEach(function (el) {
-      gsap.from(el.children, {
-        y: 26, autoAlpha: 0, filter: 'blur(7px)', duration: .8, stagger: .07, ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-      });
-    });
-
-    /* ---- pipelines draw themselves step by step ---- */
-    gsap.utils.toArray('[data-pipe]').forEach(function (pipe) {
-      var tl = gsap.timeline({ scrollTrigger: { trigger: pipe, start: 'top 82%', once: true } });
-      tl.from(pipe.querySelector('.flow-line'), { scaleY: 0, duration: .75, ease: 'power2.out' })
-        .from(pipe.querySelectorAll('.fnode'), { scale: 0, autoAlpha: 0, duration: .35, stagger: .1, ease: 'back.out(2.2)' }, '-=.55')
-        .from(pipe.querySelectorAll('.fnum, .fbody'), { x: -12, autoAlpha: 0, duration: .45, stagger: .05, ease: 'power2.out' }, '-=.8')
-        .from(pipe.querySelectorAll('.flow-note'), { autoAlpha: 0, duration: .4 }, '-=.25');
-    });
-
-    /* ---- stat tiles ---- */
-    gsap.utils.toArray('[data-stats]').forEach(function (grid) {
-      gsap.from(grid.querySelectorAll('.stat'), {
-        autoAlpha: 0, y: 18, filter: 'blur(6px)', duration: .6, stagger: .07, ease: 'power2.out',
-        scrollTrigger: { trigger: grid, start: 'top 88%', once: true }
-      });
-    });
-
-    /* ---- count up on real numbers only ---- */
-    gsap.utils.toArray('[data-count]').forEach(function (el) {
-      var end = parseFloat(el.dataset.count),
-          pre = el.dataset.prefix || '', suf = el.dataset.suffix || '',
-          o = { v: 0 };
-      gsap.to(o, {
-        v: end, duration: 1.6, ease: 'power2.out', snap: { v: 1 },
-        onUpdate: function () { el.innerHTML = pre + Math.round(o.v) + suf; },
-        scrollTrigger: { trigger: el, start: 'top 92%', once: true }
-      });
-    });
-
-    /* ---- magnetic buttons, precise pointers only ---- */
-    if (fine) {
-      document.querySelectorAll('.magnetic').forEach(function (b) {
-        var xTo = gsap.quickTo(b, 'x', { duration: .45, ease: 'power3' }),
-            yTo = gsap.quickTo(b, 'y', { duration: .45, ease: 'power3' });
-        b.addEventListener('pointermove', function (e) {
-          var r = b.getBoundingClientRect();
-          xTo((e.clientX - r.left - r.width / 2) * .3);
-          yTo((e.clientY - r.top - r.height / 2) * .45);
-        });
-        b.addEventListener('pointerleave', function () { xTo(0); yTo(0); });
-      });
-
-      /* ---- aurora drifts with the cursor, very slightly ---- */
-      var aur = document.querySelector('.aurora');
-      if (aur) {
-        var ax = gsap.quickTo(aur, 'xPercent', { duration: 1.6, ease: 'power2' }),
-            ay = gsap.quickTo(aur, 'yPercent', { duration: 1.6, ease: 'power2' });
-        window.addEventListener('pointermove', function (e) {
-          ax((e.clientX / window.innerWidth - .5) * 6);
-          ay((e.clientY / window.innerHeight - .5) * 6);
-        });
-      }
-    }
-
-    /* ---- aurora slow drift, always on when motion allowed ---- */
-    gsap.to('.aurora', {
-      backgroundPosition: '100% 100%', duration: 26,
-      ease: 'sine.inOut', repeat: -1, yoyo: true
-    });
-  });
-});
-</script>
+<script src="/motion.js" defer></script>
 </body>
 </html>
