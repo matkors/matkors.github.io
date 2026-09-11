@@ -40,15 +40,42 @@
         </div>
       </div>
     </div>
+      <div class="glance" data-reveal>
+        <div class="gi"><span class="l">Role</span><span class="v">Built the system</span></div>
+        <div class="gi"><span class="l">Channel</span><span class="v">LinkedIn outbound</span></div>
+        <div class="gi"><span class="l">Built</span><span class="v">Enrichment pipeline</span></div>
+        <div class="gi"><span class="l">Result</span><span class="v">30% reply rate</span></div>
+      </div>
       <div class="pull" data-reveal>
       <p>The list was small and the wrong message would burn it. So the system spends its effort on targeting and enrichment instead of send volume.</p>
       </div>
-      <h2 class="sec" data-reveal>The problem</h2>
-      <div class="prose" data-reveal>
-      <p>Flock Bio sells pooled DNA libraries to a narrow technical audience: people running CRISPR screens, protein and enzyme engineering, MPRAs, CAR-T libraries. That is not a market you can spray.</p>
-      <p>The usual outbound playbook is volume plus templating, and it fails here twice over. The addressable list is small enough that burning it has a real cost, and the buyers are technical enough that a generic message marks you immediately as someone who does not understand what they do.</p>
+      <div data-reveal>
+        <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
+        <h2 class="sec">A market too narrow to spray</h2>
       </div>
-      <h2 class="sec" data-reveal>The system</h2>
+      <div class="prose" data-reveal>
+      <p>Flock Bio sells high-throughput pooled DNA libraries to a specific technical audience: people running CRISPR screens, protein and enzyme engineering, promoter MPRAs, CAR-T libraries. The buyer is usually a scientist, not a procurement function.</p>
+      <p>They needed pipeline, and the default answer in outbound is volume. That answer does not work here.</p>
+      </div>
+      <div data-reveal>
+        <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
+        <h2 class="sec">You only get one pass at the list</h2>
+      </div>
+      <div class="prose" data-reveal>
+      <p>Two things break the usual playbook at the same time. The addressable list is small enough that burning it has a real cost, so there is no version of this where you send ten thousand messages and accept a low hit rate. And the buyers are technical enough that a generic message marks you instantly as someone who does not understand what they do, which is disqualifying in a field where credibility is the product.</p>
+      <p>So the constraint is that every message has to be worth receiving the first time, because there is no second list.</p>
+      </div>
+      <div class="pull" data-reveal>
+      <p>One message that proves you read their work beats forty that prove you did not.</p>
+      </div>
+      <div data-reveal>
+        <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
+        <h2 class="sec">A pipeline that spends its budget on enrichment</h2>
+      </div>
+      <div class="prose" data-reveal>
+      <p>Apify builds the raw prospect list. n8n orchestrates the whole thing and handles sequencing. Clay enriches each prospect far enough that the opening line can reference something specific and accurate about their actual research rather than their job title. Replies are tracked back so targeting sharpens across the campaign instead of repeating.</p>
+      <p>The deliberate trade: fewer sends, far more spent per prospect on knowing who they are before writing to them.</p>
+      </div>
       <div class="flow-wrap" data-pipe>
         <ol class="flow">
           <li class="flow-line"></li>
@@ -60,11 +87,10 @@
         </ol>
         <p class="flow-note">Enrichment is the expensive step and the one that earns the reply rate.</p>
       </div>
-      <div class="prose" data-reveal>
-      <p>Apify builds the raw prospect list. n8n orchestrates and handles sequencing. Clay enriches each prospect far enough that the opening line can reference something specific and accurate about their actual work rather than their job title. Replies are tracked back so targeting improves across the campaign instead of repeating.</p>
-      <p>The design principle: one message that proves you read their work beats forty that prove you did not.</p>
+      <div data-reveal>
+        <div class="secnum">04 &nbsp;&middot;&nbsp; The results</div>
+        <h2 class="sec">An order of magnitude above the channel</h2>
       </div>
-      <h2 class="sec" data-reveal>The result</h2>
       <div class="stats" data-stats>
         <div class="stat hi"><span class="v" data-count="30" data-suffix="%">30%</span><span class="k">reply rate, cold LinkedIn</span></div>
         <div class="stat"><span class="v">~10&times;</span><span class="k">above channel benchmark</span></div>
@@ -73,9 +99,19 @@
       <div class="prose" data-reveal>
       <p>Cold LinkedIn outreach benchmarks sit in the low single digits. A 30% reply rate on a technical B2B audience is an order of magnitude above that, and it came from targeting quality rather than send volume.</p>
       </div>
-      <h2 class="sec" data-reveal>The numbers</h2>
       <div class="shot-pending">LinkedIn outreach metrics screenshot goes here<br>save it into /shots/ and I will place it</div>
-      <h2 class="sec" data-reveal>Stack</h2>
+      <div data-reveal>
+        <div class="secnum">05 &nbsp;&middot;&nbsp; What it taught me</div>
+        <h2 class="sec">Enrichment is cheaper than a burned list</h2>
+      </div>
+      <div class="prose" data-reveal>
+      <p>The instinct in outbound is to treat send volume as the lever because it is the one that is easy to turn. On a narrow list that instinct is actively destructive: every generic message you send removes a prospect you cannot replace.</p>
+      <p>Spending real money and compute per prospect felt expensive until you price the alternative, which is spending a finite list to learn nothing. That trade is the whole system, and it is the part that transfers to any market where the total number of real buyers is small.</p>
+      </div>
+      <div data-reveal>
+        <div class="secnum">&mdash; &nbsp;&middot;&nbsp; Stack</div>
+        <h2 class="sec">What it runs on</h2>
+      </div>
       <div class="stack" data-reveal>
         <span class="chip"><img src="/logos/tools/apify.png" alt="">Apify</span>
         <span class="chip"><img src="/logos/tools/n8n.png" alt="">n8n</span>

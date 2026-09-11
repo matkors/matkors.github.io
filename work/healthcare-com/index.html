@@ -40,21 +40,43 @@
         </div>
       </div>
     </div>
+      <div class="glance" data-reveal>
+        <div class="gi"><span class="l">Role</span><span class="v">Voice AI engineer, contract</span></div>
+        <div class="gi"><span class="l">Period</span><span class="v">May 2026 &ndash; present</span></div>
+        <div class="gi"><span class="l">Built</span><span class="v">Three inbound agents</span></div>
+        <div class="gi"><span class="l">Status</span><span class="v">In production</span></div>
+      </div>
       <div class="pull" data-reveal>
       <p>Most voice AI is a booking bot for a salon. This one sits inside health insurance, where an agent that says the wrong thing about coverage is not a bad customer experience, it is a compliance problem.</p>
       </div>
-      <h2 class="sec" data-reveal>The constraint</h2>
-      <div class="prose" data-reveal>
-      <p>Everything the agent says has to hold up against AI disclosure requirements and CMS marketing rules. It cannot improvise about plans, prices or eligibility, and it cannot imply a government affiliation. In a normal voice project the hard part is making the agent sound natural. Here the hard part is making it refuse cleanly, stay inside a scope, and hand off before it guesses.</p>
-      <p>That changes the build. The interesting work is not the conversation, it is the boundary around the conversation.</p>
+      <div data-reveal>
+        <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
+        <h2 class="sec">Callers arrive without knowing what they need</h2>
       </div>
-      <h2 class="sec" data-reveal>What I built</h2>
+      <div class="prose" data-reveal>
+      <p>Health insurance is a category where people call confused. They do not know which plan type applies to them, whether they qualify for a subsidy, or whether the thing they are worried about is even covered. A legacy phone menu asks them to self-select into a category they cannot yet identify, so they pick wrong, get routed wrong, and either hang up or waste a licensed agent&rsquo;s time.</p>
+      <p>At high inbound volume that misrouting is expensive in both directions: callers who needed help do not get it, and expensive humans spend their day redirecting people.</p>
+      </div>
+      <div data-reveal>
+        <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
+        <h2 class="sec">The agent is not allowed to improvise</h2>
+      </div>
+      <div class="prose" data-reveal>
+      <p>Everything the agent says has to hold up against AI disclosure requirements and CMS marketing rules. It cannot improvise about plans, prices or eligibility, and it cannot imply a government affiliation.</p>
+      <p>That inverts the usual build. In a normal voice project the hard part is making the agent sound natural and handle the long tail. Here the hard part is making it refuse cleanly, stay inside a defined scope, and hand off <em>before</em> it guesses. A model that is helpful in the general case is actively dangerous in this one.</p>
+      </div>
+      <div class="pull" data-reveal>
+      <p>The interesting work is not the conversation. It is the boundary around the conversation.</p>
+      </div>
+      <div data-reveal>
+        <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
+        <h2 class="sec">Three agents, one guardrail layer</h2>
+      </div>
       <ul class="bul" data-reveal>
-        <li><b>A routing agent.</b> Works out what a caller actually needs and sends them down the right path. Built for high inbound volume.</li>
+        <li><b>A routing agent.</b> Works out what a caller actually needs from how they describe their situation, rather than asking them to pick a menu option, and sends them down the right path. Built for high inbound volume.</li>
         <li><b>A job loss intake line.</b> For people who just lost their health insurance along with their job. It qualifies the caller and warm transfers to a licensed human rather than trying to solve it, because that is not a call an agent should be closing.</li>
         <li><b>A Medicare Advantage agent.</b> Runs inside that funnel, where the compliance bar is higher again.</li>
       </ul>
-      <h2 class="sec" data-reveal>The shape of it</h2>
       <div class="flow-wrap" data-pipe>
         <ol class="flow">
           <li class="flow-line"></li>
@@ -66,21 +88,31 @@
         </ol>
         <p class="flow-note">The guardrail step is the whole job. Everything else is plumbing.</p>
       </div>
-      <h2 class="sec" data-reveal>How I worked</h2>
-      <div class="prose" data-reveal>
-      <p>I scoped all three by sitting with non-technical executives, mapped the use cases with senior stakeholders, built the flows, presented them back in plain language, and coordinated across product, engineering, compliance and operations to ship. Nobody handed me a spec.</p>
-      <p>Compliance reviewed and approved agent behaviour and messaging before anything went live. On a project like this that review cycle is not overhead, it is the project.</p>
+      <div data-reveal>
+        <div class="secnum">04 &nbsp;&middot;&nbsp; The results</div>
+        <h2 class="sec">What I am able to share</h2>
       </div>
-      <h2 class="sec" data-reveal>Stack</h2>
+      <div class="gate" data-reveal>
+        <div class="lbl">Confidentiality</div>
+        <p>My contract with Healthcare.com is specific, and their operational detail sits inside it: call volumes, conversion and containment figures, internal product names, and the flows themselves. Publishing any of that would breach it, so this page stops at the shape of the problem and the approach. All three agents are built and in production. I am happy to talk through the reasoning on a call, within the same limits.</p>
+      </div>
+      <div data-reveal>
+        <div class="secnum">05 &nbsp;&middot;&nbsp; What it taught me</div>
+        <h2 class="sec">Compliance review is the project, not overhead</h2>
+      </div>
+      <div class="prose" data-reveal>
+      <p>I scoped all three by sitting with non-technical executives, mapped use cases with senior stakeholders, built the flows, presented them back in plain language, and coordinated across product, engineering, compliance and operations to ship. Nobody handed me a spec.</p>
+      <p>The thing I would tell anyone building in a regulated category: get compliance into the design conversation before you build, not after. Every hour spent agreeing what the agent may not say saves a week of rework, and it is the only way the thing actually ships rather than sitting in review.</p>
+      </div>
+      <div data-reveal>
+        <div class="secnum">&mdash; &nbsp;&middot;&nbsp; Stack</div>
+        <h2 class="sec">What it runs on</h2>
+      </div>
       <div class="stack" data-reveal>
         <span class="chip"><img src="/logos/tools/retell.svg" alt="" class="wide">Retell AI</span>
         <span class="chip"><img src="/logos/tools/vapi.png" alt="">VAPI</span>
         <span class="chip"><img src="/logos/tools/n8n.png" alt="">n8n</span>
         <span class="chip"><img src="/logos/tools/claude.png" alt="">Claude</span>
-      </div>
-      <div class="gate" data-reveal>
-        <div class="lbl">Where this stops</div>
-        <p>My contract with Healthcare.com is specific about confidentiality, and their operational detail sits inside it: call volumes, internal product names, flows, performance data. So this page describes the shape of the problem and how I approached it, and stops there deliberately. Happy to talk through the approach and the reasoning on a call, within the same limits.</p>
       </div>
     <h2 class="sec">Other work</h2>
     <div class="nextprev" data-reveal>

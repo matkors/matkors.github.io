@@ -36,22 +36,42 @@
         <div class="logo"><img src="/logos/wol-logo.png" alt="World of Luxury"></div>
         <div>
           <h1>World of Luxury</h1>
-          <div class="case-meta">Luxury watches and jewelry, Aventura FL &nbsp;&middot;&nbsp; ~$500K/yr on Shopify &nbsp;&middot;&nbsp; 8-month retainer &nbsp;·&nbsp; <a href="https://worldofluxuryus.com" target="_blank" rel="noopener">worldofluxuryus.com &#8599;</a></div>
+          <div class="case-meta">Luxury watches and jewelry, Aventura FL &nbsp;&middot;&nbsp; ~$500K/yr on Shopify &nbsp;·&nbsp; <a href="https://worldofluxuryus.com" target="_blank" rel="noopener">worldofluxuryus.com &#8599;</a></div>
         </div>
       </div>
     </div>
+      <div class="glance" data-reveal>
+        <div class="gi"><span class="l">Role</span><span class="v">Built and run it</span></div>
+        <div class="gi"><span class="l">Period</span><span class="v">8-month retainer</span></div>
+        <div class="gi"><span class="l">Built</span><span class="v">Inbound voice agent</span></div>
+        <div class="gi"><span class="l">Status</span><span class="v">Live, reviewed weekly</span></div>
+      </div>
       <div class="pull" data-reveal>
       <p>Building a voice agent is the easy part. Keeping one alive on someone&rsquo;s real phone line, month after month, is the part most people never reach.</p>
       </div>
-      <h2 class="sec" data-reveal>The problem</h2>
+      <div data-reveal>
+        <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
+        <h2 class="sec">Their customers call when the showroom is shut</h2>
+      </div>
       <div class="prose" data-reveal>
       <p>The showroom is open Monday to Friday, ten to five. Their customers are not. People shop for a $40,000 watch at eleven at night and on Sunday afternoons, and every one of those calls used to land in a voicemail box nobody was going to action before Monday.</p>
       <p>For a dealer whose average inquiry is worth more than most people&rsquo;s cars, a missed call is not an inconvenience. It is the margin on a piece walking to whichever competitor picked up.</p>
       </div>
-      <h2 class="sec" data-reveal>What I built</h2>
+      <div data-reveal>
+        <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
+        <h2 class="sec">It has to be honest and it has to be right</h2>
+      </div>
+      <div class="prose" data-reveal>
+      <p>Three things made the obvious build wrong. It cannot pretend to be human, because these are high-trust purchases and getting caught faking it costs more than the call. It cannot invent product details, because quoting the wrong reference or price on a six-figure watch is a real problem, which means every answer has to come from live inventory rather than the model. And it has to take recording consent properly, on every call, before anything else happens.</p>
+      <p>So the agent is deliberately narrow: it answers from data or it does not answer, and when it does not know, it captures the lead and commits to a callback window instead of guessing.</p>
+      </div>
+      <div data-reveal>
+        <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
+        <h2 class="sec">An agent that answers from live data</h2>
+      </div>
       <div class="prose" data-reveal>
       <p>An inbound agent, Natalie, that answers every call. It takes consent for recording, works out what the caller wants, looks up live product and order data against Shopify, answers what it can, and captures a qualified lead with a callback commitment when it cannot.</p>
-      <p>It never pretends to be human. When someone asks, it says it is virtual, and the call usually carries on.</p>
+      <p>It never pretends to be human. When someone asks, it says it is virtual, and the call almost always carries on.</p>
       </div>
       <div class="flow-wrap" data-pipe>
         <ol class="flow">
@@ -64,9 +84,12 @@
         </ol>
         <p class="flow-note">The review loop is the part that matters. Without it this is a demo that degrades quietly.</p>
       </div>
-      <h2 class="sec" data-reveal>What the data says</h2>
+      <div data-reveal>
+        <div class="secnum">04 &nbsp;&middot;&nbsp; The results</div>
+        <h2 class="sec">Coded by hand, not pulled from a dashboard</h2>
+      </div>
       <div class="prose" data-reveal>
-      <p>I coded every call in a recent sample by arrival time, intent, outcome and whether a lead was actually captured. Not call counts, which tell you nothing on their own, but what happened at the end of each one.</p>
+      <p>I went through every call in a recent sample and coded each one by arrival time, intent, outcome, and whether a lead was actually captured. Call counts on their own tell you nothing. What matters is what happened at the end.</p>
       </div>
       <div class="stats" data-stats>
         <div class="stat hi"><span class="v" data-count="89" data-suffix="%">89%</span><span class="k">of calls arrive after hours</span></div>
@@ -75,29 +98,34 @@
         <div class="stat"><span class="v">$21&ndash;302K</span><span class="k">range of pieces asked about</span></div>
       </div>
       <div class="prose" data-reveal>
-      <p>The 89% is what justifies the whole system. Nearly nine in ten calls land outside the hours anyone is there to answer them, and a large share of those are weekends.</p>
-      <p>The 72% is measured against genuine inquiries only. I excluded wrong numbers, people trying to reach a different dealer, one caller chasing a Macy&rsquo;s order, and a couple who were abusive. Counting those would have flattered the number and taught me nothing.</p>
-      <p>The value range is what callers actually asked about in that window: a Richard Mille at $302,500, a Jaeger-LeCoultre tourbillon at $41,000, a Corum at $21,000, plus Breguet, Patek Philippe and an Audemars Piguet Royal Oak Grande Complication. These are not $50 support calls.</p>
+      <p><b>89% is the number that justifies the system.</b> Nearly nine in ten calls land outside the hours anyone is there to answer them, and a large share of those are weekends.</p>
+      <p><b>72% is measured against genuine inquiries only.</b> I excluded wrong numbers, people trying to reach a different dealer, one caller chasing a Macy&rsquo;s order, and a couple who were abusive. Counting those would have flattered the number and taught me nothing.</p>
+      <p><b>The value range is what callers actually asked about</b> in that window: a Richard Mille at $302,500, a Jaeger-LeCoultre tourbillon at $41,000, a Corum at $21,000, plus Breguet, Patek Philippe and an Audemars Piguet Royal Oak Grande Complication. These are not $50 support calls.</p>
       </div>
-      <h2 class="sec" data-reveal>What the review loop found</h2>
+      <div data-reveal>
+        <div class="secnum">05 &nbsp;&middot;&nbsp; What it taught me</div>
+        <h2 class="sec">The failures are invisible in the success rate</h2>
+      </div>
       <div class="prose" data-reveal>
       <p>Reading transcripts is how you find the things no dashboard surfaces. Three real ones from the last pass:</p>
       </div>
       <ul class="bul" data-reveal>
-        <li><b>A broken email domain.</b> The agent was reading the contact address out as &ldquo;world of luxurious dot com&rdquo;, and once as &ldquo;world of flux dot com&rdquo;. Every seller routed to email was handed an address that does not exist. A silent, total loss on an entire lead category.</li>
+        <li><b>A broken email domain.</b> The agent was reading the contact address out as &ldquo;world of luxurious dot com&rdquo;, and once as &ldquo;world of flux dot com&rdquo;. Every seller routed to email was handed an address that does not exist. A silent, total loss on an entire lead category, and every one of those calls was logged as successful.</li>
         <li><b>Lead capture asked too late.</b> Several callers answered three or four product questions, then hung up the moment the agent asked for a first name. The ask was arriving cold at the end instead of being earned earlier in the call.</li>
-        <li><b>No recovery from a misheard name.</b> One caller&rsquo;s name came through as &ldquo;12&rdquo;. The agent had no path back and the call timed out, losing a $21,000 inquiry at the last step.</li>
+        <li><b>No recovery from a misheard name.</b> One caller&rsquo;s name came through as &ldquo;12&rdquo;. The agent had no path back, and the call timed out losing a $21,000 inquiry at the final step.</li>
       </ul>
       <div class="pull" data-reveal>
       <p>None of those show up in a success rate. You only find them by listening to calls that technically completed.</p>
       </div>
-      <h2 class="sec" data-reveal>Stack</h2>
+      <div data-reveal>
+        <div class="secnum">&mdash; &nbsp;&middot;&nbsp; Stack</div>
+        <h2 class="sec">What it runs on</h2>
+      </div>
       <div class="stack" data-reveal>
         <span class="chip"><img src="/logos/tools/retell.svg" alt="" class="wide">Retell AI</span>
         <span class="chip"><img src="/logos/tools/n8n.png" alt="">n8n</span>
         <span class="chip"><img src="/logos/tools/shopify.png" alt="">Shopify</span>
       </div>
-      <h2 class="sec" data-reveal>The build</h2>
       <div class="shot-pending">n8n workflow screenshot goes here<br>save it into /shots/ and I will place it</div>
     <h2 class="sec">Other work</h2>
     <div class="nextprev" data-reveal>
