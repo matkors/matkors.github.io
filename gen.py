@@ -259,6 +259,8 @@ fb += '\n'.join([
     ]),
     prose('<b>Then deduplication by intent.</b> The same person often reacts and comments on the same post. Each action is scored &mdash; post 3, comment 2, reaction 1 &mdash; keyed by person and post, and only their highest-intent action survives. A commenter is a warmer lead than a reactor, and the record should say so.',
           'Everything lands in Clay, batched to stay inside rate limits, where waterfall enrichment fills in company, size and position. An LLM inside Clay then scores lead quality.'),
+    fig('Fig 1', 'Sourcing and qualification', 'flockbio-scraper.png',
+        'Apify scrapes the week&rsquo;s posts, a mechanical <b>Filter</b> drops company pages, an LLM judges industry relevance, then two code steps re-attach the approved posts&rsquo; engagers and deduplicate them by intent before the batch pushes into Clay.'),
     pull('The scoring prompt was not written in a vacuum. We sent Flock Bio sample lists, they marked each lead good or not, and the criteria were rewritten against their answers until it matched what they actually wanted.'),
 
     layer('Workflow 2', 'Personalised outreach through HeyReach'),
@@ -268,11 +270,15 @@ fb += '\n'.join([
         '<b>Post authors</b> get a message referencing their own post.',
         '<b>Engagers</b> get a message referencing the post they engaged with, which needs the original author&rsquo;s name in possessive form. A second LLM call formats it, so the opener reads <em>&ldquo;I saw you engaged with Jessica&rsquo;s post&rdquo;</em> rather than something assembled by string concatenation.',
     ]),
+    fig('Fig 2', 'Two tracks through HeyReach', 'flockbio-heyreach.png',
+        'The split at <b>Engagement or Post Route</b> is where the personalisation lives. Post authors take the upper path; engagers take the lower one through a second LLM call that formats the original author&rsquo;s name possessively. Both branches loop in small batches with a wait, then stamp the sheet.'),
     prose('Leads push into two separate HeyReach lists in batches of two with a fifteen second wait between them. The sheet is then stamped with the date, the workflow ID and the execution ID, so a lead is never contacted twice and every send is traceable to the run that made it.'),
 
     layer('Workflow 3', 'Failing safely'),
     prose('An error workflow sits behind both of the others. When anything throws, it does not just alert &mdash; it <b>deactivates the workflow first</b>, then emails.',
           'On a small list that ordering is the whole point. A bug that keeps running is a bug that burns prospects you cannot get back, so the system is built to stop itself before anyone reads the alert.'),
+    fig('Fig 3', 'The error workflow', 'flockbio-error.png',
+        'Three nodes, and the order of the middle two is the entire design: <b>deactivate the workflow</b>, then send the alert. Reverse them and a broken run keeps sending while the email sits unread.'),
 
     sec_id('04', 'The results', 'A month of sending, measured in HeyReach', 'results'),
     stats([('42.6%', 'message reply rate', 1, ('42', '.6%')),

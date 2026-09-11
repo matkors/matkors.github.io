@@ -454,8 +454,8 @@ code{
 }
 
 /* ============ figures ============ */
-.fig{margin:26px 0 0}
-.fig + .fig{margin-top:20px}
+.fig{margin:26px 0 30px}
+.fig + .fig{margin-top:24px}
 .figlabel{
   display:inline-flex;align-items:center;gap:9px;margin-bottom:10px;
   font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.15em;
@@ -480,7 +480,7 @@ code{
 .fig figcaption b{color:var(--t2);font-weight:540}
 
 /* image beside a numbered legend */
-.figpair{display:grid;grid-template-columns:1fr 268px;gap:26px;align-items:start;margin:26px 0 0}
+.figpair{display:grid;grid-template-columns:1fr 268px;gap:26px;align-items:start;margin:26px 0 30px}
 .legend{list-style:none;padding:0;margin:0}
 .legend li{
   display:flex;gap:11px;align-items:baseline;
