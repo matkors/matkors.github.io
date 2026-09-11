@@ -177,36 +177,43 @@ article:hover .logo{border-color:var(--b-strong)}
   line-height:1.4;max-width:40ch;
 }
 
-/* ============ pipeline ============ */
-.pipe{
-  background:var(--panel);border:1px solid var(--b-std);
-  border-radius:9px;padding:20px 20px 18px;overflow-x:auto;
-  transition:border-color .3s ease;
+/* ============ flow ============ */
+.flow{position:relative;padding-left:30px;margin:0;list-style:none}
+.flow-line{
+  position:absolute;left:4px;top:9px;bottom:9px;width:1px;
+  background:linear-gradient(180deg,var(--b-strong),var(--b-std) 70%,transparent);
+  transform-origin:top;
 }
-.pipe:hover{border-color:var(--b-strong)}
-.pipe-row{display:flex;align-items:stretch;min-width:min-content}
-.step{
-  flex:1;min-width:112px;position:relative;padding-right:24px;
-  transition:opacity .25s ease;
+.fstep{position:relative;display:flex;gap:16px;align-items:baseline;padding-bottom:19px}
+.fstep:last-child{padding-bottom:0}
+.fnode{
+  position:absolute;left:-30px;top:6px;width:9px;height:9px;border-radius:50%;
+  background:var(--bg);border:1.5px solid var(--b-strong);box-sizing:border-box;
+  transition:border-color .25s ease;
 }
-.step:last-child{padding-right:0}
-.step::after{
-  content:"";position:absolute;right:8px;top:14px;width:7px;height:7px;
-  border-top:1px solid var(--b-strong);border-right:1px solid var(--b-strong);
-  transform:rotate(45deg);
+.fstep.key .fnode{
+  background:var(--acc);border-color:var(--acc);
+  box-shadow:0 0 0 4px rgba(255,146,71,.13),0 0 14px rgba(255,146,71,.4);
 }
-.step:last-child::after{display:none}
-.pipe:hover .step{opacity:.45}
-.pipe .step:hover{opacity:1}
-.step-bar{height:2px;background:var(--b-std);border-radius:2px;margin-bottom:12px;transform-origin:left}
-.step.key .step-bar{background:linear-gradient(90deg,var(--acc),var(--acc2));box-shadow:0 0 12px rgba(255,146,71,.35)}
-.step-t{font-size:13.5px;font-weight:540;color:var(--t1);letter-spacing:-.01em;line-height:1.3;margin-bottom:4px}
-.step.key .step-t{color:var(--acc)}
-.step-d{font-family:"JetBrains Mono",monospace;font-size:10.5px;line-height:1.5;color:var(--t3)}
-.pipe-note{
-  margin-top:14px;padding-top:13px;border-top:1px solid var(--b-subtle);
-  font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--t3);
-  letter-spacing:.02em;line-height:1.65;
+.fnum{
+  font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--t4);
+  letter-spacing:.06em;flex:none;width:16px;padding-top:1px;
+}
+.fstep.key .fnum{color:var(--acc)}
+.fbody{min-width:0}
+.fbody b{
+  font-size:15px;font-weight:540;color:var(--t1);letter-spacing:-.012em;
+  display:inline;margin-right:9px;
+}
+.fstep.key .fbody b{color:var(--acc)}
+.fbody span{
+  font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--t3);
+  line-height:1.6;letter-spacing:.01em;
+}
+.flow-note{
+  margin:18px 0 0 30px;padding-top:14px;border-top:1px solid var(--b-subtle);
+  font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--t3);
+  letter-spacing:.02em;line-height:1.7;max-width:58ch;
 }
 
 /* ============ stats ============ */
@@ -283,10 +290,11 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
 @media (max-width:560px){
   body{font-size:15px}
   .shell{padding:0 22px}
-  .pipe-row{flex-direction:column;gap:16px;min-width:0}
-  .step{padding-right:0;min-width:0}
-  .step::after{right:auto;left:0;top:auto;bottom:-12px;transform:rotate(135deg)}
-  .step-bar{width:30px}
+  .flow{padding-left:24px}
+  .fnode{left:-24px}
+  .flow-note{margin-left:24px}
+  .fstep{flex-direction:column;gap:2px}
+  .fnum{width:auto}
   article{margin-top:48px;padding-top:44px}
 }
 </style>
@@ -336,24 +344,25 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
       </div>
       <div class="prose" data-reveal>
         <p>Most voice AI is a booking bot for a salon. This one sits inside health insurance, where an agent that says the wrong thing about coverage is not a bad customer experience, it is a compliance problem. Everything it says has to hold up against AI disclosure requirements and CMS marketing rules, and it cannot improvise about plans, prices or eligibility.</p>
-        <p>I built two. The first works out what a caller actually needs and routes them, built for high inbound volume. The second is an intake line for people who just lost their health insurance along with their job. It qualifies the caller and warm transfers to a licensed human rather than trying to solve it.</p>
+        <p>I built three. The first works out what a caller actually needs and routes them, built for high inbound volume. The second is an intake line for people who just lost their health insurance along with their job, qualifying the caller and warm transferring to a licensed human rather than trying to solve it. The third runs inside their Medicare Advantage funnel, where the compliance bar is higher again.</p>
       </div>
 
       <h3>How it works</h3>
-      <div class="pipe" data-pipe>
-        <div class="pipe-row">
-          <div class="step"><div class="step-bar"></div><div class="step-t">Inbound call</div><div class="step-d">intent unknown</div></div>
-          <div class="step"><div class="step-bar"></div><div class="step-t">Classify</div><div class="step-d">what do they need</div></div>
-          <div class="step key"><div class="step-bar"></div><div class="step-t">Guardrails</div><div class="step-d">disclosure, scope limits</div></div>
-          <div class="step"><div class="step-bar"></div><div class="step-t">Route</div><div class="step-d">coverage or crisis path</div></div>
-          <div class="step"><div class="step-bar"></div><div class="step-t">Warm transfer</div><div class="step-d">licensed human</div></div>
-        </div>
-        <p class="pipe-note">The guardrail step is the whole job. Everything else is plumbing.</p>
+      <div class="flow-wrap" data-pipe>
+        <ol class="flow">
+          <li class="flow-line"></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">01</span><span class="fbody"><b>Inbound call</b><span>intent unknown</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">02</span><span class="fbody"><b>Classify</b><span>what does this caller actually need</span></span></li>
+          <li class="fstep key"><span class="fnode"></span><span class="fnum">03</span><span class="fbody"><b>Guardrails</b><span>disclosure, scope limits, nothing improvised</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">04</span><span class="fbody"><b>Route</b><span>coverage, Medicare, or crisis path</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">05</span><span class="fbody"><b>Warm transfer</b><span>handed to a licensed human</span></span></li>
+        </ol>
+        <p class="flow-note">The guardrail step is the whole job. Everything else is plumbing.</p>
       </div>
 
       <h3>What it took</h3>
       <div class="prose" data-reveal>
-        <p>I scoped both agents by sitting with non-technical executives, built the flows, presented them back, and coordinated across departments to ship. Nobody handed me a spec.</p>
+        <p>I scoped all three by sitting with non-technical executives, built the flows, presented them back, and coordinated across departments to ship. Nobody handed me a spec.</p>
       </div>
     </article>
 
@@ -376,15 +385,16 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
       </div>
 
       <h3>How it works</h3>
-      <div class="pipe" data-pipe>
-        <div class="pipe-row">
-          <div class="step"><div class="step-bar"></div><div class="step-t">Inbound call</div><div class="step-d">customer or prospect</div></div>
-          <div class="step"><div class="step-bar"></div><div class="step-t">Agent</div><div class="step-d">qualify and answer</div></div>
-          <div class="step"><div class="step-bar"></div><div class="step-t">Shopify lookup</div><div class="step-d">order status</div></div>
-          <div class="step"><div class="step-bar"></div><div class="step-t">Resolve or escalate</div><div class="step-d">human if high value</div></div>
-          <div class="step key"><div class="step-bar"></div><div class="step-t">Weekly review</div><div class="step-d">real calls, then fixes</div></div>
-        </div>
-        <p class="pipe-note">&#8627; the review loop feeds back into the agent every week</p>
+      <div class="flow-wrap" data-pipe>
+        <ol class="flow">
+          <li class="flow-line"></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">01</span><span class="fbody"><b>Inbound call</b><span>customer or prospect, usually after hours</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">02</span><span class="fbody"><b>Agent</b><span>qualify, answer, capture</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">03</span><span class="fbody"><b>Shopify lookup</b><span>order status against live data</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">04</span><span class="fbody"><b>Resolve or escalate</b><span>human if it is high value</span></span></li>
+          <li class="fstep key"><span class="fnode"></span><span class="fnum">05</span><span class="fbody"><b>Weekly review</b><span>I listen to real calls and fix what broke</span></span></li>
+        </ol>
+        <p class="flow-note">The review loop feeds back into the agent every week. That is the difference between a demo and a system.</p>
       </div>
 
       <h3>Results</h3>
@@ -414,14 +424,15 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
       </div>
 
       <h3>How it works</h3>
-      <div class="pipe" data-pipe>
-        <div class="pipe-row">
-          <div class="step"><div class="step-bar"></div><div class="step-t">Apify</div><div class="step-d">source the list</div></div>
-          <div class="step"><div class="step-bar"></div><div class="step-t">n8n</div><div class="step-d">orchestration</div></div>
-          <div class="step key"><div class="step-bar"></div><div class="step-t">Clay</div><div class="step-d">enrich per prospect</div></div>
-          <div class="step"><div class="step-bar"></div><div class="step-t">LinkedIn</div><div class="step-d">sequenced outreach</div></div>
-          <div class="step"><div class="step-bar"></div><div class="step-t">Reply tracking</div><div class="step-d">feeds targeting</div></div>
-        </div>
+      <div class="flow-wrap" data-pipe>
+        <ol class="flow">
+          <li class="flow-line"></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">01</span><span class="fbody"><b>Apify</b><span>source the list</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">02</span><span class="fbody"><b>n8n</b><span>orchestration</span></span></li>
+          <li class="fstep key"><span class="fnode"></span><span class="fnum">03</span><span class="fbody"><b>Clay</b><span>enrich until the message can say something true</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">04</span><span class="fbody"><b>LinkedIn</b><span>sequenced outreach, low volume</span></span></li>
+          <li class="fstep"><span class="fnode"></span><span class="fnum">05</span><span class="fbody"><b>Reply tracking</b><span>feeds back into targeting</span></span></li>
+        </ol>
       </div>
 
       <h3>Results</h3>
@@ -549,10 +560,10 @@ window.addEventListener('load', function () {
     /* ---- pipelines draw themselves step by step ---- */
     gsap.utils.toArray('[data-pipe]').forEach(function (pipe) {
       var tl = gsap.timeline({ scrollTrigger: { trigger: pipe, start: 'top 82%', once: true } });
-      tl.from(pipe, { autoAlpha: 0, y: 20, duration: .5, ease: 'power2.out' })
-        .from(pipe.querySelectorAll('.step-bar'), { scaleX: 0, duration: .45, stagger: .1, ease: 'power2.out' }, '-=.2')
-        .from(pipe.querySelectorAll('.step-t, .step-d'), { autoAlpha: 0, y: 8, duration: .4, stagger: .045, ease: 'power2.out' }, '-=.55')
-        .from(pipe.querySelectorAll('.pipe-note'), { autoAlpha: 0, duration: .4 }, '-=.2');
+      tl.from(pipe.querySelector('.flow-line'), { scaleY: 0, duration: .75, ease: 'power2.out' })
+        .from(pipe.querySelectorAll('.fnode'), { scale: 0, autoAlpha: 0, duration: .35, stagger: .1, ease: 'back.out(2.2)' }, '-=.55')
+        .from(pipe.querySelectorAll('.fnum, .fbody'), { x: -12, autoAlpha: 0, duration: .45, stagger: .05, ease: 'power2.out' }, '-=.8')
+        .from(pipe.querySelectorAll('.flow-note'), { autoAlpha: 0, duration: .4 }, '-=.25');
     });
 
     /* ---- stat tiles ---- */
