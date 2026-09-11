@@ -80,6 +80,7 @@ h1{
   letter-spacing:-.032em;
   color:var(--t1);
   margin-bottom:28px;
+  text-wrap:balance;
 }
 .lede{
   font-size:clamp(17px,2.2vw,20px);
@@ -88,6 +89,7 @@ h1{
   max-width:36ch;
   letter-spacing:-.012em;
   margin-bottom:34px;
+  text-wrap:balance;
 }
 .lede b{color:var(--t1);font-weight:510}
 
@@ -118,7 +120,7 @@ h1{
 }
 
 .intro{padding:76px 0 0;max-width:60ch}
-.intro p{font-size:17px;line-height:1.68;color:var(--t2);margin-bottom:15px}
+.intro p{font-size:17px;line-height:1.68;color:var(--t2);margin-bottom:15px;text-wrap:pretty}
 .intro p:last-child{margin-bottom:0}
 
 /* ---------- case studies ---------- */
@@ -133,14 +135,14 @@ article{padding:76px 0;border-top:1px solid var(--b-subtle)}
 h2{
   font-size:clamp(24px,3.6vw,33px);
   font-weight:510;line-height:1.1;letter-spacing:-.028em;
-  color:var(--t1);
+  color:var(--t1);text-wrap:balance;
 }
 .client{
   font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.04em;
   color:var(--t4);margin:0 0 26px 44px;
 }
 .case-body{margin-left:44px;max-width:62ch}
-.case-body p{margin-bottom:15px;color:var(--t2);line-height:1.68}
+.case-body p{margin-bottom:15px;color:var(--t2);line-height:1.68;text-wrap:pretty}
 .case-body p:last-child{margin-bottom:0}
 
 h3{
@@ -202,6 +204,7 @@ footer{
   border-top:1px solid var(--b-subtle);
 }
 .cta{
+  text-wrap:balance;
   font-size:clamp(21px,3vw,27px);font-weight:510;letter-spacing:-.025em;
   color:var(--t1);line-height:1.25;margin-bottom:22px;max-width:22ch;
 }
@@ -221,11 +224,28 @@ footer{
 }
 
 /* ---------- reveal ---------- */
+/* Load-in for the hero. Plain animation, runs everywhere. */
 @media (prefers-reduced-motion:no-preference){
   .rv{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.3,1) forwards}
   .rv:nth-child(2){animation-delay:.06s}
   .rv:nth-child(3){animation-delay:.12s}
   @keyframes rise{to{opacity:1;transform:none}}
+}
+
+/* Scroll-driven reveal for the case studies. Default state is VISIBLE, so
+   Firefox (no scroll timelines in stable as of 2026) simply shows everything. */
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    article > .wrap{
+      animation:rise-in linear both;
+      animation-timeline:view();
+      animation-range:entry 0% cover 22%;
+    }
+    @keyframes rise-in{
+      from{opacity:0;transform:translateY(22px)}
+      to{opacity:1;transform:none}
+    }
+  }
 }
 
 /* ---------- responsive ---------- */
