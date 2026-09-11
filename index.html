@@ -78,6 +78,7 @@ strong{color:var(--t1);font-weight:540}
 
 /* ============ rail ============ */
 .rail{position:sticky;top:56px;padding:84px 0 40px}
+.pf{width:56px;height:56px;border-radius:50%;object-fit:cover;display:block;margin-bottom:16px;border:1px solid var(--b-strong)}
 .rail .nm{font-size:18px;font-weight:560;letter-spacing:-.022em;color:var(--t1);line-height:1.25;margin-bottom:8px}
 .rail .role{font-size:13.5px;line-height:1.55;color:var(--t3);margin-bottom:20px}
 .avail{
@@ -142,6 +143,38 @@ h2{
 h3{
   font-family:"JetBrains Mono",monospace;font-size:9.5px;font-weight:500;
   letter-spacing:.17em;text-transform:uppercase;color:var(--t4);margin:34px 0 14px;
+}
+
+/* ============ company header ============ */
+.co{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.logo{
+  width:42px;height:42px;border-radius:9px;flex:none;
+  display:grid;place-items:center;overflow:hidden;
+  background:var(--panel);border:1px solid var(--b-std);
+  font-size:17px;font-weight:600;color:var(--t1);letter-spacing:-.02em;
+  transition:border-color .25s ease,transform .25s ease;
+}
+.logo img{width:100%;height:100%;object-fit:contain;padding:6px}
+article:hover .logo{border-color:var(--b-strong)}
+.co-name{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:clamp(21px,2.4vw,27px);font-weight:560;letter-spacing:-.028em;
+  color:var(--t1);line-height:1.15;
+}
+.co-name .ext{
+  font-size:.55em;color:var(--t4);transition:transform .22s ease,color .22s ease;
+  display:inline-block;
+}
+.co-name:hover{color:var(--acc)}
+.co-name:hover .ext{color:var(--acc);transform:translate(2px,-2px)}
+.co-sub{
+  font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.04em;
+  color:var(--t4);margin-top:5px;line-height:1.6;
+}
+.built{
+  font-size:16.5px;font-weight:540;letter-spacing:-.02em;color:var(--t2);
+  margin-bottom:20px;padding-left:14px;border-left:2px solid var(--acc);
+  line-height:1.4;max-width:40ch;
 }
 
 /* ============ pipeline ============ */
@@ -244,13 +277,13 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
 <div class="shell">
 
   <aside class="rail">
+    <img class="pf" src="portrait.jpg" alt="Matviy Korsunskiy" width="56" height="56">
     <div class="nm">Matviy Korsunskiy</div>
     <div class="role">AI systems for marketing and operations</div>
     <div class="avail"><span class="dot"></span>Available for contract</div>
     <nav>
       <a href="mailto:matkorstt@gmail.com">Email</a>
       <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
-      <a href="https://github.com/matkors">GitHub</a>
     </nav>
     <div class="tz">Eastern time<br>New Jersey, US</div>
   </aside>
@@ -271,8 +304,14 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
     <article>
       <div data-reveal>
         <div class="tag">01 &nbsp;·&nbsp; Voice, regulated</div>
-        <h2>A voice agent that is not allowed to improvise</h2>
-        <p class="client">$150M health insurance marketplace &nbsp;·&nbsp; contract voice engineering &nbsp;·&nbsp; 2026, ongoing</p>
+        <div class="co">
+          <div class="logo">H</div>
+          <div>
+            <a class="co-name" href="https://www.healthcare.com" target="_blank" rel="noopener">Healthcare.com <span class="ext">&#8599;</span></a>
+            <div class="co-sub">$150M health insurance marketplace &nbsp;·&nbsp; contract voice engineering &nbsp;·&nbsp; 2026, ongoing</div>
+          </div>
+        </div>
+        <p class="built">A voice agent that is not allowed to improvise</p>
       </div>
       <div class="prose" data-reveal>
         <p>Most voice AI is a booking bot for a salon. This one sits inside health insurance, where an agent that says the wrong thing about coverage is not a bad customer experience, it is a compliance problem. Everything it says has to hold up against AI disclosure requirements and CMS marketing rules, and it cannot improvise about plans, prices or eligibility.</p>
@@ -300,8 +339,14 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
     <article>
       <div data-reveal>
         <div class="tag">02 &nbsp;·&nbsp; Voice, retained</div>
-        <h2>An inbound receptionist still running after eight months</h2>
-        <p class="client">Luxury watch dealer, ~$500K/yr on Shopify &nbsp;·&nbsp; Retell + n8n</p>
+        <div class="co">
+          <div class="logo">W</div>
+          <div>
+            <a class="co-name" href="#" target="_blank" rel="noopener">World of Luxury <span class="ext">&#8599;</span></a>
+            <div class="co-sub">Luxury watches and jewellery, Aventura FL &nbsp;·&nbsp; ~$500K/yr on Shopify &nbsp;·&nbsp; Retell + n8n</div>
+          </div>
+        </div>
+        <p class="built">An inbound receptionist still running after eight months</p>
       </div>
       <div class="prose" data-reveal>
         <p>Building a voice agent is the easy part. Keeping one alive on someone&rsquo;s real phone line, month after month, is the part most people never reach. This one answers every inbound call, looks up orders against Shopify, handles what it can and escalates what it cannot.</p>
@@ -332,8 +377,14 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
     <article>
       <div data-reveal>
         <div class="tag">03 &nbsp;·&nbsp; Outbound</div>
-        <h2>A LinkedIn pipeline that replied at ten times benchmark</h2>
-        <p class="client">US biotech, DNA library &nbsp;·&nbsp; Apify + n8n + Clay</p>
+        <div class="co">
+          <div class="logo">B</div>
+          <div>
+            <a class="co-name" href="#" target="_blank" rel="noopener">US biotech <span class="ext">&#8599;</span></a>
+            <div class="co-sub">DNA library &nbsp;·&nbsp; lead generation &nbsp;·&nbsp; Apify + n8n + Clay</div>
+          </div>
+        </div>
+        <p class="built">A LinkedIn pipeline that replied at ten times benchmark</p>
       </div>
       <div class="prose" data-reveal>
         <p>The client needed to reach a narrow technical audience where the usual volume approach fails, because the list is small and the wrong message burns it. So the system spends its effort on targeting and enrichment instead of send volume.</p>
@@ -365,8 +416,7 @@ footer{margin-top:64px;padding:56px 0 104px;border-top:1px solid var(--b-subtle)
         <div class="btns">
           <a class="btn solid magnetic" href="mailto:matkorstt@gmail.com">matkorstt@gmail.com</a>
           <a class="btn ghost magnetic" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
-          <a class="btn ghost magnetic" href="https://github.com/matkors">GitHub</a>
-        </div>
+          </div>
         <p class="disclaim">
           Client names and internal details omitted where I am under confidentiality.<br>
           Happy to go deeper on any of it on a call.
