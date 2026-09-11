@@ -101,7 +101,7 @@ hc += '\n'.join([
           'The thing I would tell anyone building in a regulated category: get compliance into the design conversation before you build, not after. Every hour spent agreeing what the agent may not say saves a week of rework, and it is the only way the thing actually ships rather than sitting in review.'),
 
     '      <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>',
-    chips([('Retell AI', 'retell.svg', 1), ('VAPI', 'vapi.png', 0),
+    chips([('Retell AI', 'retell.svg', 0), ('VAPI', 'vapi.png', 0),
            ('n8n', 'n8n.png', 0), ('Claude', 'claude.png', 0)]),
 ])
 hc += FOOT.format(nextprev=nextprev([
@@ -204,7 +204,7 @@ wol += '\n'.join([
     pull('A voice agent is not a build, it is an operation. The version that shipped in month one and the version running now share a prompt and almost nothing else.'),
 
     '      <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>',
-    chips([('Retell AI', 'retell.svg', 1), ('VAPI', 'vapi.png', 0),
+    chips([('Retell AI', 'retell.svg', 0), ('VAPI', 'vapi.png', 0),
            ('n8n', 'n8n.png', 0), ('Airtable', 'airtable.png', 0), ('Shopify', 'shopify.png', 0)]),
 ])
 wol += FOOT.format(nextprev=nextprev([

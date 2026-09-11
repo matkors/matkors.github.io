@@ -329,14 +329,14 @@ h2.sec:first-of-type{margin-top:44px}
 
 .stack{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0 0}
 .chip{
-  display:inline-flex;align-items:center;gap:9px;
+  display:inline-flex;align-items:center;gap:10px;line-height:1;
   padding:8px 14px 8px 10px;border:1px solid var(--b-std);border-radius:8px;
   background:var(--panel);font-size:13.5px;font-weight:500;color:var(--t2);
   transition:border-color .2s ease,background .2s ease,transform .2s ease;
 }
 .chip:hover{border-color:var(--b-strong);background:var(--raised);transform:translateY(-1px)}
-.chip img{width:19px;height:19px;object-fit:contain;flex:none}
-.chip img.wide{width:auto;height:13px}
+.chip img{width:20px;height:20px;object-fit:contain;flex:none;display:block}
+.chip img.wide{width:auto;height:15px}
 
 figure{margin:28px 0}
 figure img{
