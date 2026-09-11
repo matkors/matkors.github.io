@@ -258,8 +258,8 @@ wol += '\n'.join([
            ('n8n', 'n8n.png', 0), ('Airtable', 'airtable.png', 0), ('Shopify', 'shopify.png', 0)]),
 ])
 wol += FOOT.format(nextprev=nextprev([
-    ('Case study', 'Healthcare.com', '/work/healthcare-com/'),
-    ('Case study', 'Flock Bio', '/work/flock-bio/')]))
+    ('Case study', 'Flock Bio', '/work/flock-bio/'),
+    ('Case study', 'Healthcare.com', '/work/healthcare-com/')]))
 
 
 # ===================================================== FLOCK BIO

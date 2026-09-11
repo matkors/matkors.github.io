@@ -158,7 +158,7 @@ article:hover .logo{border-color:var(--b-strong)}
 .built{
   font-size:17.5px;font-weight:540;letter-spacing:-.02em;color:var(--t2);
   margin-bottom:20px;padding-left:14px;border-left:2px solid var(--acc);
-  line-height:1.4;max-width:40ch;
+  line-height:1.4;max-width:62ch;text-wrap:balance;
 }
 
 /* ============ flow ============ */
