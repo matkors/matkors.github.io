@@ -228,7 +228,7 @@ fb = HEAD.format(
 fb += '\n'.join([
     glance([('Role', 'Built the system'),
             ('Channel', 'LinkedIn, via HeyReach'),
-            ('Contacted', '65 prospects'),
+            ('Cadence', 'Runs every 3 days'),
             ('Reply rate', '42.6%')]),
     pull('They came to us with a list of keywords. That was the entire brief, and it turned out to be the right one.'),
 
@@ -277,12 +277,12 @@ fb += '\n'.join([
     fig('Fig 3', 'The error workflow', 'flockbio-error.png',
         'Three nodes, and the order of the middle two is the entire design. Reverse them and a broken run keeps sending while the email sits unread.'),
 
-    sec_id('04', 'The results', 'A month of sending, measured in HeyReach', 'results'),
+    sec_id('04', 'The results', 'One month of the campaign, measured in HeyReach', 'results'),
     stats([('42.6%', 'message reply rate', 1, ('42', '.6%')),
            ('78.5%', 'connection acceptance', 0, ('78', '.5%')),
-           ('65', 'prospects contacted', 0, ('65', '')),
-           ('~4 wk', 'campaign window', 0, None)]),
-    notes(['<b>65 connections sent, 51 accepted, 47 messages, 20 replies.</b> Deliberately low volume: how many could be sent was never the constraint.',
+           ('20', 'replies from 47 messages', 0, ('20', '')),
+           ('3 days', 'between sending runs', 0, None)]),
+    notes(['<b>Figures are one month of an ongoing campaign:</b> 65 connections sent, 51 accepted, 47 messages, 20 replies. The system has run well past that window.',
            '<b>Cold LinkedIn benchmarks sit in the low single digits.</b> Replies turned into booked meetings, which is the number that actually matters to them.']),
 
     sec_id('05', 'What it taught me', 'Intent beats firmographics', 'learned'),
