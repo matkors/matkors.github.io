@@ -60,10 +60,10 @@
         <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
         <h2 class="sec">You cannot find these buyers by job title</h2>
       </div>
-      <p class="lead" data-reveal>Flock Bio sells pooled DNA libraries to scientists running CRISPR screens, protein and enzyme engineering, MPRAs and CAR-T work.</p>
+      <p class="lead" data-reveal>There is no job title that reliably identifies a scientist about to build a DNA library.</p>
       <div class="prose" data-reveal>
-      <p>There is no job title that reliably identifies that person. Filtering LinkedIn by &ldquo;Scientist&rdquo; at biotech companies returns tens of thousands of people, almost none of whom are building a library this quarter.</p>
-      <p>What they had instead was a list of the phrases their buyers actually use. That turned out to be a better targeting signal than any firmographic filter.</p>
+      <p>Filtering LinkedIn by &ldquo;Scientist&rdquo; at biotech companies returns tens of thousands of people, almost none of whom are building one this quarter.</p>
+      <p>What Flock Bio had instead was a list of the phrases their buyers actually use. That turned out to be a better signal than any firmographic filter.</p>
       </div>
       <div data-reveal id="constraint">
         <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
@@ -71,9 +71,8 @@
       </div>
       <p class="lead" data-reveal>The addressable audience is small enough that burning it has a real cost. There is no version of this where you send ten thousand messages and accept a low hit rate.</p>
       <ul class="bul" data-reveal>
-        <li><b>The buyers are technical.</b> A generic message marks you instantly as someone who does not understand the work, which is disqualifying in a field where credibility is the product.</li>
-        <li><b>LinkedIn punishes volume.</b> Connection limits and spam signals mean the channel itself constrains how much you can send.</li>
-        <li><b>Every message has to be worth receiving the first time,</b> because there is no second list.</li>
+        <li><b>The buyers are technical.</b> A generic message marks you as someone who does not understand the work, which is disqualifying in a field where credibility is the product.</li>
+        <li><b>LinkedIn punishes volume.</b> Connection limits and spam signals cap what you can send anyway.</li>
       </ul>
       <div data-reveal id="built">
         <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
@@ -81,58 +80,54 @@
       </div>
       <p class="lead" data-reveal>Rather than search for people who look right, the system finds posts about the right subject each week and harvests everyone who engaged with them.</p>
       <div class="prose" data-reveal>
-      <p>Someone who comments on a post about directed evolution has self-selected far more precisely than any title filter could. Two n8n workflows do the work, plus a third that exists only to fail safely.</p>
+      <p>Someone who comments on a post about directed evolution has self-selected far more precisely than any title filter can manage. Two n8n workflows do the work, plus a third that exists only to fail safely.</p>
       </div>
       <div class="secnum" data-reveal>Workflow 1 &nbsp;&middot;&nbsp; Sourcing and qualification</div>
       <div class="prose" data-reveal>
-      <p>An Apify LinkedIn post scraper runs every three days against 19 quoted phrases &mdash; <code>"gene library"</code>, <code>"codon optimization"</code>, <code>"directed evolution"</code>, <code>"AAV cassette design"</code>, <code>"gRNA libraries"</code> and the rest &mdash; pulling the past week&rsquo;s posts <b>along with their comments and reactions</b>.</p>
-      <p>Then two stages of filtering, mechanical before semantic.</p>
+      <p>An Apify scraper runs every three days against 19 quoted phrases &mdash; <code>"gene library"</code>, <code>"codon optimization"</code>, <code>"directed evolution"</code>, <code>"AAV cassette design"</code> and the rest &mdash; pulling the week&rsquo;s posts <b>along with their comments and reactions</b>.</p>
       </div>
       <ul class="bul" data-reveal>
-        <li><b>Mechanical.</b> Keep posts by people, drop company pages. Later, drop any profile URL containing <code>/company/</code>.</li>
-        <li><b>Semantic.</b> An LLM reads each post and returns true or false on whether it is genuine industry discussion, rejecting personal stories and webinar pitches with a one-line reason.</li>
-        <li><b>Re-join.</b> The model judges <em>posts</em>, but the leads are the <em>engagers</em>. A code step takes the approved post IDs and pulls back every comment and reaction attached to them.</li>
+        <li><b>Mechanical filter.</b> Keep posts by people, drop company pages.</li>
+        <li><b>Semantic filter.</b> An LLM judges whether each post is genuine industry discussion, rejecting personal stories and webinar pitches.</li>
+        <li><b>Re-join.</b> The model judges <em>posts</em>, but the leads are the <em>engagers</em>. A code step pulls back every comment and reaction attached to an approved post.</li>
+        <li><b>Dedupe by intent.</b> Post 3, comment 2, reaction 1, keyed by person and post. A commenter is warmer than a reactor, so only their highest-intent action survives.</li>
       </ul>
-      <div class="prose" data-reveal>
-      <p><b>Then deduplication by intent.</b> The same person often reacts and comments on the same post. Each action is scored &mdash; post 3, comment 2, reaction 1 &mdash; keyed by person and post, and only their highest-intent action survives. A commenter is a warmer lead than a reactor, and the record should say so.</p>
-      <p>Everything lands in Clay, batched to stay inside rate limits, where waterfall enrichment fills in company, size and position. An LLM inside Clay then scores lead quality.</p>
-      </div>
       <figure class="fig" data-reveal>
         <div class="figlabel"><b>Fig 1</b> Sourcing and qualification</div>
         <div class="frame"><img src="/shots/flockbio-scraper.png" alt="Sourcing and qualification" loading="lazy"></div>
-        <figcaption>Apify scrapes the week&rsquo;s posts, a mechanical <b>Filter</b> drops company pages, an LLM judges industry relevance, then two code steps re-attach the approved posts&rsquo; engagers and deduplicate them by intent before the batch pushes into Clay.</figcaption>
+        <figcaption>Scrape, filter mechanically, then semantically, then re-attach the engagers and deduplicate them before the batch pushes into Clay.</figcaption>
       </figure>
+      <div class="prose" data-reveal>
+      <p>Everything lands in Clay, where waterfall enrichment fills in company, size and position, and an LLM scores lead quality.</p>
+      </div>
       <div class="pull" data-reveal>
       <p>The scoring prompt was not written in a vacuum. We sent Flock Bio sample lists, they marked each lead good or not, and the criteria were rewritten against their answers until it matched what they actually wanted.</p>
       </div>
-      <div class="secnum" data-reveal>Workflow 2 &nbsp;&middot;&nbsp; Personalised outreach through HeyReach</div>
+      <div class="secnum" data-reveal>Workflow 2 &nbsp;&middot;&nbsp; Personalised outreach</div>
       <div class="prose" data-reveal>
-      <p>Approved leads flow from a Google Sheet into HeyReach every three days. An LLM first cleans the name, stripping titles, suffixes, emojis and pipes down to a clean first and last name, because &ldquo;Dr. WALLIS MARGRAFF, Ph.D.&rdquo; is not how you open a message.</p>
+      <p>Approved leads flow from a Google Sheet into HeyReach every three days. An LLM first strips titles, suffixes, emojis and pipes down to a clean first and last name, because &ldquo;Dr. WALLIS MARGRAFF, Ph.D.&rdquo; is not how you open a message.</p>
       </div>
-      <div class="prose" data-reveal>
-      <p>A switch then routes each lead down one of two tracks, and this is where the personalisation actually lives:</p>
-      </div>
-      <ul class="bul" data-reveal>
-        <li><b>Post authors</b> get a message referencing their own post.</li>
-        <li><b>Engagers</b> get a message referencing the post they engaged with, which needs the original author&rsquo;s name in possessive form. A second LLM call formats it, so the opener reads <em>&ldquo;I saw you engaged with Jessica&rsquo;s post&rdquo;</em> rather than something assembled by string concatenation.</li>
-      </ul>
       <figure class="fig" data-reveal>
         <div class="figlabel"><b>Fig 2</b> Two tracks through HeyReach</div>
         <div class="frame"><img src="/shots/flockbio-heyreach.png" alt="Two tracks through HeyReach" loading="lazy"></div>
-        <figcaption>The split at <b>Engagement or Post Route</b> is where the personalisation lives. Post authors take the upper path; engagers take the lower one through a second LLM call that formats the original author&rsquo;s name possessively. Both branches loop in small batches with a wait, then stamp the sheet.</figcaption>
+        <figcaption>The split at <b>Engagement or Post Route</b> is where the personalisation lives. Post authors take the upper path, engagers the lower one. Both loop in small batches with a wait, then stamp the sheet.</figcaption>
       </figure>
+      <ul class="bul" data-reveal>
+        <li><b>Post authors</b> get a message referencing their own post.</li>
+        <li><b>Engagers</b> get one referencing the post they engaged with, which needs the original author&rsquo;s name in possessive form. A second LLM call formats it, so the opener reads <em>&ldquo;I saw you engaged with Jessica&rsquo;s post&rdquo;</em> rather than something assembled by string concatenation.</li>
+      </ul>
       <div class="prose" data-reveal>
-      <p>Leads push into two separate HeyReach lists in batches of two with a fifteen second wait between them. The sheet is then stamped with the date, the workflow ID and the execution ID, so a lead is never contacted twice and every send is traceable to the run that made it.</p>
+      <p>The sheet is then stamped with the date, the workflow ID and the execution ID, so nobody is contacted twice and every send traces back to the run that made it.</p>
       </div>
       <div class="secnum" data-reveal>Workflow 3 &nbsp;&middot;&nbsp; Failing safely</div>
       <div class="prose" data-reveal>
-      <p>An error workflow sits behind both of the others. When anything throws, it does not just alert &mdash; it <b>deactivates the workflow first</b>, then emails.</p>
-      <p>On a small list that ordering is the whole point. A bug that keeps running is a bug that burns prospects you cannot get back, so the system is built to stop itself before anyone reads the alert.</p>
+      <p>When anything throws, the error workflow <b>deactivates the workflow first</b>, then emails.</p>
+      <p>On a finite list that ordering is the point. A bug that keeps running burns prospects you cannot get back, so the system stops itself before anyone reads the alert.</p>
       </div>
       <figure class="fig" data-reveal>
         <div class="figlabel"><b>Fig 3</b> The error workflow</div>
         <div class="frame"><img src="/shots/flockbio-error.png" alt="The error workflow" loading="lazy"></div>
-        <figcaption>Three nodes, and the order of the middle two is the entire design: <b>deactivate the workflow</b>, then send the alert. Reverse them and a broken run keeps sending while the email sits unread.</figcaption>
+        <figcaption>Three nodes, and the order of the middle two is the entire design. Reverse them and a broken run keeps sending while the email sits unread.</figcaption>
       </figure>
       <div data-reveal id="results">
         <div class="secnum">04 &nbsp;&middot;&nbsp; The results</div>
@@ -145,19 +140,17 @@
         <div class="stat"><span class="v">~4 wk</span><span class="k">campaign window</span></div>
       </div>
       <ul class="notes" data-reveal>
-        <li><b>65 connections sent, 51 accepted, 47 messages, 20 replies.</b> Deliberately low volume: the constraint was never how many could be sent.</li>
-        <li><b>Cold LinkedIn benchmarks sit in the low single digits.</b> A 42.6% reply rate is an order of magnitude above the channel, and it came from targeting quality rather than send volume.</li>
-        <li><b>Replies turned into booked meetings,</b> which is the number that actually matters to them.</li>
+        <li><b>65 connections sent, 51 accepted, 47 messages, 20 replies.</b> Deliberately low volume: how many could be sent was never the constraint.</li>
+        <li><b>Cold LinkedIn benchmarks sit in the low single digits.</b> Replies turned into booked meetings, which is the number that actually matters to them.</li>
       </ul>
-      <div class="shot-pending">HeyReach KPI screenshot goes here<br>save it to /shots/flock-metrics.png and I will place it</div>
       <div data-reveal id="learned">
         <div class="secnum">05 &nbsp;&middot;&nbsp; What it taught me</div>
         <h2 class="sec">Intent beats firmographics</h2>
       </div>
-      <p class="lead" data-reveal>The instinct in outbound is to describe the buyer and go find people who match the description. On a narrow technical list that fails, because the description does not distinguish the person building a library this quarter from the ten thousand who are not.</p>
+      <p class="lead" data-reveal>The instinct in outbound is to describe the buyer and go find people who match the description.</p>
       <div class="prose" data-reveal>
-      <p>What someone posted about last week does distinguish them. Targeting the conversation rather than the person is the single decision that produced the reply rate.</p>
-      <p>The rest is discipline: enrich properly, dedupe by intent rather than by row, never contact anyone twice, and make the system stop itself when it breaks.</p>
+      <p>On a narrow technical list that fails, because the description does not separate the person building a library this quarter from the ten thousand who are not.</p>
+      <p>What someone posted about last week does separate them. Targeting the conversation rather than the person is the single decision that produced the reply rate.</p>
       </div>
       <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>
       <div class="stack" data-reveal>
