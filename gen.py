@@ -63,7 +63,7 @@ hc = HEAD.format(
              ('learned', '07', 'What it taught me')]))
 
 hc += '\n'.join([
-    glance([('Role', 'Voice AI engineer, contract'),
+    glance([('Role', 'Voice AI engineer'),
             ('Period', 'May 2026 &ndash; present'),
             ('Built', 'Three inbound agents'),
             ('Status', 'In production')]),

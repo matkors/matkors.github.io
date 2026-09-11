@@ -361,6 +361,11 @@ ul.bul li{
 ul.bul li::before{
   content:"";position:absolute;left:0;top:11px;width:5px;height:1px;background:var(--acc);
 }
+ul.bul li:last-child{margin-bottom:0}
+/* a list running straight into the next paragraph read as one block */
+ul.bul + .prose,
+ul.bul + .gate,
+ul.bul + .flow-wrap{margin-top:24px}
 ul.bul li b{color:var(--t1);font-weight:560}
 
 .nextprev{
@@ -385,7 +390,7 @@ ul.bul li b{color:var(--t1);font-weight:560}
 }
 .secsub{
   font-size:15px;line-height:1.6;color:var(--t3);margin-top:9px;
-  max-width:52ch;text-wrap:pretty;
+  max-width:56ch;text-wrap:balance;
 }
 /* the heading owns the first project - no rule between them */
 .sechead + article{margin-top:34px;padding-top:0;border-top:none}
@@ -420,7 +425,7 @@ ul.bul li b{color:var(--t1);font-weight:560}
 /* ============ card body: one hook line, then scannable points ============ */
 .hook{
   font-size:17px;line-height:1.58;color:var(--t2);letter-spacing:-.014em;
-  max-width:56ch;text-wrap:pretty;
+  max-width:58ch;text-wrap:balance;
 }
 .hook b{color:var(--t1);font-weight:560}
 ul.hl{list-style:none;padding:0;margin:20px 0 0;max-width:62ch}
@@ -579,7 +584,7 @@ code{
 .col .prose p:last-child{margin-bottom:0}
 .lead{
   font-size:17.5px;line-height:1.6;color:var(--t1);
-  letter-spacing:-.014em;max-width:58ch;margin-bottom:16px;text-wrap:pretty;
+  letter-spacing:-.014em;max-width:60ch;margin-bottom:16px;text-wrap:balance;
 }
 
 /* flow diagrams get the same framing as figures so they stop floating */
