@@ -14,6 +14,9 @@
   --b-subtle:rgba(255,255,255,.055);
   --b-std:rgba(255,255,255,.09);
   --b-strong:rgba(255,255,255,.15);
+
+  /* claim line, hook and bullets all align to this */
+  --measure:700px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -158,7 +161,7 @@ article:hover .logo{border-color:var(--b-strong)}
 .built{
   font-size:17.5px;font-weight:540;letter-spacing:-.02em;color:var(--t2);
   margin-bottom:20px;padding-left:14px;border-left:2px solid var(--acc);
-  line-height:1.4;max-width:62ch;text-wrap:balance;
+  line-height:1.4;max-width:var(--measure);text-wrap:balance;
 }
 
 /* ============ flow ============ */
@@ -240,8 +243,15 @@ article:hover .logo{border-color:var(--b-strong)}
 .skill-group li.k{color:var(--t1);font-weight:540}
 .skill-group li.k::before{background:var(--acc)}
 
+.subhead{
+  /* h3 is a mono uppercase label by default; this is a real heading */
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:19px;font-weight:560;letter-spacing:-.024em;text-transform:none;
+  color:var(--t1);margin:0 0 15px;
+}
 .also{margin-top:34px;padding-top:26px;border-top:1px solid var(--b-subtle);max-width:62ch}
 .also p{margin-bottom:14px;color:var(--t3);font-size:15.5px;line-height:1.75}
+.also .before{margin-top:22px;padding-top:18px;border-top:1px solid var(--b-subtle)}
 .also p:last-child{margin-bottom:0}
 .also b{color:var(--t2);font-weight:540}
 
@@ -428,10 +438,10 @@ ul.bul li b{color:var(--t1);font-weight:560}
 /* ============ card body: one hook line, then scannable points ============ */
 .hook{
   font-size:17px;line-height:1.58;color:var(--t2);letter-spacing:-.014em;
-  max-width:58ch;text-wrap:balance;
+  max-width:var(--measure);text-wrap:balance;
 }
 .hook b{color:var(--t1);font-weight:560}
-ul.hl{list-style:none;padding:0;margin:20px 0 0;max-width:62ch}
+ul.hl{list-style:none;padding:0;margin:20px 0 0;max-width:var(--measure)}
 ul.hl li{
   position:relative;padding-left:22px;margin-bottom:11px;
   font-size:15px;line-height:1.64;color:var(--t2);text-wrap:pretty;
@@ -476,17 +486,25 @@ ul.hl b{color:var(--t1);font-weight:560}
 .more:hover{background:rgba(255,146,71,.07);color:var(--t1)}
 .more .marrow{
   font-family:"JetBrains Mono",monospace;font-size:15px;color:var(--acc);
-  transition:transform .24s cubic-bezier(.4,0,.2,1);
-  display:inline-block;line-height:1;flex:none;
+  flex:none;line-height:1;
+  width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(255,146,71,.13);border:1px solid rgba(255,146,71,.22);
+  transition:transform .24s cubic-bezier(.4,0,.2,1),background .22s ease,color .22s ease;
 }
-.more:hover .marrow{transform:translateX(5px)}
+.more:hover .marrow{transform:translateX(5px);background:var(--acc);color:#0a0b0c;border-color:var(--acc)}
 
-/* standalone variant for a case with no results grid */
+/* the primary action on each card, so it carries accent weight by default */
 .more.solo{
-  margin-top:30px;border:1px solid var(--b-std);border-top:1px solid var(--b-std);
-  border-radius:10px;background:var(--panel);
+  margin-top:30px;border:1px solid rgba(255,146,71,.3);
+  border-radius:10px;
+  background:linear-gradient(90deg,rgba(255,146,71,.10),rgba(255,146,71,.028) 58%,transparent),var(--panel);
 }
-.more.solo:hover{border-color:var(--acc);background:rgba(255,146,71,.06)}
+.more.solo .mlabel b{color:var(--acc)}
+.more.solo:hover{
+  border-color:var(--acc);
+  background:linear-gradient(90deg,rgba(255,146,71,.19),rgba(255,146,71,.06) 62%,transparent),var(--panel);
+}
 
 /* ============ at a glance ============ */
 .glance{
