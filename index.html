@@ -4,215 +4,603 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matviy Korsunskiy | AI systems for marketing and operations</title>
-<meta name="description" content="Lifecycle, CRM and AI systems built end to end. n8n, GoHighLevel, Claude, APIs. Some of it answers the phone.">
+<meta name="description" content="Lifecycle, CRM and AI systems built end to end. n8n, GoHighLevel, Claude, APIs.">
 <meta property="og:title" content="Matviy Korsunskiy">
-<meta property="og:description" content="Lifecycle, CRM and AI systems built end to end, across e-commerce, biotech lead generation and health insurance.">
-<meta property="og:type" content="website">
+<meta property="og:description" content="Lifecycle, CRM and AI systems built end to end.">
 <meta property="og:url" content="https://matviykorsunskiy.me">
 <script>document.documentElement.classList.replace('no-js','js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   matviykorsunskiy.me. The introduction is the scroll.
+
+   One typeface throughout: Plus Jakarta Sans. Rounded terminals and a
+   heavy top end, so the display weights read warm and solid rather than
+   condensed. No serif, no monospace anywhere.
+
+   The introduction shows one sentence at a time at full size instead of
+   stacking four small ones, which is what kept them cramped.
+   ============================================================ */
+:root{
+  --bg:#0b0b0e;
+  --surface:#141419;
+  --surface-2:#1b1b22;
+  --ink:#ffffff;
+  --body:#c6c6d2;
+  --soft:#9292a0;
+  --faint:#6b6b7a;
+  --rule:rgba(255,255,255,.12);
+  --rule-2:rgba(255,255,255,.07);
+  --acc:#ff8a4c;
+  --acc-2:#ffb07d;
+
+  --font:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --pad:clamp(22px,5vw,68px);
+  --max:1080px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--body);
+  font-family:var(--font);font-size:17px;line-height:1.65;font-weight:400;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--acc);color:#0b0b0e}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+
+/* ============ 1. the greeting ============ */
+.hello{
+  min-height:100svh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:80px var(--pad) 110px;position:relative;
+}
+.face{
+  width:94px;height:94px;border-radius:50%;object-fit:cover;
+  border:2px solid var(--rule);margin-bottom:32px;
+}
+.hello h1{
+  font-size:clamp(34px,6.4vw,68px);font-weight:800;line-height:1.08;
+  letter-spacing:-.035em;color:var(--ink);margin:0;max-width:13ch;text-wrap:balance;
+}
+.hello h1 .nm{display:block;color:var(--acc)}
+.cue{
+  position:absolute;left:50%;bottom:38px;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:9px;
+  font-size:11px;font-weight:600;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--faint);
+}
+.cue .arw{font-size:17px;line-height:1;color:var(--acc)}
+@media (prefers-reduced-motion:no-preference){
+  .cue .arw{animation:nudge 1.9s ease-in-out infinite}
+  @keyframes nudge{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(7px);opacity:1}}
+}
+
+/* ============ 2. the introduction, one sentence at a time ============ */
+.story{position:relative}
+.stage{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-block:96px}
+/* with JS the sentences share one cell and cross-fade; without it they
+   stack and the whole paragraph reads as ordinary copy */
+.js .stage{display:grid;align-content:center;justify-items:start}
+.js .line{grid-area:1/1;margin:0}
+.line{
+  font-size:clamp(28px,5vw,58px);font-weight:700;line-height:1.16;
+  letter-spacing:-.032em;color:var(--ink);margin:0 0 22px;
+  max-width:17ch;text-wrap:balance;
+}
+.line b{font-weight:700;color:var(--acc)}
+
+/* progress, on every device rather than desktop only */
+.prog{
+  position:absolute;left:50%;bottom:44px;transform:translateX(-50%);
+  display:flex;gap:8px;align-items:center;
+}
+.prog i{
+  width:26px;height:3px;border-radius:3px;background:var(--rule);display:block;
+  transition:background .3s ease,width .3s ease;
+}
+.prog i.on{background:var(--acc);width:40px}
+.keep{
+  position:absolute;left:50%;bottom:20px;transform:translateX(-50%);
+  font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);white-space:nowrap;
+}
+@media (min-width:900px){
+  .prog{left:var(--pad);bottom:auto;top:50%;transform:translateY(-50%);flex-direction:column}
+  .prog i{width:3px;height:26px}
+  .prog i.on{width:3px;height:42px}
+  .keep{left:var(--pad);bottom:44px;transform:none}
+  .js .stage{padding-left:44px}
+}
+
+/* ============ 3. recent projects ============ */
+section{padding-block:clamp(64px,8vw,112px)}
+.shead{
+  font-size:clamp(27px,3.6vw,42px);font-weight:800;letter-spacing:-.034em;
+  color:var(--ink);margin:0 0 10px;line-height:1.12;
+}
+.ssub{font-size:16.5px;color:var(--soft);margin:0 0 42px}
+
+.proj{
+  background:var(--surface);border:1px solid var(--rule-2);border-radius:20px;
+  padding:clamp(24px,3.2vw,38px);margin-bottom:22px;
+  transition:border-color .25s ease,background .25s ease;
+}
+.proj:last-of-type{margin-bottom:0}
+.proj:hover{border-color:var(--rule);background:var(--surface-2)}
+
+/* the title and its mark together are the link out, as in v1 */
+.ptitle{
+  display:inline-flex;align-items:center;gap:13px;
+  font-size:clamp(23px,2.9vw,32px);font-weight:800;letter-spacing:-.03em;
+  color:var(--ink);line-height:1.2;padding-block:6px;
+  transition:color .2s ease;
+}
+.ptitle img{
+  width:42px;height:42px;object-fit:contain;flex:none;
+  border-radius:11px;background:#fff;padding:6px;
+}
+.ptitle .ex{font-size:.55em;color:var(--faint);transition:transform .2s ease,color .2s ease}
+.ptitle:hover{color:var(--acc)}
+.ptitle:hover .ex{color:var(--acc);transform:translate(3px,-3px)}
+
+.pmeta{font-size:13.5px;font-weight:500;color:var(--faint);margin:10px 0 0;line-height:1.6}
+
+/* built / tools / results, in that order, with nothing between them */
+.spec{margin:24px 0 0}
+.spec > div{
+  display:grid;grid-template-columns:92px minmax(0,1fr);gap:22px;
+  padding:18px 0;border-top:1px solid var(--rule-2);align-items:start;
+}
+.spec > div:first-child{border-top:none;padding-top:0}
+.spec dt{
+  font-size:11.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);padding-top:4px;
+}
+.spec dd{margin:0;font-size:16.5px;line-height:1.55;color:var(--body);max-width:52ch;text-wrap:pretty}
+.spec dd b{color:var(--ink);font-weight:700}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.tools span{
+  font-size:13.5px;font-weight:600;letter-spacing:-.008em;
+  padding:6px 13px;border-radius:999px;
+  background:rgba(255,255,255,.06);color:var(--ink);
+}
+ul.res{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+ul.res li{
+  position:relative;padding-left:19px;
+  font-size:16.5px;line-height:1.5;color:var(--body);
+}
+ul.res li::before{
+  content:"";position:absolute;left:0;top:10px;
+  width:7px;height:7px;border-radius:50%;background:var(--acc);
+}
+ul.res b{color:var(--ink);font-weight:700}
+@media (max-width:620px){
+  .spec > div{grid-template-columns:1fr;gap:10px;padding:16px 0}
+  .spec dt{padding-top:0}
+}
+
+.cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:26px;min-height:52px;padding:14px 28px;border-radius:999px;
+  background:var(--acc);color:#0b0b0e;
+  font-size:16px;font-weight:700;letter-spacing:-.014em;
+  transition:background .22s ease,gap .22s ease;
+}
+.cta:hover{background:var(--acc-2);gap:15px}
+
+/* ============ 4. numbers ============ */
+.band{background:var(--surface);border-block:1px solid var(--rule-2)}
+.band .wrap{padding-block:clamp(46px,6vw,72px)}
+.figs{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+.fg .n{
+  font-size:clamp(38px,4.6vw,58px);font-weight:800;line-height:1;
+  letter-spacing:-.04em;color:var(--ink);display:block;
+}
+.fg .n em{font-style:normal;color:var(--acc)}
+.fg .c{font-size:14.5px;line-height:1.55;color:var(--soft);display:block;margin-top:12px;max-width:30ch}
+
+
+/* ============ 5. tools: a marquee that reacts to scroll speed ============ */
+.mqwrap{margin:6px 0 0;position:relative}
+/* fade the ends so chips arrive and leave instead of popping */
+.mqwrap::before,.mqwrap::after{
+  content:"";position:absolute;top:0;bottom:0;width:clamp(40px,9vw,130px);z-index:2;pointer-events:none;
+}
+.mqwrap::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.mqwrap::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.mq{overflow:hidden;padding:7px 0}
+.mqtrack{display:flex;gap:14px;width:max-content;will-change:transform}
+.tool{
+  display:inline-flex;align-items:center;gap:11px;flex:none;
+  padding:13px 20px 13px 14px;border-radius:999px;
+  background:var(--surface);border:1px solid var(--rule-2);
+  font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.014em;white-space:nowrap;
+}
+.tool img{width:26px;height:26px;object-fit:contain;flex:none}
+.tool.txt{padding-inline:20px;color:var(--soft);font-weight:500}
+
+.doing{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0 clamp(20px,4vw,56px);margin-top:clamp(34px,4vw,52px);
+}
+.doing div{
+  padding:18px 0;border-top:1px solid var(--rule-2);
+  font-size:16.5px;line-height:1.5;color:var(--body);
+}
+.doing b{display:block;color:var(--ink);font-weight:700;margin-bottom:2px}
+
+/* ============ 6. other builds as cards ============ */
+.bgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.bcard{
+  position:relative;overflow:hidden;
+  background:var(--surface);border:1px solid var(--rule-2);border-radius:18px;
+  padding:26px 24px 24px;
+  transition:transform .28s cubic-bezier(.2,.7,.3,1),border-color .28s ease,background .28s ease;
+}
+.bcard:hover{transform:translateY(-5px);border-color:var(--rule);background:var(--surface-2)}
+/* sits fully inside the card; clipped at the top it read as a mistake */
+.bnum{
+  position:absolute;right:18px;top:14px;
+  font-size:62px;font-weight:800;line-height:.9;letter-spacing:-.05em;
+  color:rgba(255,255,255,.05);pointer-events:none;
+}
+.bcard h3{
+  font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.02em;
+  margin:0 0 10px;line-height:1.25;position:relative;
+}
+.bcard p{font-size:15.5px;line-height:1.6;color:var(--soft);margin:0;position:relative}
+.btags{
+  display:flex;gap:7px;flex-wrap:wrap;margin-top:16px;position:relative;
+}
+.btags span{
+  font-size:12px;font-weight:600;letter-spacing:-.006em;
+  padding:5px 11px;border-radius:999px;
+  background:rgba(255,138,76,.12);color:var(--acc);
+}
+@media (max-width:860px){
+  .bgrid{grid-template-columns:1fr}
+  .doing{grid-template-columns:1fr}
+}
+.tail{
+  font-size:15.5px;line-height:1.7;color:var(--faint);max-width:62ch;
+  margin:28px 0 0;padding-top:24px;border-top:1px solid var(--rule-2);
+}
+
+/* ============ 6. close ============ */
+.close{padding-block:clamp(72px,9vw,116px);border-top:1px solid var(--rule-2)}
+.close h2{
+  font-size:clamp(28px,4vw,48px);font-weight:800;line-height:1.12;
+  letter-spacing:-.035em;color:var(--ink);margin:0 0 30px;max-width:17ch;text-wrap:balance;
+}
+.close h2 .q{color:var(--soft)}
+.acts{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:52px;padding:14px 26px;border-radius:999px;
+  font-size:16px;font-weight:700;letter-spacing:-.014em;
+  transition:background .22s ease,color .22s ease,border-color .22s ease;
+}
+.btn.solid{background:var(--acc);color:#0b0b0e}
+.btn.solid:hover{background:var(--acc-2)}
+.btn.ghost{border:1px solid var(--rule);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--ink)}
+.fine{font-size:14px;line-height:1.75;color:var(--faint);margin:36px 0 0;max-width:60ch}
+
+@media (max-width:860px){
+  .figs{grid-template-columns:1fr;gap:28px}
+  .defs > div{grid-template-columns:1fr;gap:5px;padding-block:18px}
+}
+@media (max-width:560px){
+  body{font-size:16.5px}
+  .face{width:80px;height:80px;margin-bottom:26px}
+  .cta,.btn{width:100%}
+  .ptitle img{width:36px;height:36px}
+}
+</style>
 </head>
 <body>
-<div class="aurora"></div>
-<div class="grain"></div>
 
-<div class="shell">
+<!-- 1 -->
+<section class="hello">
+  <img class="face" src="/portrait.jpg" alt="Matviy Korsunskiy" width="94" height="94">
+  <h1>Hi, my name is <span class="nm">Matviy Korsunskiy.</span></h1>
+  <div class="cue"><span>Scroll</span><span class="arw" aria-hidden="true">&darr;</span></div>
+</section>
 
-  <aside class="rail">
-    <img class="pf" src="portrait.jpg" alt="Matviy Korsunskiy" width="56" height="56">
-    <div class="nm">Matviy Korsunskiy</div>
-    <div class="role">Automation, CRM and AI systems for marketing and operations</div>
-    <div class="avail"><span class="dot"></span>Available for contract</div>
-    <nav>
-      <a href="mailto:matviykorsunskiy@gmail.com">Email</a>
-      <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
-    </nav>
-    <div class="tz">Eastern time<br>New Jersey, US</div>
-  </aside>
-
-  <main class="col">
-
-    <div class="hero">
-      <h1 class="headline">I build the automation a business actually runs on.</h1>
-      <div data-reveal>
-        <p class="lede">I build with <b>Claude</b>, no-code platforms like <b>n8n</b> and <b>GoHighLevel</b>, and the software a business already runs on: CRMs, Shopify, Retell. Lifecycle automation, lead generation, and custom conversational AI systems.</p>
-      </div>
-
-      <div class="proof" data-reveal>
-        <div class="pi">
-          <span class="v" data-count="42" data-suffix=".6%">42.6%</span>
-          <span class="k">reply rate on cold LinkedIn outreach, about <b>10x</b> the channel benchmark</span>
-        </div>
-        <div class="pi">
-          <span class="v" data-count="5" data-suffix=",000+">5,000+</span>
-          <span class="k">products a voice agent looks up live, by name or model number</span>
-        </div>
-        <div class="pi">
-          <span class="v">8 months</span>
-          <span class="k">live on a client&rsquo;s phone line, and I still maintain it weekly</span>
-        </div>
-      </div>
-
+<!-- 2 -->
+<section class="story">
+  <div class="wrap">
+    <div class="stage">
+      <p class="line">I build the automation a business <b>actually runs on</b>.</p>
+      <p class="line">Lifecycle and CRM systems in <b>n8n</b> and <b>GoHighLevel</b>.</p>
+      <p class="line">Lead generation that targets <b>conversations</b>, not job titles.</p>
+      <p class="line"><b>Voice agents</b> that answer real phone lines, and keep answering.</p>
     </div>
+  </div>
+  <div class="prog" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="keep" aria-hidden="true">Keep scrolling</div>
+</section>
 
-    <div class="sechead" data-reveal>
-      <h2 class="sectitle">Recent Projects</h2>
+<!-- 3 -->
+<section id="work">
+  <div class="wrap">
+    <h2 class="shead">Recent projects</h2>
+    <p class="ssub">What I built, what it runs on, what it did.</p>
+
+    <article class="proj">
+      <a class="ptitle" href="https://worldofluxuryus.com" target="_blank" rel="noopener">
+        <img src="/logos/wol-logo.png" alt="" loading="lazy">World of Luxury <span class="ex">&#8599;</span>
+      </a>
+      <p class="pmeta">Luxury watches and jewelry, Aventura FL</p>
+      <dl class="spec">
+        <div>
+          <dt>Built</dt>
+          <dd>An inbound voice receptionist that answers every call, looks up live order status against Shopify, and writes a qualified lead into the CRM before it hangs up.</dd>
+        </div>
+        <div>
+          <dt>Tools</dt>
+          <dd><div class="tools"><span>Retell AI</span><span>n8n</span><span>Shopify</span><span>Airtable</span></div></dd>
+        </div>
+        <div>
+          <dt>Results</dt>
+          <dd><ul class="res">
+            <li><b>9 in 10 calls</b> arrive outside showroom hours, now captured instead of going to voicemail</li>
+            <li><b>5,000+ products</b> matched from a spoken sentence at 90&ndash;95% accuracy</li>
+            <li><b>8 months</b> live, still maintained weekly</li>
+          </ul></dd>
+        </div>
+      </dl>
+      <a class="cta" href="/work/world-of-luxury/">Read the case study <span aria-hidden="true">&rarr;</span></a>
+    </article>
+
+    <article class="proj">
+      <a class="ptitle" href="https://flockbio.com" target="_blank" rel="noopener">
+        <img src="/logos/flock-logo.png" alt="" loading="lazy">Flock Bio <span class="ex">&#8599;</span>
+      </a>
+      <p class="pmeta">High-throughput pooled DNA libraries</p>
+      <dl class="spec">
+        <div>
+          <dt>Built</dt>
+          <dd>A LinkedIn outbound pipeline that finds prospects by what they post about rather than their job title, then deduplicates, enriches, scores and sequences them automatically.</dd>
+        </div>
+        <div>
+          <dt>Tools</dt>
+          <dd><div class="tools"><span>Apify</span><span>n8n</span><span>Clay</span><span>HeyReach</span></div></dd>
+        </div>
+        <div>
+          <dt>Results</dt>
+          <dd><ul class="res">
+            <li><b>42.6% reply rate</b> on cold LinkedIn, about 10x the channel benchmark</li>
+            <li><b>78.5%</b> connection acceptance</li>
+            <li><b>19 technical phrases</b> scraped and filtered every week, unattended</li>
+          </ul></dd>
+        </div>
+      </dl>
+      <a class="cta" href="/work/flock-bio/">Read the case study <span aria-hidden="true">&rarr;</span></a>
+    </article>
+
+    <article class="proj">
+      <a class="ptitle" href="https://www.healthcare.com" target="_blank" rel="noopener">
+        <img src="/logos/healthcare-logo.png" alt="" loading="lazy">Healthcare.com <span class="ex">&#8599;</span>
+      </a>
+      <p class="pmeta">National health insurance marketplace &nbsp;&middot;&nbsp; contract, 2026 ongoing</p>
+      <dl class="spec">
+        <div>
+          <dt>Built</dt>
+          <dd>Three inbound voice agents: intent routing for high call volume, a loss-of-coverage intake line that warm transfers to a licensed human, and a Medicare Advantage agent.</dd>
+        </div>
+        <div>
+          <dt>Tools</dt>
+          <dd><div class="tools"><span>Retell AI</span><span>VAPI</span><span>n8n</span><span>Claude</span></div></dd>
+        </div>
+        <div>
+          <dt>Results</dt>
+          <dd><ul class="res">
+            <li>Built to hold up against <b>CMS marketing rules</b> and AI disclosure requirements</li>
+            <li>Scoped, designed and shipped across <b>product, engineering and compliance</b></li>
+            <li>Figures and flows stay private under contract</li>
+          </ul></dd>
+        </div>
+      </dl>
+      <a class="cta" href="/work/healthcare-com/">Read the case study <span aria-hidden="true">&rarr;</span></a>
+    </article>
+  </div>
+</section>
+
+<!-- 4 -->
+<div class="band">
+  <div class="wrap">
+    <div class="figs">
+      <div class="fg"><span class="n">42.6<em>%</em></span><span class="c">Reply rate on cold LinkedIn outreach, about 10x the channel benchmark</span></div>
+      <div class="fg"><span class="n">5,000<em>+</em></span><span class="c">Products a voice agent looks up live, by name or model number</span></div>
+      <div class="fg"><span class="n">8<em> months</em></span><span class="c">Live on a client&rsquo;s phone line, and I still maintain it weekly</span></div>
     </div>
+  </div>
+</div>
 
-    <article>
-      <div data-reveal>
-        <div class="tag">01 &nbsp;·&nbsp; Retained, 8 months</div>
-        <div class="co">
-          <div class="logo"><img src="logos/wol-logo.png" alt="World of Luxury" width="42" height="42" loading="lazy"></div>
-          <div>
-            <a class="co-name" href="https://worldofluxuryus.com" target="_blank" rel="noopener">World of Luxury <span class="ext">&#8599;</span></a>
-            <div class="co-sub">Luxury watches and jewelry, Aventura FL &nbsp;·&nbsp; ~$500K/yr on Shopify &nbsp;·&nbsp; Retell + n8n</div>
-          </div>
-        </div>
-        <p class="built">An inbound receptionist still running after 8 months</p>
+<!-- 5 -->
+<section id="tools">
+  <div class="wrap">
+    <h2 class="shead">What I work with</h2>
+    <p class="ssub">Scroll and they move. Scroll faster and they move faster.</p>
+  </div>
+
+  <div class="mqwrap">
+    <div class="mq" data-dir="-1">
+      <div class="mqtrack">
+        <span class="tool"><img src="/logos/tools/n8n.png" alt="">n8n</span>
+        <span class="tool"><img src="/logos/tools/claude.png" alt="">Claude</span>
+        <span class="tool"><img src="/logos/tools/ghl.png" alt="">GoHighLevel</span>
+        <span class="tool"><img src="/logos/tools/shopify.png" alt="">Shopify</span>
+        <span class="tool"><img src="/logos/tools/airtable.png" alt="">Airtable</span>
+        <span class="tool"><img src="/logos/tools/retell.svg" alt="">Retell AI</span>
+        <span class="tool txt">REST APIs</span>
       </div>
-      <div data-reveal>
-        <p class="hook">Building a voice agent is the easy part. Keeping one alive on someone&rsquo;s real phone line for 8 months is the part most people never reach.</p>
-        <ul class="hl">
-          <li><b>Answers every inbound call</b>, looks up live order status against Shopify, and writes a qualified lead into the CRM before it hangs up.</li>
-          <li><b>Nearly 9 in 10 calls land outside showroom hours.</b> Every one used to be a voicemail. They now sit on someone&rsquo;s desk by morning, on pieces running from $21,000 to over $300,000.</li>
-          <li><b>I listen to real conversations every week</b>, find where it handled something badly, and fix it. That loop is the whole difference between a demo and a system.</li>
-        </ul>
-      </div>
-
-      <a class="more solo" href="/work/world-of-luxury/">
-        <span class="mlabel"><b>Read the case study and see the results</b><span class="msub">6 live workflows, the call data, and what 89% after hours really means</span></span>
-        <span class="marrow">&rarr;</span>
-      </a>
-    </article>
-
-    <article>
-      <div data-reveal>
-        <div class="tag">02 &nbsp;·&nbsp; Lead generation</div>
-        <div class="co">
-          <div class="logo"><img src="logos/flock-logo.png" alt="Flock Bio" width="42" height="42" loading="lazy"></div>
-          <div>
-            <a class="co-name" href="https://flockbio.com" target="_blank" rel="noopener">Flock Bio <span class="ext">&#8599;</span></a>
-            <div class="co-sub">High-throughput pooled DNA libraries &nbsp;·&nbsp; lead generation &nbsp;·&nbsp; Apify + n8n + Clay</div>
-          </div>
-        </div>
-        <p class="built">A LinkedIn pipeline that replied at 10x benchmark</p>
-      </div>
-      <div data-reveal>
-        <p class="hook">No job title reliably identifies a scientist about to build a DNA library. So the system stopped looking for people and started looking for conversations.</p>
-        <ul class="hl">
-          <li><b>Apify</b> scrapes posts against 19 technical phrases each week. An LLM keeps the genuine industry discussion and throws out the recruiters and the press releases.</li>
-          <li><b>Everyone who engaged</b> with those posts is deduplicated by intent, then enriched and scored in Clay.</li>
-          <li><b>HeyReach</b> sends one opener to the person who wrote the post and a different one to the people who engaged with it.</li>
-        </ul>
-      </div>
-
-      <a class="more solo" href="/work/flock-bio/">
-        <span class="mlabel"><b>Read the case study and see the results</b><span class="msub">The full pipeline, the reply data, and the failure that stayed silent</span></span>
-        <span class="marrow">&rarr;</span>
-      </a>
-    </article>
-
-    <article>
-      <div data-reveal>
-        <div class="tag">03 &nbsp;·&nbsp; Regulated industry</div>
-        <div class="co">
-          <div class="logo"><img src="logos/healthcare-logo.png" alt="Healthcare.com" width="42" height="42" loading="lazy"></div>
-          <div>
-            <a class="co-name" href="https://www.healthcare.com" target="_blank" rel="noopener">Healthcare.com <span class="ext">&#8599;</span></a>
-            <div class="co-sub">National health insurance marketplace &nbsp;·&nbsp; contract voice engineering &nbsp;·&nbsp; 2026, ongoing</div>
-          </div>
-        </div>
-        <p class="built">3 voice agents that are not allowed to improvise</p>
-      </div>
-      <div data-reveal>
-        <p class="hook">Most voice AI books appointments. This one sits inside health insurance, where saying the wrong thing about coverage is a compliance problem, not a bad review.</p>
-        <ul class="hl">
-          <li><b>Routing.</b> Works out what a caller actually needs and sends them to the right place. Built for high inbound volume.</li>
-          <li><b>Loss-of-coverage intake.</b> Qualifies people who just lost their insurance along with their job, then warm transfers to a licensed human instead of trying to solve it.</li>
-          <li><b>Medicare Advantage funnel.</b> Same build, higher bar. AI disclosure and CMS marketing rules constrain every line it is allowed to say.</li>
-        </ul>
-      </div>
-
-      <a class="more solo" href="/work/healthcare-com/">
-        <span class="mlabel"><b>Read the Healthcare.com case study</b><span class="msub">How you constrain an agent that cannot improvise &middot; details limited by contract</span></span>
-        <span class="marrow">&rarr;</span>
-      </a>
-    </article>
-
-    <div class="sechead" data-reveal>
-      <h2 class="sectitle">What I work with</h2>
     </div>
-
-    <article>
-      <div class="skills" data-reveal>
-        <div class="skill-group">
-          <h4>Automation &amp; workflow</h4>
-          <ul>
-            <li class="k">n8n</li>
-            <li class="k">GoHighLevel</li>
-            <li>REST APIs and webhooks</li>
-            <li>Airtable, Google Sheets</li>
-            <li>Cal.com, Boulevard, Shopify</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <h4>AI</h4>
-          <ul>
-            <li class="k">Claude</li>
-            <li>Prompt and context engineering</li>
-            <li>Evals, QA and regression testing</li>
-            <li>Conversation flow design</li>
-            <li>Retell AI, VAPI</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <h4>Lifecycle &amp; growth</h4>
-          <ul>
-            <li class="k">Lead generation systems</li>
-            <li>Apify, Clay</li>
-            <li>Meta Ads, Instantly</li>
-            <li>Lifecycle and review automation</li>
-            <li>KPI tracking and reporting</li>
-          </ul>
-        </div>
+    <div class="mq" data-dir="1">
+      <div class="mqtrack">
+        <span class="tool"><img src="/logos/tools/apify.png" alt="">Apify</span>
+        <span class="tool"><img src="/logos/tools/clay.png" alt="">Clay</span>
+        <span class="tool"><img src="/logos/tools/heyreach.png" alt="">HeyReach</span>
+        <span class="tool"><img src="/logos/tools/vapi.png" alt="">VAPI</span>
+        <span class="tool"><img src="/logos/tools/linkedin.png" alt="">LinkedIn</span>
+        <span class="tool txt">Meta Ads</span>
+        <span class="tool txt">Instantly</span>
+        <span class="tool txt">Cal.com</span>
       </div>
+    </div>
+  </div>
 
-      <div class="also" data-reveal>
-        <h3 class="subhead">Other builds</h3>
-        <ul class="hl">
-          <li><b>A full lifecycle system on GoHighLevel</b> for home service businesses. Site, forms, multi-channel capture, lead routing, automated follow-up and review generation, all running as one funnel.</li>
-          <li><b>A 3-location booking agent</b> for a Florida med spa on VAPI and n8n, wired into Boulevard scheduling and a custom services database.</li>
-          <li><b>3 months mentoring</b> the paid community of a voice AI educator, answering n8n and automation questions for a mostly non-technical audience.</li>
-        </ul>
-        <p class="before">I ran the largest business club event at GWU with a team of 7. Trilingual in English, Russian and Ukrainian. 4-time US national champion in ballroom dance, which is where I learned what practicing something properly looks like.</p>
-      </div>
-    </article>
+  <div class="wrap">
+    <div class="doing">
+      <div><b>Conversation design and evals</b>Flows, refusal paths, adversarial test cases, regression testing after every prompt change.</div>
+      <div><b>Lead generation systems</b>Scraping, LLM filtering, deduplication by intent, enrichment and scoring.</div>
+      <div><b>Lifecycle and routing</b>Multi-channel capture, qualification, handoff to a human, review generation.</div>
+      <div><b>Prompt and context engineering</b>Getting a model to stay inside a scope it is not allowed to leave.</div>
+    </div>
+  </div>
+</section>
 
-    <footer>
-      <div data-reveal>
-        <p class="cta">If any of this is the shape of your problem, I&rsquo;d like to hear about it.</p>
-        <div class="btns">
-          <a class="btn solid magnetic" href="mailto:matviykorsunskiy@gmail.com">matviykorsunskiy@gmail.com</a>
-          <a class="btn ghost magnetic" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
-          </div>
-        <p class="disclaim">
-          Client names and internal details omitted where I am under confidentiality.<br>
-          Happy to go deeper on any of it on a call.
-        </p>
-      </div>
-    </footer>
+<section>
+  <div class="wrap">
+    <h2 class="shead">Other builds</h2>
+    <p class="ssub">Shipped, but without a case study behind them.</p>
+    <div class="bgrid">
+      <article class="bcard">
+        <span class="bnum" aria-hidden="true">01</span>
+        <h3>Local presence system</h3>
+        <p>Site, forms, multi-channel capture, lead routing, automated follow-up and review generation for home service businesses, all running as one funnel.</p>
+        <div class="btags"><span>GoHighLevel</span><span>Lifecycle</span></div>
+      </article>
+      <article class="bcard">
+        <span class="bnum" aria-hidden="true">02</span>
+        <h3>Med spa booking agent</h3>
+        <p>A 3-location voice agent for a Florida med spa, wired into Boulevard scheduling and a custom services database.</p>
+        <div class="btags"><span>VAPI</span><span>n8n</span><span>Boulevard</span></div>
+      </article>
+      <article class="bcard">
+        <span class="bnum" aria-hidden="true">03</span>
+        <h3>Community mentoring</h3>
+        <p>3 months answering n8n and automation questions for the paid community of a voice AI educator, for a mostly non-technical audience.</p>
+        <div class="btags"><span>n8n</span><span>Teaching</span></div>
+      </article>
+    </div>
+    <p class="tail">I ran the largest business club event at GWU with a team of 7. Trilingual in English, Russian and Ukrainian. 4-time US national champion in ballroom dance, which is where I learned what practicing something properly looks like.</p>
+  </div>
+</section>
 
-  </main>
+<!-- 6 -->
+<div class="close">
+  <div class="wrap">
+    <h2>If any of this is the shape of your problem, <span class="q">I&rsquo;d like to hear about it.</span></h2>
+    <div class="acts">
+      <a class="btn solid" href="mailto:matviykorsunskiy@gmail.com">matviykorsunskiy@gmail.com</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
+    </div>
+    <p class="fine">
+      Eastern time, New Jersey, US &nbsp;&middot;&nbsp; Available for contract<br>
+      Client names and internal details omitted where I am under confidentiality.
+    </p>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
-<script src="/motion.js" defer></script>
+<script>
+window.addEventListener('load', function () {
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', function () {
+    var lines = gsap.utils.toArray('.line');
+    var dots  = gsap.utils.toArray('.prog i');
+
+    gsap.to('.cue', {
+      autoAlpha: 0, duration: .3,
+      scrollTrigger: { trigger: '.hello', start: 'top top-=40', toggleActions: 'play none none reverse' }
+    });
+
+    /* one sentence holds the stage at a time, so each one gets full size */
+    gsap.set(lines, { autoAlpha: 0, y: 26 });
+    gsap.set(lines[0], { autoAlpha: 1, y: 0 });
+
+    function mark(i) {
+      dots.forEach(function (d, n) { d.classList.toggle('on', n === i); });
+    }
+    mark(0);
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.story', start: 'top top',
+        end: '+=' + ((lines.length - 1) * 78) + '%',
+        pin: true, scrub: .5, anticipatePin: 1
+      }
+    });
+
+    for (var i = 1; i < lines.length; i++) {
+      (function (n) {
+        var at = (n - 1) * 1;
+        tl.to(lines[n - 1], { autoAlpha: 0, y: -26, duration: .45, ease: 'power2.in' }, at);
+        tl.fromTo(lines[n], { autoAlpha: 0, y: 26 },
+                  { autoAlpha: 1, y: 0, duration: .45, ease: 'power2.out' }, at + .45);
+        tl.call(function () { mark(n); },     null, at + .5);
+        tl.call(function () { mark(n - 1); }, null, at + .49);
+      })(i);
+    }
+    /* a beat so the last sentence is read before the pin releases */
+    tl.to({}, { duration: .4 });
+
+    gsap.utils.toArray('.proj').forEach(function (p) {
+      gsap.from(p, {
+        autoAlpha: 0, y: 40, duration: .8, ease: 'power2.out',
+        scrollTrigger: { trigger: p, start: 'top 86%', once: true }
+      });
+    });
+    gsap.utils.toArray('.fg').forEach(function (f, i) {
+      gsap.from(f, {
+        autoAlpha: 0, y: 24, duration: .65, delay: i * .08, ease: 'power2.out',
+        scrollTrigger: { trigger: '.band', start: 'top 84%', once: true }
+      });
+    });
+
+    /* ---- tool marquee ----
+       Two rows looping in opposite directions. Scroll speed feeds the
+       timeScale, so flicking the page throws them and stopping settles
+       them back to a drift. No pin, so it never fights the scroll. */
+    var rows = gsap.utils.toArray('.mq').map(function (row) {
+      var track = row.querySelector('.mqtrack');
+      track.innerHTML = track.innerHTML + track.innerHTML;   // seamless loop
+      var dir = +row.dataset.dir || -1;
+      return gsap.fromTo(track,
+        { xPercent: dir < 0 ? 0 : -50 },
+        { xPercent: dir < 0 ? -50 : 0, duration: 34, ease: 'none', repeat: -1 });
+    });
+
+    if (rows.length) {
+      ScrollTrigger.create({
+        start: 0, end: 'max',
+        onUpdate: function (self) {
+          var boost = gsap.utils.clamp(0, 5, Math.abs(self.getVelocity()) / 650);
+          rows.forEach(function (r) {
+            gsap.to(r, { timeScale: 1 + boost, duration: .45, overwrite: true });
+          });
+        }
+      });
+    }
+
+    gsap.utils.toArray('.bcard').forEach(function (c, i) {
+      gsap.from(c, {
+        autoAlpha: 0, y: 34, duration: .7, delay: i * .09, ease: 'power2.out',
+        scrollTrigger: { trigger: '.bgrid', start: 'top 86%', once: true }
+      });
+    });
+  });
+});
+</script>
 </body>
 </html>
