@@ -829,29 +829,6 @@ ol.ladder{
 }
 .salinks a:hover .sa{transform:translateX(4px)}
 
-/* ============ end-to-end ownership, with the evidence attached ============ */
-.e2e{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));
-  gap:1px;background:var(--b-subtle);
-  border:1px solid var(--b-subtle);border-radius:10px;overflow:hidden;
-  margin-top:22px;
-}
-.e2i{
-  background:var(--panel);padding:20px 20px 17px;
-  display:flex;flex-direction:column;gap:10px;
-  transition:background .25s ease;
-}
-.e2i:hover{background:var(--raised)}
-.e2i .el{
-  font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--acc);
-}
-.e2i p{font-size:14.5px;line-height:1.6;color:var(--t2);margin:0;flex:1;text-wrap:pretty}
-.e2i .ec{
-  font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.04em;
-  color:var(--t4);transition:color .2s ease;
-}
-.e2i .ec:hover{color:var(--acc)}
 
 /* ============================================================
    MOBILE
@@ -896,7 +873,6 @@ ol.ladder{
 
   /* touch targets */
   .btn{min-height:44px;padding:12px 18px}
-  .e2i .ec{min-height:40px;display:flex;align-items:flex-end}
   /* padding on an inline link grows the hit area without shifting layout */
   .co-name{padding:9px 0;margin:-9px 0}
   .case-meta a{padding:10px 0}
@@ -918,7 +894,6 @@ ol.ladder{
   .built{font-size:16.5px}
   .glance{grid-template-columns:repeat(2,1fr)}
   .stats{grid-template-columns:repeat(2,1fr)}
-  .e2e{grid-template-columns:1fr}
   .more{padding:15px 17px;gap:12px}
   .msub{font-size:10.5px}
 }
