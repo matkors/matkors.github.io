@@ -253,7 +253,7 @@ wol += LF.join([
     lead('I listened to every call in a recent sample and tagged each one: when it came in, what they wanted, how it ended, and whether a lead was actually captured.'),
     stats([('89%', 'of calls arrive after hours', 1),
            ('90&ndash;95%', 'correct product from 5,000', 0),
-           ('72%', 'of genuine inquiries become a lead', 0),
+           ('78%', 'of genuine inquiries become a lead', 0),
            ('$21&ndash;302K', 'range of pieces asked about', 0)]),
     endsec(),
 
