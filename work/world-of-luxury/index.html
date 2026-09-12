@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>World of Luxury &mdash; matching 5,000 watches from a spoken sentence | Matviy Korsunskiy</title>
+<title>World of Luxury: matching 5,000 watches from a spoken sentence | Matviy Korsunskiy</title>
 <meta name="description" content="A production voice agent for a luxury watch dealer: live Shopify catalogue, fuzzy model-number matching at 90-95% on 5,000 SKUs, and 89% of calls arriving after hours.">
-<meta property="og:title" content="World of Luxury &mdash; matching 5,000 watches from a spoken sentence | Matviy Korsunskiy">
+<meta property="og:title" content="World of Luxury: matching 5,000 watches from a spoken sentence | Matviy Korsunskiy">
 <meta property="og:description" content="A production voice agent for a luxury watch dealer: live Shopify catalogue, fuzzy model-number matching at 90-95% on 5,000 SKUs, and 89% of calls arriving after hours.">
 <meta property="og:type" content="article">
 <script>document.documentElement.classList.replace('no-js','js')</script>
@@ -93,13 +93,13 @@
       <p>It <b>PATCHes</b> into Airtable rather than creating, so a product that changed price updates in place instead of duplicating.</p>
       </div>
       <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 1</b> Product sync &mdash; the pagination loop</div>
-        <div class="frame"><img src="/shots/sync-products.png" alt="Product sync &mdash; the pagination loop" loading="lazy"></div>
+        <div class="figlabel"><b>Fig 1</b> Product sync, the pagination loop</div>
+        <div class="frame"><img src="/shots/sync-products.png" alt="Product sync, the pagination loop" loading="lazy"></div>
         <figcaption><b>Build Request</b> assembles the next cursor, the HTTP node pulls a page, results are parsed and batched, then upserted into Airtable. <b>Has More Products?</b> feeds the arrow back round until Shopify stops returning a cursor.</figcaption>
       </figure>
       <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 2</b> Order sync &mdash; same shape, paced</div>
-        <div class="frame"><img src="/shots/sync-orders.png" alt="Order sync &mdash; same shape, paced" loading="lazy"></div>
+        <div class="figlabel"><b>Fig 2</b> Order sync, same shape but paced</div>
+        <div class="frame"><img src="/shots/sync-orders.png" alt="Order sync, same shape but paced" loading="lazy"></div>
         <figcaption>Identical pattern with one addition: a <b>Wait</b> node between iterations. Without it the loop runs fast enough to trip Shopify&rsquo;s rate limit, which is what was silently killing the workflow before.</figcaption>
       </figure>
       <div class="secnum" data-reveal>Layer 2 &nbsp;&middot;&nbsp; Finding the right watch mid-call</div>
@@ -180,7 +180,7 @@
       <div class="pull" data-reveal>
       <p>A voice agent is not a build, it is an operation. The version that shipped in month one and the version running now share a prompt and almost nothing else.</p>
       </div>
-      <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>
+      <div class="secnum" data-reveal>Stack</div>
       <div class="stack" data-reveal>
         <span class="chip"><img src="/logos/tools/retell.svg" alt="">Retell AI</span>
         <span class="chip"><img src="/logos/tools/vapi.png" alt="">VAPI</span>

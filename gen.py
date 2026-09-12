@@ -49,7 +49,7 @@ def glance(items):
 
 # ===================================================== HEALTHCARE.COM
 hc = HEAD.format(
-    title='Healthcare.com &mdash; voice agents under compliance | Matviy Korsunskiy',
+    title='Healthcare.com voice agents under compliance | Matviy Korsunskiy',
     desc='Three voice agents built for a national health insurance marketplace, where the agent is not allowed to improvise.',
     railrole='Case study', logo='healthcare-logo.png', client='Healthcare.com',
     meta='Contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing',
@@ -150,7 +150,7 @@ hc += '\n'.join([
     lead('Get compliance into the design conversation before you build, not after.'),
     prose('Every hour spent agreeing what the agent may not say saves a week of rework. In this category compliance is not a gate at the end of the process, it is a design input at the start, and treating it that way is the difference between an agent that reaches rollout and one that sits in review indefinitely.'),
 
-    '      <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>',
+    '      <div class="secnum" data-reveal>Stack</div>',
     chips([('Retell AI', 'retell.svg', 0), ('VAPI', 'vapi.png', 0),
            ('n8n', 'n8n.png', 0), ('Claude', 'claude.png', 0)]),
 ])
@@ -161,7 +161,7 @@ hc += FOOT.format(nextprev=nextprev([
 
 # ===================================================== WORLD OF LUXURY
 wol = HEAD.format(
-    title='World of Luxury &mdash; matching 5,000 watches from a spoken sentence | Matviy Korsunskiy',
+    title='World of Luxury: matching 5,000 watches from a spoken sentence | Matviy Korsunskiy',
     desc='A production voice agent for a luxury watch dealer: live Shopify catalogue, fuzzy model-number matching at 90-95% on 5,000 SKUs, and 89% of calls arriving after hours.',
     railrole='Case study', logo='wol-logo.png', client='World of Luxury',
     meta='Luxury watches and jewelry, Aventura FL &nbsp;&middot;&nbsp; ~$500K/yr on Shopify',
@@ -203,9 +203,9 @@ wol += '\n'.join([
     prose('The obvious approach broke immediately. n8n&rsquo;s Shopify node returns 50 records per call, and looping it hard enough to finish a full pull kept tripping limits and deactivating the workflow.',
           'I replaced it with a custom HTTP request walking Shopify&rsquo;s <code>page_info</code> cursor at roughly 250 records per iteration. Five times the throughput, and stable enough to run unattended.',
           'It <b>PATCHes</b> into Airtable rather than creating, so a product that changed price updates in place instead of duplicating.'),
-    fig('Fig 1', 'Product sync &mdash; the pagination loop', 'sync-products.png',
+    fig('Fig 1', 'Product sync, the pagination loop', 'sync-products.png',
         '<b>Build Request</b> assembles the next cursor, the HTTP node pulls a page, results are parsed and batched, then upserted into Airtable. <b>Has More Products?</b> feeds the arrow back round until Shopify stops returning a cursor.'),
-    fig('Fig 2', 'Order sync &mdash; same shape, paced', 'sync-orders.png',
+    fig('Fig 2', 'Order sync, same shape but paced', 'sync-orders.png',
         'Identical pattern with one addition: a <b>Wait</b> node between iterations. Without it the loop runs fast enough to trip Shopify&rsquo;s rate limit, which is what was silently killing the workflow before.'),
 
     layer('Layer 2', 'Finding the right watch mid-call'),
@@ -253,7 +253,7 @@ wol += '\n'.join([
     ]),
     pull('A voice agent is not a build, it is an operation. The version that shipped in month one and the version running now share a prompt and almost nothing else.'),
 
-    '      <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>',
+    '      <div class="secnum" data-reveal>Stack</div>',
     chips([('Retell AI', 'retell.svg', 0), ('VAPI', 'vapi.png', 0),
            ('n8n', 'n8n.png', 0), ('Airtable', 'airtable.png', 0), ('Shopify', 'shopify.png', 0)]),
 ])
@@ -264,7 +264,7 @@ wol += FOOT.format(nextprev=nextprev([
 
 # ===================================================== FLOCK BIO
 fb = HEAD.format(
-    title='Flock Bio &mdash; a 42% reply rate on cold LinkedIn | Matviy Korsunskiy',
+    title='Flock Bio: a 42% reply rate on cold LinkedIn | Matviy Korsunskiy',
     desc='Outbound to a narrow technical audience, targeted by what they were talking about this week rather than by job title. Apify, Clay, n8n and HeyReach.',
     railrole='Case study', logo='flock-logo.png', client='Flock Bio',
     meta='High-throughput pooled DNA libraries &nbsp;&middot;&nbsp; LinkedIn outbound',
@@ -299,7 +299,7 @@ fb += '\n'.join([
     prose('Someone who comments on a post about directed evolution has self-selected far more precisely than any title filter can manage. Two n8n workflows do the work, plus a third that exists only to fail safely.'),
 
     layer('Workflow 1', 'Sourcing and qualification'),
-    prose('An Apify scraper runs every three days against 19 quoted phrases &mdash; <code>"gene library"</code>, <code>"codon optimization"</code>, <code>"directed evolution"</code>, <code>"AAV cassette design"</code> and the rest &mdash; pulling the week&rsquo;s posts <b>along with their comments and reactions</b>.'),
+    prose('An Apify scraper runs every three days against 19 quoted phrases such as <code>"gene library"</code>, <code>"codon optimization"</code>, <code>"directed evolution"</code>, <code>"AAV cassette design"</code>, pulling the week&rsquo;s posts <b>along with their comments and reactions</b>.'),
     bul([
         '<b>Mechanical filter.</b> Keep posts by people, drop company pages.',
         '<b>Semantic filter.</b> An LLM judges whether each post is genuine industry discussion, rejecting personal stories and webinar pitches.',
@@ -340,7 +340,7 @@ fb += '\n'.join([
     prose('On a narrow technical list that fails, because the description does not separate the person building a library this quarter from the ten thousand who are not.',
           'What someone posted about last week does separate them. Targeting the conversation rather than the person is the single decision that produced the reply rate.'),
 
-    '      <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>',
+    '      <div class="secnum" data-reveal>Stack</div>',
     chips([('Apify', 'apify.png', 0), ('n8n', 'n8n.png', 0),
            ('Clay', 'clay.png', 0), ('HeyReach', 'heyreach.png', 0)]),
 ])

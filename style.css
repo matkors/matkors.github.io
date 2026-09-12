@@ -392,13 +392,16 @@ ul.bul li b{color:var(--t1);font-weight:560}
   font-size:15px;line-height:1.6;color:var(--t3);margin-top:9px;
   max-width:56ch;text-wrap:balance;
 }
+/* the proof strip already ends in a rule; a second one right under it
+   reads as a double line now that the intro paragraphs are gone */
+.hero + .sechead{border-top:none;margin-top:54px;padding-top:0}
 /* the heading owns the first project - no rule between them */
 .sechead + article{margin-top:34px;padding-top:0;border-top:none}
 
 /* ============ hero proof strip ============ */
 /* the four numbers worth reading before anyone decides to scroll */
 .proof{
-  display:grid;grid-template-columns:repeat(4,1fr);
+  display:grid;grid-template-columns:repeat(3,1fr);
   margin-top:40px;
   border-top:1px solid var(--b-std);border-bottom:1px solid var(--b-std);
 }
@@ -414,12 +417,12 @@ ul.bul li b{color:var(--t1);font-weight:560}
   display:block;font-size:12.5px;line-height:1.45;
   color:var(--t3);text-wrap:pretty;
 }
+.pi .k b{color:var(--acc);font-weight:600}
 @media (max-width:820px){
-  .proof{grid-template-columns:repeat(2,1fr)}
-  .pi{padding:16px 16px 16px 0}
-  .pi + .pi{padding-left:0;border-left:none}
-  .pi:nth-child(even){padding-left:20px;border-left:1px solid var(--b-subtle)}
-  .pi:nth-child(n+3){border-top:1px solid var(--b-subtle)}
+  .proof{grid-template-columns:1fr}
+  .pi{padding:15px 0}
+  .pi + .pi{padding-left:0;border-left:none;border-top:1px solid var(--b-subtle)}
+  .pi .v{margin-bottom:7px}
 }
 
 /* ============ card body: one hook line, then scannable points ============ */
