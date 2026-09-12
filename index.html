@@ -571,23 +571,59 @@ window.addEventListener('load', function () {
     /* ---- tool marquee ----
        Two rows looping in opposite directions. Scroll speed feeds the
        timeScale, so flicking the page throws them and stopping settles
-       them back to a drift. No pin, so it never fights the scroll. */
-    var rows = gsap.utils.toArray('.mq').map(function (row) {
-      var track = row.querySelector('.mqtrack');
-      track.innerHTML = track.innerHTML + track.innerHTML;   // seamless loop
-      var dir = +row.dataset.dir || -1;
-      return gsap.fromTo(track,
-        { xPercent: dir < 0 ? 0 : -50 },
-        { xPercent: dir < 0 ? -50 : 0, duration: 34, ease: 'none', repeat: -1 });
+       them back to a drift. No pin, so it never fights the scroll.
+
+       The chips have to be repeated until a single cycle is wider than
+       the screen. With only one duplicate, a wide monitor runs past the
+       end of the row and leaves dead space before the loop comes round. */
+    var rowTweens = [];
+
+    function buildMarquees() {
+      rowTweens.forEach(function (t) { t.kill(); });
+      rowTweens = [];
+
+      gsap.utils.toArray('.mq').forEach(function (row) {
+        var track = row.querySelector('.mqtrack');
+        var unit  = track.dataset.unit || track.innerHTML;
+        track.dataset.unit = unit;
+
+        track.innerHTML = unit;
+        gsap.set(track, { x: 0 });
+
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        var need = Math.max(row.offsetWidth, window.innerWidth) + 240;
+        var guard = 0;
+        while (track.scrollWidth + gap < need && guard++ < 20) {
+          track.insertAdjacentHTML('beforeend', unit);
+        }
+
+        var cycle = track.scrollWidth + gap;      // distance to travel per loop
+        track.insertAdjacentHTML('beforeend', track.innerHTML);   // second cycle
+
+        var dir = +row.dataset.dir || -1;
+        rowTweens.push(gsap.fromTo(track,
+          { x: dir < 0 ? 0 : -cycle },
+          { x: dir < 0 ? -cycle : 0,
+            duration: cycle / 46,                 // constant speed whatever the width
+            ease: 'none', repeat: -1 }));
+      });
+    }
+
+    buildMarquees();
+
+    var rebuild;
+    window.addEventListener('resize', function () {
+      clearTimeout(rebuild);
+      rebuild = setTimeout(buildMarquees, 220);
     });
 
-    if (rows.length) {
+    if (rowTweens.length) {
       ScrollTrigger.create({
         start: 0, end: 'max',
         onUpdate: function (self) {
           var boost = gsap.utils.clamp(0, 5, Math.abs(self.getVelocity()) / 650);
-          rows.forEach(function (r) {
-            gsap.to(r, { timeScale: 1 + boost, duration: .45, overwrite: true });
+          rowTweens.forEach(function (t) {
+            gsap.to(t, { timeScale: 1 + boost, duration: .45, overwrite: true });
           });
         }
       });
