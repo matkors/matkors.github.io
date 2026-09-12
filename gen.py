@@ -95,7 +95,7 @@ window.addEventListener('load', function () {
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
   gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', function () {
-    gsap.utils.toArray('section, .spec, .fig, .figpair').forEach(function (el) {
+    gsap.utils.toArray('section, .gate, .fig, .figpair').forEach(function (el) {
       gsap.from(el, {
         autoAlpha: 0, y: 26, duration: .7, ease: 'power2.out',
         scrollTrigger: { trigger: el, start: 'top 88%', once: true }
@@ -210,16 +210,9 @@ wol = HEAD.format(
     logo='wol-logo.png', client='World of Luxury',
     meta='Luxury watches and jewelry, Aventura FL &nbsp;&middot;&nbsp; ~$500K/yr on Shopify &nbsp;&middot;&nbsp; retained 8 months',
     url='https://worldofluxuryus.com',
-    h1='A voice agent that queries a live 5,000-product Shopify catalog mid-call')
+    h1='Voice agent on a live 5,000-product catalog')
 
 wol += LF.join([
-    system([
-        ('Architecture', '1 Retell agent, 6 n8n workflows, Airtable as the datastore, Shopify Admin API as the source of truth.'),
-        ('Agent tools', '3 webhook lookups the agent calls mid-conversation: product by name and price, product by model number, order by number.'),
-        ('Catalog sync', 'Custom HTTP node walking Shopify&rsquo;s <code>page_info</code> cursor at ~250 records per request, PATCH-upserting into Airtable. Replaces the built-in node, which caps at 50.'),
-        ('Match accuracy', '90&ndash;95% correct product across ~5,000 live products, from speech-to-text output.'),
-        ('Writeback', 'Transcript, recording, caller and the exact product asked about, into Airtable on every completed call.'),
-    ]),
 
     sec('01', 'Why a menu or a VA does not solve this'),
     pts(['The showroom is open Monday to Friday, 10am to 5pm. <b>9 in 10 calls arrive outside that window</b>, including $40,000 inquiries at 11pm and on Sundays. They were hitting a voicemail box nobody actioned before Monday.',
@@ -283,16 +276,9 @@ fb = HEAD.format(
     logo='flock-logo.png', client='Flock Bio',
     meta='High-throughput pooled DNA libraries &nbsp;&middot;&nbsp; LinkedIn outbound',
     url='https://flockbio.com',
-    h1='Scraping LinkedIn post engagement into a scored outbound sequence')
+    h1='LinkedIn outbound targeted by post engagement')
 
 fb += LF.join([
-    system([
-        ('Architecture', '2 n8n workflows plus a dedicated error handler. Apify for scraping, Clay for enrichment and scoring, HeyReach for sending, Google Sheets as the human approval queue.'),
-        ('Trigger', 'Scheduled every 3 days against <b>19 quoted phrases</b> such as <code>"gene library"</code> and <code>"AAV cassette design"</code>.'),
-        ('Filtering', 'An LLM pass discards recruiters, press releases and reposts. Everyone who engaged with a surviving post is extracted and deduplicated by intent.'),
-        ('Sequencing', '2 HeyReach tracks: a different opener for the author of the post than for the people who engaged with it. Batched with waits, because platform limits are the real cap on volume.'),
-        ('Reply rate', '42.6% on cold LinkedIn, against a low-single-digit channel benchmark.'),
-    ]),
 
     sec('01', 'Why title-based targeting fails here'),
     pts(['No job title reliably identifies a scientist about to build a DNA library. Filtering by title and company returns thousands of people, almost none of whom have the problem this quarter.',
@@ -333,16 +319,9 @@ hc = HEAD.format(
     logo='healthcare-logo.png', client='Healthcare.com',
     meta='National health insurance marketplace &nbsp;&middot;&nbsp; contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing',
     url='https://www.healthcare.com',
-    h1='3 inbound voice agents built under CMS marketing rules')
+    h1='3 voice agents under CMS marketing rules')
 
 hc += LF.join([
-    system([
-        ('Architecture', '3 inbound agents on Retell AI and VAPI, with n8n handling integrations and data handoff.'),
-        ('Scope', 'Intent routing for high call volume, a loss-of-coverage intake line that qualifies and warm transfers to a licensed human, and a Medicare Advantage agent.'),
-        ('Hard constraints', 'AI disclosure, non-government-affiliation statement, the CMS-mandated Medicare marketing disclaimer, and no assertion of eligibility, premium or coverage under any phrasing.'),
-        ('My role', 'Scoped all 3 from scratch, mapped the use cases with senior stakeholders, designed the flows, and coordinated across product, engineering, compliance and operations. No spec was handed over.'),
-        ('Confidential', 'Flows, prompts, platform configuration and every figure stay private under contract.'),
-    ]),
 
     gate('Under contract',
          'Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause. No screenshots, no flows, no prompts, no numbers. What follows is the constraint set and my own method, which is mine to show. The other 2 case studies have the screenshots and the data.'),

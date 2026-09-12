@@ -32,15 +32,8 @@
       <img src="/logos/healthcare-logo.png" alt="">Healthcare.com <span class="ex">&#8599;</span>
     </a>
     <p class="cmeta">National health insurance marketplace &nbsp;&middot;&nbsp; contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing</p>
-    <h1>3 inbound voice agents built under CMS marketing rules</h1>
+    <h1>3 voice agents under CMS marketing rules</h1>
   </div>
-  <dl class="spec">
-    <div><dt>Architecture</dt><dd>3 inbound agents on Retell AI and VAPI, with n8n handling integrations and data handoff.</dd></div>
-    <div><dt>Scope</dt><dd>Intent routing for high call volume, a loss-of-coverage intake line that qualifies and warm transfers to a licensed human, and a Medicare Advantage agent.</dd></div>
-    <div><dt>Hard constraints</dt><dd>AI disclosure, non-government-affiliation statement, the CMS-mandated Medicare marketing disclaimer, and no assertion of eligibility, premium or coverage under any phrasing.</dd></div>
-    <div><dt>My role</dt><dd>Scoped all 3 from scratch, mapped the use cases with senior stakeholders, designed the flows, and coordinated across product, engineering, compliance and operations. No spec was handed over.</dd></div>
-    <div><dt>Confidential</dt><dd>Flows, prompts, platform configuration and every figure stay private under contract.</dd></div>
-  </dl>
     <div class="gate">
       <div class="lbl">Under contract</div>
       <p>Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause. No screenshots, no flows, no prompts, no numbers. What follows is the constraint set and my own method, which is mine to show. The other 2 case studies have the screenshots and the data.</p>
@@ -128,7 +121,7 @@ window.addEventListener('load', function () {
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
   gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', function () {
-    gsap.utils.toArray('section, .spec, .fig, .figpair').forEach(function (el) {
+    gsap.utils.toArray('section, .gate, .fig, .figpair').forEach(function (el) {
       gsap.from(el, {
         autoAlpha: 0, y: 26, duration: .7, ease: 'power2.out',
         scrollTrigger: { trigger: el, start: 'top 88%', once: true }

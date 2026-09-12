@@ -32,15 +32,8 @@
       <img src="/logos/wol-logo.png" alt="">World of Luxury <span class="ex">&#8599;</span>
     </a>
     <p class="cmeta">Luxury watches and jewelry, Aventura FL &nbsp;&middot;&nbsp; ~$500K/yr on Shopify &nbsp;&middot;&nbsp; retained 8 months</p>
-    <h1>A voice agent that queries a live 5,000-product Shopify catalog mid-call</h1>
+    <h1>Voice agent on a live 5,000-product catalog</h1>
   </div>
-  <dl class="spec">
-    <div><dt>Architecture</dt><dd>1 Retell agent, 6 n8n workflows, Airtable as the datastore, Shopify Admin API as the source of truth.</dd></div>
-    <div><dt>Agent tools</dt><dd>3 webhook lookups the agent calls mid-conversation: product by name and price, product by model number, order by number.</dd></div>
-    <div><dt>Catalog sync</dt><dd>Custom HTTP node walking Shopify&rsquo;s <code>page_info</code> cursor at ~250 records per request, PATCH-upserting into Airtable. Replaces the built-in node, which caps at 50.</dd></div>
-    <div><dt>Match accuracy</dt><dd>90&ndash;95% correct product across ~5,000 live products, from speech-to-text output.</dd></div>
-    <div><dt>Writeback</dt><dd>Transcript, recording, caller and the exact product asked about, into Airtable on every completed call.</dd></div>
-  </dl>
   <section>
     <p class="snum">01</p>
     <h2>Why a menu or a VA does not solve this</h2>
@@ -164,7 +157,7 @@ window.addEventListener('load', function () {
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
   gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', function () {
-    gsap.utils.toArray('section, .spec, .fig, .figpair').forEach(function (el) {
+    gsap.utils.toArray('section, .gate, .fig, .figpair').forEach(function (el) {
       gsap.from(el, {
         autoAlpha: 0, y: 26, duration: .7, ease: 'power2.out',
         scrollTrigger: { trigger: el, start: 'top 88%', once: true }

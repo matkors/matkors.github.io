@@ -32,15 +32,8 @@
       <img src="/logos/flock-logo.png" alt="">Flock Bio <span class="ex">&#8599;</span>
     </a>
     <p class="cmeta">High-throughput pooled DNA libraries &nbsp;&middot;&nbsp; LinkedIn outbound</p>
-    <h1>Scraping LinkedIn post engagement into a scored outbound sequence</h1>
+    <h1>LinkedIn outbound targeted by post engagement</h1>
   </div>
-  <dl class="spec">
-    <div><dt>Architecture</dt><dd>2 n8n workflows plus a dedicated error handler. Apify for scraping, Clay for enrichment and scoring, HeyReach for sending, Google Sheets as the human approval queue.</dd></div>
-    <div><dt>Trigger</dt><dd>Scheduled every 3 days against <b>19 quoted phrases</b> such as <code>"gene library"</code> and <code>"AAV cassette design"</code>.</dd></div>
-    <div><dt>Filtering</dt><dd>An LLM pass discards recruiters, press releases and reposts. Everyone who engaged with a surviving post is extracted and deduplicated by intent.</dd></div>
-    <div><dt>Sequencing</dt><dd>2 HeyReach tracks: a different opener for the author of the post than for the people who engaged with it. Batched with waits, because platform limits are the real cap on volume.</dd></div>
-    <div><dt>Reply rate</dt><dd>42.6% on cold LinkedIn, against a low-single-digit channel benchmark.</dd></div>
-  </dl>
   <section>
     <p class="snum">01</p>
     <h2>Why title-based targeting fails here</h2>
@@ -129,7 +122,7 @@ window.addEventListener('load', function () {
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
   gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', function () {
-    gsap.utils.toArray('section, .spec, .fig, .figpair').forEach(function (el) {
+    gsap.utils.toArray('section, .gate, .fig, .figpair').forEach(function (el) {
       gsap.from(el, {
         autoAlpha: 0, y: 26, duration: .7, ease: 'power2.out',
         scrollTrigger: { trigger: el, start: 'top 88%', once: true }
