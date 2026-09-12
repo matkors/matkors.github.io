@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>World of Luxury: matching 5,000 watches from a spoken sentence | Matviy Korsunskiy</title>
-<meta name="description" content="A production voice agent for a luxury watch dealer: live Shopify catalogue, fuzzy model-number matching at 90-95% on 5,000 SKUs, and 89% of calls arriving after hours.">
+<meta name="description" content="A production voice agent for a luxury watch dealer: live Shopify catalog, fuzzy model-number matching at 90-95% across 5,000 products, and 89% of calls arriving after hours.">
 <meta property="og:title" content="World of Luxury: matching 5,000 watches from a spoken sentence | Matviy Korsunskiy">
-<meta property="og:description" content="A production voice agent for a luxury watch dealer: live Shopify catalogue, fuzzy model-number matching at 90-95% on 5,000 SKUs, and 89% of calls arriving after hours.">
+<meta property="og:description" content="A production voice agent for a luxury watch dealer: live Shopify catalog, fuzzy model-number matching at 90-95% across 5,000 products, and 89% of calls arriving after hours.">
 <meta property="og:type" content="article">
 <script>document.documentElement.classList.replace('no-js','js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,46 +50,46 @@
       <div class="glance" data-reveal>
         <div class="gi"><span class="l">Role</span><span class="v">Built it and run it</span></div>
         <div class="gi"><span class="l">Period</span><span class="v">8-month retainer</span></div>
-        <div class="gi"><span class="l">Catalogue</span><span class="v">~5,000 live SKUs</span></div>
+        <div class="gi"><span class="l">Catalog</span><span class="v">~5,000 live products</span></div>
         <div class="gi"><span class="l">Match rate</span><span class="v">90&ndash;95%</span></div>
       </div>
       <div class="pull" data-reveal>
-      <p>The voice was never the hard part. The hard part was matching a misheard watch name against five thousand products that change every day, fast enough that the caller does not notice the pause.</p>
+      <p>The voice was never the hard part. The hard part was matching a misheard watch name against 5,000 products that change every day, fast enough that the caller does not notice the pause.</p>
       </div>
       <div data-reveal id="problem">
         <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
         <h2 class="sec">They had already tried a human</h2>
       </div>
-      <p class="lead" data-reveal>The showroom is open Monday to Friday, ten to five. Their customers are not.</p>
+      <p class="lead" data-reveal>The showroom is open Monday to Friday, 10am to 5pm. Their customers are not.</p>
       <div class="prose" data-reveal>
-      <p>People shop for a $40,000 watch at eleven at night and on Sunday afternoons. Those calls used to hit a voicemail box nobody was going to action before Monday.</p>
+      <p>People shop for a $40,000 watch at 11pm and on Sunday afternoons. Those calls used to hit a voicemail box nobody was going to action before Monday.</p>
       <p>They tried the obvious fix first and hired a virtual assistant. It did not work.</p>
       <p>A VA who does not know the inventory cannot answer the only question that matters: <em>do you have this piece, and what does it cost</em>. Taking a message is not answering.</p>
       </div>
       <div data-reveal id="constraint">
         <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
-        <h2 class="sec">Five thousand products, changing daily</h2>
+        <h2 class="sec">5,000 products, changing daily</h2>
       </div>
-      <p class="lead" data-reveal>The agent had to hit live inventory mid-call, and fast. A lookup that takes eight seconds has already damaged the conversation.</p>
+      <p class="lead" data-reveal>The agent had to hit live inventory mid-call, and fast. A lookup that takes 8 seconds has already damaged the conversation.</p>
       <div class="prose" data-reveal>
-      <p>The catalogue moves every day as pieces sell and new stock lands, so anything working from a static export is wrong within 24 hours.</p>
+      <p>The catalog moves every day as pieces sell and new stock lands, so anything working from a static export is wrong within 24 hours.</p>
       <p>Then the matching itself, which is where the real difficulty sat:</p>
       </div>
       <ul class="bul" data-reveal>
         <li><b>Speech-to-text mangles the brand names.</b> Jaeger-LeCoultre, Audemars Piguet, Breguet. A mangled string matches nothing.</li>
         <li><b>Model numbers resist matching.</b> Mixed digits, letters and symbols, inconsistent capitalisation, and a pre-owned marker only some products carry.</li>
-        <li><b>Around a hundred products are near-duplicates.</b> Exact match returns nothing; loose match returns the wrong watch, confidently.</li>
+        <li><b>Around 100 products are near-duplicates.</b> Exact match returns nothing; loose match returns the wrong watch, confidently.</li>
         <li><b>Callers ask about orders too,</b> so the agent has to pick which lookup to run.</li>
       </ul>
       <div data-reveal id="built">
         <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
-        <h2 class="sec">Six workflows in three layers</h2>
+        <h2 class="sec">6 workflows in 3 layers</h2>
       </div>
-      <p class="lead" data-reveal>The agent is the visible part. Underneath it, six n8n workflows do the work.</p>
+      <p class="lead" data-reveal>The agent is the visible part. Underneath it, 6 n8n workflows do the work.</p>
       <div class="secnum" data-reveal>Layer 1 &nbsp;&middot;&nbsp; Keeping 5,000 products current</div>
       <div class="prose" data-reveal>
       <p>The obvious approach broke immediately. n8n&rsquo;s Shopify node returns 50 records per call, and looping it hard enough to finish a full pull kept tripping limits and deactivating the workflow.</p>
-      <p>I replaced it with a custom HTTP request walking Shopify&rsquo;s <code>page_info</code> cursor at roughly 250 records per iteration. Five times the throughput, and stable enough to run unattended.</p>
+      <p>I replaced it with a custom HTTP request walking Shopify&rsquo;s <code>page_info</code> cursor at roughly 250 records per iteration. 5x the throughput, and stable enough to run unattended.</p>
       <p>It <b>PATCHes</b> into Airtable rather than creating, so a product that changed price updates in place instead of duplicating.</p>
       </div>
       <figure class="fig" data-reveal>
@@ -104,12 +104,12 @@
       </figure>
       <div class="secnum" data-reveal>Layer 2 &nbsp;&middot;&nbsp; Finding the right watch mid-call</div>
       <div class="prose" data-reveal>
-      <p>Three lookup workflows sit behind webhooks the agent calls as tools. Each runs the same shape: extract the argument, normalise it, search Airtable, rank the candidates, format for speech.</p>
+      <p>3 lookup workflows sit behind webhooks the agent calls as tools. Each runs the same shape: extract the argument, normalise it, search Airtable, rank the candidates, format for speech.</p>
       </div>
       <div class="figpair" data-reveal>
         <figure class="fig" style="margin:0">
-          <div class="frame"><img src="/shots/product-page-annotated.png" alt="A product page showing the three matchable fields" loading="lazy"></div>
-          <figcaption>A real listing. These three fields are everything the agent has to work with.</figcaption>
+          <div class="frame"><img src="/shots/product-page-annotated.png" alt="A product page showing the 3 matchable fields" loading="lazy"></div>
+          <figcaption>A real listing. These 3 fields are everything the agent has to work with.</figcaption>
         </figure>
         <ul class="legend">
           <li><span class="n">1</span><span><b>Product name</b>Long and brand-heavy. This is what callers mispronounce and what speech-to-text mangles.</span></li>
@@ -125,7 +125,7 @@
       <figure class="fig" data-reveal>
         <div class="figlabel"><b>Fig 4</b> Lookup by model number</div>
         <div class="frame"><img src="/shots/lookup-reference.png" alt="Lookup by model number" loading="lazy"></div>
-        <figcaption>Same shape pointed at the reference field. Normalisation does the heavy lifting here, stripping the case and punctuation that make a direct match return nothing. <b>90 to 95% correct across 5,000 SKUs.</b></figcaption>
+        <figcaption>Same shape pointed at the reference field. Normalisation does the heavy lifting here, stripping the case and punctuation that make a direct match return nothing. <b>90 to 95% correct across 5,000 products.</b></figcaption>
       </figure>
       <figure class="fig" data-reveal>
         <div class="figlabel"><b>Fig 5</b> Order lookup, with a live fallback</div>
@@ -156,12 +156,12 @@
       <p class="lead" data-reveal>I went through every call in a recent sample and coded each one by arrival time, intent, outcome, and whether a lead was actually captured.</p>
       <div class="stats" data-stats>
         <div class="stat hi"><span class="v" data-count="89" data-suffix="%">89%</span><span class="k">of calls arrive after hours</span></div>
-        <div class="stat"><span class="v">90&ndash;95%</span><span class="k">correct product from 5,000 SKUs</span></div>
+        <div class="stat"><span class="v">90&ndash;95%</span><span class="k">correct product from 5,000 products</span></div>
         <div class="stat"><span class="v">8 mo</span><span class="k">retained, still running</span></div>
         <div class="stat"><span class="v">$21&ndash;302K</span><span class="k">range of pieces asked about</span></div>
       </div>
       <ul class="notes" data-reveal>
-        <li><b>72% of genuine inquiries</b> become a captured lead, after excluding wrong numbers, a caller chasing a Macy&rsquo;s order, and two who were abusive. Counting those would have flattered the number.</li>
+        <li><b>72% of genuine inquiries</b> become a captured lead, after excluding wrong numbers, a caller chasing a Macy&rsquo;s order, and 2 who were abusive. Counting those would have flattered the number.</li>
         <li><b>The value range is what callers asked about:</b> Richard Mille $302,500, Jaeger-LeCoultre tourbillon $41,000, Corum $21,000, plus Breguet, Patek Philippe and an AP Royal Oak Grande Complication.</li>
       </ul>
       <div data-reveal id="learned">
@@ -170,11 +170,11 @@
       </div>
       <p class="lead" data-reveal>This agent was not good at the start. It got good because I listen to real calls every week and fix what broke.</p>
       <div class="prose" data-reveal>
-      <p>Three from the last pass, none of which show up in any metric:</p>
+      <p>3 from the last pass, none of which show up in any metric:</p>
       </div>
       <ul class="bul" data-reveal>
         <li><b>A broken email domain.</b> The agent was reading the contact address out as &ldquo;world of luxurious dot com&rdquo;. Every seller routed to email got an address that does not exist, and every one of those calls logged as successful.</li>
-        <li><b>Lead capture asked too late.</b> Callers answered three or four product questions, then hung up the moment the agent asked for a name. The ask arrived cold at the end instead of being earned earlier.</li>
+        <li><b>Lead capture asked too late.</b> Callers answered 3 or 4 product questions, then hung up the moment the agent asked for a name. The ask arrived cold at the end instead of being earned earlier.</li>
         <li><b>No recovery from a misheard name.</b> One caller&rsquo;s name came through as &ldquo;12&rdquo;. The agent had no path back and the call timed out, losing a $21,000 inquiry at the final step.</li>
       </ul>
       <div class="pull" data-reveal>

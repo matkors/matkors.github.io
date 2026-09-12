@@ -69,7 +69,7 @@
         <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
         <h2 class="sec">One pass at a small list</h2>
       </div>
-      <p class="lead" data-reveal>The addressable audience is small enough that burning it has a real cost. There is no version of this where you send ten thousand messages and accept a low hit rate.</p>
+      <p class="lead" data-reveal>The addressable audience is small enough that burning it has a real cost. There is no version of this where you send 10,000 messages and accept a low hit rate.</p>
       <ul class="bul" data-reveal>
         <li><b>The buyers are technical.</b> A generic message marks you as someone who does not understand the work, which is disqualifying in a field where credibility is the product.</li>
         <li><b>LinkedIn punishes volume.</b> Connection limits and spam signals cap what you can send anyway.</li>
@@ -80,11 +80,11 @@
       </div>
       <p class="lead" data-reveal>Rather than search for people who look right, the system finds posts about the right subject each week and harvests everyone who engaged with them.</p>
       <div class="prose" data-reveal>
-      <p>Someone who comments on a post about directed evolution has self-selected far more precisely than any title filter can manage. Two n8n workflows do the work, plus a third that exists only to fail safely.</p>
+      <p>Someone who comments on a post about directed evolution has self-selected far more precisely than any title filter can manage. 2 n8n workflows do the work, plus a third that exists only to fail safely.</p>
       </div>
       <div class="secnum" data-reveal>Workflow 1 &nbsp;&middot;&nbsp; Sourcing and qualification</div>
       <div class="prose" data-reveal>
-      <p>An Apify scraper runs every three days against 19 quoted phrases such as <code>"gene library"</code>, <code>"codon optimization"</code>, <code>"directed evolution"</code>, <code>"AAV cassette design"</code>, pulling the week&rsquo;s posts <b>along with their comments and reactions</b>.</p>
+      <p>An Apify scraper runs every 3 days against 19 quoted phrases such as <code>"gene library"</code>, <code>"codon optimization"</code>, <code>"directed evolution"</code>, <code>"AAV cassette design"</code>, pulling the week&rsquo;s posts <b>along with their comments and reactions</b>.</p>
       </div>
       <ul class="bul" data-reveal>
         <li><b>Mechanical filter.</b> Keep posts by people, drop company pages.</li>
@@ -105,11 +105,11 @@
       </div>
       <div class="secnum" data-reveal>Workflow 2 &nbsp;&middot;&nbsp; Personalised outreach</div>
       <div class="prose" data-reveal>
-      <p>Approved leads flow from a Google Sheet into HeyReach every three days. An LLM first strips titles, suffixes, emojis and pipes down to a clean first and last name, because &ldquo;Dr. WALLIS MARGRAFF, Ph.D.&rdquo; is not how you open a message.</p>
+      <p>Approved leads flow from a Google Sheet into HeyReach every 3 days. An LLM first strips titles, suffixes, emojis and pipes down to a clean first and last name, because &ldquo;Dr. WALLIS MARGRAFF, Ph.D.&rdquo; is not how you open a message.</p>
       </div>
       <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 2</b> Two tracks through HeyReach</div>
-        <div class="frame"><img src="/shots/flockbio-heyreach.png" alt="Two tracks through HeyReach" loading="lazy"></div>
+        <div class="figlabel"><b>Fig 2</b> 2 tracks through HeyReach</div>
+        <div class="frame"><img src="/shots/flockbio-heyreach.png" alt="2 tracks through HeyReach" loading="lazy"></div>
         <figcaption>The split at <b>Engagement or Post Route</b> is where the personalisation lives. Post authors take the upper path, engagers the lower one. Both loop in small batches with a wait, then stamp the sheet.</figcaption>
       </figure>
       <ul class="bul" data-reveal>
@@ -127,7 +127,7 @@
       <figure class="fig" data-reveal>
         <div class="figlabel"><b>Fig 3</b> The error workflow</div>
         <div class="frame"><img src="/shots/flockbio-error.png" alt="The error workflow" loading="lazy"></div>
-        <figcaption>Three nodes, and the order of the middle two is the entire design. Reverse them and a broken run keeps sending while the email sits unread.</figcaption>
+        <figcaption>3 nodes, and the order of the middle 2 is the entire design. Reverse them and a broken run keeps sending while the email sits unread.</figcaption>
       </figure>
       <div data-reveal id="results">
         <div class="secnum">04 &nbsp;&middot;&nbsp; The results</div>
@@ -149,7 +149,7 @@
       </div>
       <p class="lead" data-reveal>The instinct in outbound is to describe the buyer and go find people who match the description.</p>
       <div class="prose" data-reveal>
-      <p>On a narrow technical list that fails, because the description does not separate the person building a library this quarter from the ten thousand who are not.</p>
+      <p>On a narrow technical list that fails, because the description does not separate the person building a library this quarter from the 10,000 who are not.</p>
       <p>What someone posted about last week does separate them. Targeting the conversation rather than the person is the single decision that produced the reply rate.</p>
       </div>
       <div class="secnum" data-reveal>Stack</div>
