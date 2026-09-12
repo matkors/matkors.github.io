@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matviy Korsunskiy | AI systems for marketing and operations</title>
+<meta name="description" content="Lifecycle, CRM and AI systems built end to end. n8n, GoHighLevel, Claude, APIs.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Matviy Korsunskiy">
+<meta property="og:description" content="Lifecycle, CRM and AI systems built end to end.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   v3. An editorial redesign, not a recolour.
+
+   Different bones from v1/v2: an index column down the left, work as
+   numbered entries rather than stacked cards, one large number carried
+   inside each entry instead of a dashboard strip across the top, and
+   the stack as definition rows rather than three bulleted columns.
+
+   Newsreader is a low-contrast serif drawn for screen reading, so it
+   stays soft at long lengths. DM Sans handles labels and lists, where
+   you are scanning rather than reading.
+   ============================================================ */
+:root{
+  --paper:#fbfaf7;
+  --raise:#f4f2ed;
+  --ink:#1c1b18;
+  --body:#44423c;
+  --muted:#78756c;
+  --faint:#a5a199;
+  --rule:#e7e3da;
+  --rule-2:#d8d3c7;
+  --acc:#a6522a;
+
+  --serif:Newsreader,Georgia,"Times New Roman",serif;
+  --sans:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  --read:60ch;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);color:var(--body);
+  font-family:var(--serif);
+  font-size:19px;line-height:1.72;font-weight:400;
+  font-optical-sizing:auto;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+a{color:inherit;text-decoration:none}
+::selection{background:#f0d9c8}
+
+.page{max-width:1000px;margin:0 auto;padding:0 40px}
+
+/* the spine: a narrow index column that every row hangs off */
+.row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:46px;align-items:start}
+.idx{
+  font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.06em;
+  color:var(--faint);line-height:1.6;padding-top:9px;
+  font-feature-settings:"tnum";
+}
+.idx b{display:block;color:var(--acc);font-weight:600}
+
+@media (prefers-reduced-motion:no-preference){
+  .up{opacity:0;transform:translateY(12px);animation:up .6s cubic-bezier(.2,.7,.3,1) forwards}
+  .up:nth-of-type(2){animation-delay:.07s}
+  .up:nth-of-type(3){animation-delay:.13s}
+  @keyframes up{to{opacity:1;transform:none}}
+}
+
+/* ============ masthead ============ */
+.top{
+  display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+  padding:34px 0 0;flex-wrap:wrap;
+}
+.sig{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.top nav{display:flex;gap:20px;align-items:baseline;font-family:var(--sans);font-size:14px}
+.top nav a{color:var(--muted);padding:10px 0;transition:color .18s ease}
+.top nav a:hover{color:var(--acc)}
+.free{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--sans);font-size:13px;color:var(--muted);
+}
+.free i{width:6px;height:6px;border-radius:50%;background:#3f8f4f;display:block}
+
+/* ============ opening ============ */
+.open{padding:86px 0 78px}
+h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(38px,5.4vw,60px);line-height:1.06;letter-spacing:-.022em;
+  color:var(--ink);max-width:16ch;text-wrap:balance;
+}
+h1 em{font-style:italic;color:var(--acc)}
+.stand{
+  font-family:var(--sans);font-size:17px;line-height:1.62;color:var(--muted);
+  max-width:56ch;margin-top:28px;text-wrap:pretty;
+}
+.stand b{color:var(--ink);font-weight:600}
+
+/* ============ section rule ============ */
+.band{border-top:1px solid var(--rule);padding:56px 0 0}
+.band + .band{margin-top:64px}
+.kicker{
+  font-family:var(--sans);font-size:12px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--faint);
+}
+
+/* ============ work entries ============ */
+.entry{padding-bottom:66px}
+.entry + .entry{padding-top:60px;border-top:1px solid var(--rule)}
+.mark{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.mark img{
+  width:30px;height:30px;object-fit:contain;flex:none;
+  border-radius:6px;background:var(--raise);padding:4px;
+}
+h2{
+  font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.4vw,36px);
+  line-height:1.15;letter-spacing:-.018em;color:var(--ink);
+}
+/* vertical padding on an inline link grows the tap area without
+   changing the line box */
+h2 a{padding:9px 0;transition:color .2s ease}
+h2 a:hover{color:var(--acc)}
+h2 .out{font-family:var(--sans);font-size:.42em;color:var(--faint);vertical-align:middle;margin-left:5px}
+.tagline{
+  font-family:var(--sans);font-size:13.5px;color:var(--muted);
+  margin-bottom:24px;line-height:1.5;
+}
+.say{font-size:20px;line-height:1.65;color:var(--body);max-width:var(--read);text-wrap:pretty}
+.say + .say{margin-top:18px}
+
+/* the one number that matters, set as display type not as a tile */
+.big{
+  display:flex;align-items:baseline;gap:18px;
+  margin:34px 0;padding:22px 0;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.big .v{
+  font-family:var(--serif);font-weight:400;font-size:clamp(40px,5vw,54px);
+  line-height:.9;letter-spacing:-.03em;color:var(--acc);flex:none;
+}
+.big .t{
+  font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--muted);
+  max-width:34ch;text-wrap:pretty;
+}
+
+ul.does{list-style:none;max-width:var(--read);margin-top:28px}
+ul.does li{
+  font-family:var(--sans);font-size:15.5px;line-height:1.62;color:var(--body);
+  padding:14px 0;border-top:1px solid var(--rule);text-wrap:pretty;
+}
+ul.does li:first-child{border-top:none;padding-top:0}
+ul.does b{color:var(--ink);font-weight:600}
+
+.read{
+  display:inline-flex;align-items:center;gap:10px;margin-top:30px;
+  font-family:var(--sans);font-size:15px;font-weight:600;color:var(--ink);
+  padding:11px 20px;border:1px solid var(--rule-2);border-radius:100px;
+  transition:background .2s ease,border-color .2s ease,color .2s ease,gap .2s ease;
+}
+.read:hover{background:var(--ink);border-color:var(--ink);color:var(--paper);gap:14px}
+.read span{font-size:14px}
+
+/* ============ stack as definition rows ============ */
+.def{border-top:1px solid var(--rule)}
+.def > div{
+  display:grid;grid-template-columns:190px minmax(0,1fr);gap:30px;
+  padding:20px 0;border-bottom:1px solid var(--rule);align-items:baseline;
+}
+.def dt{
+  font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--ink);
+  letter-spacing:-.005em;
+}
+.def dd{font-family:var(--sans);font-size:15.5px;line-height:1.65;color:var(--muted)}
+.def dd b{color:var(--body);font-weight:600}
+
+/* ============ shorter notes ============ */
+.notelist{list-style:none;max-width:var(--read)}
+.notelist li{
+  padding:18px 0;border-bottom:1px solid var(--rule);
+  font-size:18px;line-height:1.6;color:var(--body);text-wrap:pretty;
+}
+.notelist li:first-child{padding-top:0}
+.notelist b{color:var(--ink);font-weight:500}
+.aside{
+  font-family:var(--sans);font-size:15px;line-height:1.7;
+  color:var(--muted);max-width:58ch;margin-top:30px;
+}
+
+/* ============ close ============ */
+.close{padding:76px 0 110px;border-top:1px solid var(--rule);margin-top:64px}
+.close h2{max-width:18ch;margin-bottom:30px}
+.acts{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.act{
+  font-family:var(--sans);font-size:15px;font-weight:600;
+  display:inline-flex;align-items:center;min-height:46px;padding:12px 22px;
+  border-radius:100px;transition:background .2s ease,color .2s ease,border-color .2s ease;
+}
+.act.solid{background:var(--ink);color:var(--paper)}
+.act.solid:hover{background:var(--acc)}
+.act.hollow{border:1px solid var(--rule-2);color:var(--ink)}
+.act.hollow:hover{border-color:var(--ink)}
+.small{
+  font-family:var(--sans);font-size:13px;line-height:1.7;color:var(--faint);
+  margin-top:34px;max-width:56ch;
+}
+
+/* ============ responsive ============ */
+@media (max-width:860px){
+  .page{padding:0 28px}
+  .row{grid-template-columns:1fr;gap:0}
+  .idx{
+    padding:0 0 14px;display:flex;gap:10px;align-items:baseline;
+    font-size:12px;
+  }
+  .idx b{display:inline}
+  .def > div{grid-template-columns:1fr;gap:6px;padding:18px 0}
+}
+@media (max-width:560px){
+  body{font-size:18px}
+  .page{padding:0 22px}
+  /* the masthead wrapped to two rows and pushed the headline down */
+  .top{padding-top:26px;gap:12px}
+  .top nav{width:100%;gap:18px;font-size:13.5px}
+  .top nav a{padding:13px 0}
+  .open{padding:30px 0 44px}
+  .open .idx{padding-bottom:12px}
+  .band{padding-top:44px}
+  .entry{padding-bottom:48px}
+  .entry + .entry{padding-top:44px}
+  .say{font-size:18.5px}
+  .big{flex-direction:column;gap:10px;margin:28px 0}
+  .notelist li{font-size:17px}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="top">
+    <div class="sig">Matviy Korsunskiy</div>
+    <nav>
+      <span class="free"><i></i>Available for contract</span>
+      <a href="mailto:matviykorsunskiy@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
+    </nav>
+  </div>
+
+  <div class="open up">
+    <div class="row">
+      <div class="idx">Eastern time<br>New Jersey</div>
+      <div>
+        <h1>I build the automation a business <em>actually</em> runs on.</h1>
+        <p class="stand">I work with <b>Claude</b>, no-code platforms like <b>n8n</b> and <b>GoHighLevel</b>, and the software a business already runs on: CRMs, Shopify, Retell. Lifecycle automation, lead generation, and custom conversational AI systems.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="row">
+      <div class="idx">Work</div>
+      <div>
+
+        <article class="entry">
+          <div class="mark">
+            <img src="/logos/wol-logo.png" alt="" loading="lazy">
+            <h2><a href="https://worldofluxuryus.com" target="_blank" rel="noopener">World of Luxury<span class="out">&#8599;</span></a></h2>
+          </div>
+          <p class="tagline">Luxury watches and jewelry, Aventura FL &nbsp;&middot;&nbsp; ~$500K/yr on Shopify &nbsp;&middot;&nbsp; Retell + n8n</p>
+
+          <p class="say">Building a voice agent is the easy part. Keeping one alive on someone&rsquo;s real phone line for 8 months is the part most people never reach.</p>
+
+          <div class="big">
+            <span class="v">9 in 10</span>
+            <span class="t">calls land outside showroom hours. Every one of them used to be a voicemail.</span>
+          </div>
+
+          <ul class="does">
+            <li><b>Answers every inbound call</b>, looks up live order status against Shopify, and writes a qualified lead into the CRM before it hangs up.</li>
+            <li><b>Matches 5,000+ products</b> from a spoken sentence, by brand name or model number, at 90&ndash;95% accuracy.</li>
+            <li><b>I listen to real conversations every week</b>, find where it handled something badly, and fix it. That loop is the difference between a demo and a system.</li>
+          </ul>
+
+          <a class="read" href="/work/world-of-luxury/">Read the case study <span>&rarr;</span></a>
+        </article>
+
+        <article class="entry">
+          <div class="mark">
+            <img src="/logos/flock-logo.png" alt="" loading="lazy">
+            <h2><a href="https://flockbio.com" target="_blank" rel="noopener">Flock Bio<span class="out">&#8599;</span></a></h2>
+          </div>
+          <p class="tagline">High-throughput pooled DNA libraries &nbsp;&middot;&nbsp; lead generation &nbsp;&middot;&nbsp; Apify + n8n + Clay</p>
+
+          <p class="say">No job title reliably identifies a scientist about to build a DNA library. So the system stopped looking for people and started looking for conversations.</p>
+
+          <div class="big">
+            <span class="v">42.6%</span>
+            <span class="t">reply rate on cold LinkedIn outreach, roughly 10x the benchmark for the channel.</span>
+          </div>
+
+          <ul class="does">
+            <li><b>Apify</b> scrapes posts against 19 technical phrases each week. An LLM keeps the genuine industry discussion and throws out the recruiters and press releases.</li>
+            <li><b>Everyone who engaged</b> with those posts is deduplicated by intent, then enriched and scored in Clay.</li>
+            <li><b>HeyReach</b> sends one opener to the person who wrote the post and a different one to the people who engaged with it.</li>
+          </ul>
+
+          <a class="read" href="/work/flock-bio/">Read the case study <span>&rarr;</span></a>
+        </article>
+
+        <article class="entry">
+          <div class="mark">
+            <img src="/logos/healthcare-logo.png" alt="" loading="lazy">
+            <h2><a href="https://www.healthcare.com" target="_blank" rel="noopener">Healthcare.com<span class="out">&#8599;</span></a></h2>
+          </div>
+          <p class="tagline">National health insurance marketplace &nbsp;&middot;&nbsp; contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing</p>
+
+          <p class="say">Most voice AI books appointments. This one sits inside health insurance, where saying the wrong thing about coverage is a compliance problem, not a bad review.</p>
+
+          <div class="big">
+            <span class="v">3</span>
+            <span class="t">voice agents built under CMS marketing rules and AI disclosure requirements.</span>
+          </div>
+
+          <ul class="does">
+            <li><b>Routing.</b> Works out what a caller actually needs and sends them to the right place. Built for high inbound volume.</li>
+            <li><b>Loss-of-coverage intake.</b> Qualifies people who just lost their insurance along with their job, then warm transfers to a licensed human instead of trying to solve it.</li>
+            <li><b>Medicare Advantage funnel.</b> Same build, higher bar. Every line it is allowed to say is constrained.</li>
+          </ul>
+
+          <a class="read" href="/work/healthcare-com/">Read the case study <span>&rarr;</span></a>
+        </article>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="row">
+      <div class="idx">Stack</div>
+      <div class="def">
+        <div>
+          <dt>Automation &amp; workflow</dt>
+          <dd><b>n8n</b>, <b>GoHighLevel</b>, REST APIs and webhooks, Airtable, Google Sheets, Cal.com, Boulevard, Shopify</dd>
+        </div>
+        <div>
+          <dt>AI</dt>
+          <dd><b>Claude</b>, prompt and context engineering, evals, QA and regression testing, conversation flow design, Retell AI, VAPI</dd>
+        </div>
+        <div>
+          <dt>Lifecycle &amp; growth</dt>
+          <dd><b>Lead generation systems</b>, Apify, Clay, Meta Ads, Instantly, lifecycle and review automation, KPI tracking and reporting</dd>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="row">
+      <div class="idx">Also</div>
+      <div>
+        <ul class="notelist">
+          <li><b>A full lifecycle system on GoHighLevel</b> for home service businesses. Site, forms, multi-channel capture, lead routing, automated follow-up and review generation, all running as one funnel.</li>
+          <li><b>A 3-location booking agent</b> for a Florida med spa on VAPI and n8n, wired into Boulevard scheduling and a custom services database.</li>
+          <li><b>3 months mentoring</b> the paid community of a voice AI educator, answering n8n and automation questions for a mostly non-technical audience.</li>
+        </ul>
+        <p class="aside">I ran the largest business club event at GWU with a team of 7. Trilingual in English, Russian and Ukrainian. 4-time US national champion in ballroom dance, which is where I learned what practicing something properly looks like.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="close">
+    <div class="row">
+      <div class="idx">Contact</div>
+      <div>
+        <h2>If any of this is the shape of your problem, I&rsquo;d like to hear about it.</h2>
+        <div class="acts">
+          <a class="act solid" href="mailto:matviykorsunskiy@gmail.com">matviykorsunskiy@gmail.com</a>
+          <a class="act hollow" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
+        </div>
+        <p class="small">Client names and internal details omitted where I am under confidentiality. Happy to go deeper on any of it on a call.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
