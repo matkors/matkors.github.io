@@ -268,12 +268,6 @@ wol += LF.join([
     note('<b>72% is after excluding</b> wrong numbers, a caller chasing a Macy&rsquo;s order, and 2 who were abusive. Counting those would flatter the number. The value range is what callers actually asked about: Richard Mille $302,500, Jaeger-LeCoultre tourbillon $41,000, Corum $21,000.'),
     endsec(),
 
-    sec('04', 'Three failures that never showed in the metrics'),
-    lead('Found by listening to real calls every week, not by reading the success rate.'),
-    pts(['<b>A broken email domain.</b> The agent read the contact address as &ldquo;world of luxurious dot com&rdquo;. Every caller routed to email got an address that does not exist, and every one of those calls logged as successful.',
-         '<b>Lead capture asked too late.</b> Callers answered 3 or 4 product questions, then hung up the moment the agent asked for a name.',
-         '<b>No recovery from a misheard name.</b> One caller&rsquo;s name came through as &ldquo;12&rdquo;. The agent had no path back and the call timed out, losing a $21,000 inquiry at the final step.']),
-    endsec(),
 ])
 
 wol += FOOT.replace('{chips}', chips([('Retell AI', 'retell.svg'), ('n8n', 'n8n.png'),
@@ -324,9 +318,6 @@ fb += LF.join([
     note('<b>These figures cover one month</b> of a campaign that has run well past it: 65 connections sent, 51 accepted, 47 messages, 20 replies. Replies turned into booked meetings, which is the number that actually matters to them.'),
     endsec(),
 
-    sec('04', 'What it taught me'),
-    p('On a narrow technical list, describing the buyer does not separate the person building a library this quarter from the ten thousand who are not. What they posted about last week does. Targeting the conversation rather than the person is the single decision that produced the reply rate.'),
-    endsec(),
 ])
 
 fb += FOOT.replace('{chips}', chips([('Apify', 'apify.png'), ('n8n', 'n8n.png'),
@@ -382,9 +373,6 @@ hc += LF.join([
          '<b>Tune for latency.</b> A correct answer that arrives 2 seconds late loses the call anyway.']),
     endsec(),
 
-    sec('04', 'What it taught me'),
-    p('Every hour spent agreeing what the agent may <em>not</em> say saves a week of rework. Treating compliance as a design input at the start rather than a review at the end is the difference between an agent that reaches rollout and one that sits in review indefinitely.'),
-    endsec(),
 ])
 
 hc += FOOT.replace('{chips}', chips([('Retell AI', 'retell.svg'), ('VAPI', 'vapi.png'),
