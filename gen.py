@@ -214,20 +214,17 @@ wol = HEAD.format(
 
 wol += LF.join([
 
-    sec('01', 'Why a phone menu and a human assistant both failed'),
+    sec('01', 'Why a human VA fails at this task'),
     pts(['The showroom is open Monday to Friday, 10am to 5pm. <b>9 in 10 calls arrive outside that window</b>, including $40,000 inquiries at 11pm and on Sundays. All of them hit a voicemail box nobody dealt with before Monday.',
          'They tried a virtual assistant first. Someone who cannot see the stock cannot answer the only question that matters: <em>do you have this piece, and what does it cost</em>.',
-         'Stock changes every day, so a saved copy of the product list is out of date within 24 hours. Every answer has to come from live data.',
-         '<b>Speech-to-text mangles the brand names.</b> Jaeger-LeCoultre, Audemars Piguet, Breguet. Model numbers mix digits, letters and punctuation, some carry a <code>Preowned-</code> prefix and some do not, and around 100 products are near-identical to each other.']),
+         'Stock changes every day, so a saved copy of the product list is out of date within 24 hours. Every answer has to come from live data.']),
     endsec(),
 
     sec('02', 'How it works'),
-    lead('6 n8n workflows in 3 layers: keep the data fresh, answer the question, save the result.'),
-
     h3('Layer 1', 'Keeping the product list up to date'),
     p('n8n&rsquo;s built-in Shopify node only pulls 50 products at a time. Looping it enough times to get through all 5,000 kept hitting Shopify&rsquo;s rate limit and switching the workflow off. I replaced it with a custom request that pages through Shopify <b>250 products at a time</b>, which is 5x faster and runs without me touching it. It updates the existing record rather than adding a new one, so a price change edits the product instead of duplicating it.'),
     fig('Fig 1', 'Pulling every product out of Shopify, page by page', 'sync-products.png',
-        '<b>Build Request</b> works out which page to ask for next, the HTTP node fetches it, and the results are saved into Airtable. <b>Has More Products?</b> sends it back round the loop until Shopify runs out of pages.'),
+        'The arrow from <b>Has More Products?</b> back to <b>Build Request</b> is the loop.'),
     fig('Fig 2', 'The same loop for orders, slowed down so Shopify does not block it', 'sync-orders.png',
         'The same loop with one addition: a <b>Wait</b> node between rounds. Without it the loop goes fast enough to hit Shopify&rsquo;s rate limit, which is what was quietly killing the workflow before.'),
 
@@ -244,12 +241,12 @@ wol += LF.join([
         'The same flow pointed at the model number instead. Most of the work is stripping out the capitals and punctuation that make an exact search return nothing. <b>90 to 95% correct across 5,000 products.</b>'),
     fig('Fig 5', 'Looking up an order, with a live check if it is missing', 'order-lookup.png',
         'Note the branch to <b>Run Order Sync</b>. If the order has not been saved yet, this fetches the newest orders straight from Shopify and then answers, instead of telling the caller it cannot find them.'),
-    note('<b>It asks instead of guessing.</b> If a model number matches more than one watch, the agent asks for the price or the product name and narrows it down. The agent also holds a pronunciation list for the brands and model numbers, so the text arriving at the workflow is already spelled correctly. None of the matching helps if the input is wrong to begin with.'),
+    note('<b>It asks instead of guessing.</b> If a model number matches more than one watch, the agent asks for the price and narrows it down. It also holds a pronunciation list for the brands, so the text reaching the workflow is spelled correctly to begin with.'),
 
     h3('Layer 3', 'Turning each call into a lead the owner sees'),
     p('Every finished call saves the transcript, the recording, the caller&rsquo;s details and <b>a link to the exact product they asked about</b>. A scheduled workflow gathers the overnight calls and emails them before the shop opens, because the owner was never going to log into a dashboard.'),
     fig('Fig 6', 'The email the owner gets before opening', 'notifier.png',
-        'Runs on a schedule, collects the overnight calls, checks usage, then formats and sends. The <b>If</b> gate means a quiet night sends nothing rather than an empty report.'),
+        'The <b>If</b> gate is the part that matters: a quiet night sends nothing rather than an empty report.'),
     endsec(),
 
     sec('03', 'The results, counted by hand'),
@@ -258,7 +255,6 @@ wol += LF.join([
            ('90&ndash;95%', 'correct product from 5,000', 0),
            ('72%', 'of genuine inquiries become a lead', 0),
            ('$21&ndash;302K', 'range of pieces asked about', 0)]),
-    note('<b>The 72% leaves out</b> wrong numbers, someone chasing a Macy&rsquo;s order, and 2 abusive callers. Including them would make the number look better than it is. The price range is what callers actually asked about: Richard Mille $302,500, Jaeger-LeCoultre tourbillon $41,000, Corum $21,000.'),
     endsec(),
 
 ])

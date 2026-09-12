@@ -36,24 +36,22 @@
   </div>
   <section>
     <p class="snum">01</p>
-    <h2>Why a phone menu and a human assistant both failed</h2>
+    <h2>Why a human VA fails at this task</h2>
     <ul class="pts">
       <li>The showroom is open Monday to Friday, 10am to 5pm. <b>9 in 10 calls arrive outside that window</b>, including $40,000 inquiries at 11pm and on Sundays. All of them hit a voicemail box nobody dealt with before Monday.</li>
       <li>They tried a virtual assistant first. Someone who cannot see the stock cannot answer the only question that matters: <em>do you have this piece, and what does it cost</em>.</li>
       <li>Stock changes every day, so a saved copy of the product list is out of date within 24 hours. Every answer has to come from live data.</li>
-      <li><b>Speech-to-text mangles the brand names.</b> Jaeger-LeCoultre, Audemars Piguet, Breguet. Model numbers mix digits, letters and punctuation, some carry a <code>Preowned-</code> prefix and some do not, and around 100 products are near-identical to each other.</li>
     </ul>
   </section>
   <section>
     <p class="snum">02</p>
     <h2>How it works</h2>
-    <p class="lead">6 n8n workflows in 3 layers: keep the data fresh, answer the question, save the result.</p>
     <h3><span>Layer 1</span> &nbsp;Keeping the product list up to date</h3>
     <p>n8n&rsquo;s built-in Shopify node only pulls 50 products at a time. Looping it enough times to get through all 5,000 kept hitting Shopify&rsquo;s rate limit and switching the workflow off. I replaced it with a custom request that pages through Shopify <b>250 products at a time</b>, which is 5x faster and runs without me touching it. It updates the existing record rather than adding a new one, so a price change edits the product instead of duplicating it.</p>
     <figure class="fig">
       <div class="figlabel"><b>Fig 1</b> Pulling every product out of Shopify, page by page</div>
       <div class="frame"><img src="/shots/sync-products.png" alt="Pulling every product out of Shopify, page by page" loading="lazy"></div>
-      <figcaption><b>Build Request</b> works out which page to ask for next, the HTTP node fetches it, and the results are saved into Airtable. <b>Has More Products?</b> sends it back round the loop until Shopify runs out of pages.</figcaption>
+      <figcaption>The arrow from <b>Has More Products?</b> back to <b>Build Request</b> is the loop.</figcaption>
     </figure>
     <figure class="fig">
       <div class="figlabel"><b>Fig 2</b> The same loop for orders, slowed down so Shopify does not block it</div>
@@ -88,13 +86,13 @@
       <div class="frame"><img src="/shots/order-lookup.png" alt="Looking up an order, with a live check if it is missing" loading="lazy"></div>
       <figcaption>Note the branch to <b>Run Order Sync</b>. If the order has not been saved yet, this fetches the newest orders straight from Shopify and then answers, instead of telling the caller it cannot find them.</figcaption>
     </figure>
-    <p class="note"><b>It asks instead of guessing.</b> If a model number matches more than one watch, the agent asks for the price or the product name and narrows it down. The agent also holds a pronunciation list for the brands and model numbers, so the text arriving at the workflow is already spelled correctly. None of the matching helps if the input is wrong to begin with.</p>
+    <p class="note"><b>It asks instead of guessing.</b> If a model number matches more than one watch, the agent asks for the price and narrows it down. It also holds a pronunciation list for the brands, so the text reaching the workflow is spelled correctly to begin with.</p>
     <h3><span>Layer 3</span> &nbsp;Turning each call into a lead the owner sees</h3>
     <p>Every finished call saves the transcript, the recording, the caller&rsquo;s details and <b>a link to the exact product they asked about</b>. A scheduled workflow gathers the overnight calls and emails them before the shop opens, because the owner was never going to log into a dashboard.</p>
     <figure class="fig">
       <div class="figlabel"><b>Fig 6</b> The email the owner gets before opening</div>
       <div class="frame"><img src="/shots/notifier.png" alt="The email the owner gets before opening" loading="lazy"></div>
-      <figcaption>Runs on a schedule, collects the overnight calls, checks usage, then formats and sends. The <b>If</b> gate means a quiet night sends nothing rather than an empty report.</figcaption>
+      <figcaption>The <b>If</b> gate is the part that matters: a quiet night sends nothing rather than an empty report.</figcaption>
     </figure>
   </section>
   <section>
@@ -107,7 +105,6 @@
       <div class="stat"><span class="v">72%</span><span class="k">of genuine inquiries become a lead</span></div>
       <div class="stat"><span class="v">$21&ndash;302K</span><span class="k">range of pieces asked about</span></div>
     </div>
-    <p class="note"><b>The 72% leaves out</b> wrong numbers, someone chasing a Macy&rsquo;s order, and 2 abusive callers. Including them would make the number look better than it is. The price range is what callers actually asked about: Richard Mille $302,500, Jaeger-LeCoultre tourbillon $41,000, Corum $21,000.</p>
   </section>
   <section>
     <p class="snum">Stack</p>
