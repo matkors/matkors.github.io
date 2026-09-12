@@ -17,6 +17,8 @@
 
   /* claim line, hook and bullets all align to this */
   --measure:700px;
+  /* long-form reading column on the case pages */
+  --read:624px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -124,8 +126,8 @@ h2{
   font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.04em;
   color:var(--t3);margin-bottom:26px;line-height:1.65;
 }
-.prose{max-width:64ch}
-.prose p{margin-bottom:16px;line-height:1.72;text-wrap:pretty}
+.prose{max-width:var(--read)}
+.prose p{margin-bottom:24px;line-height:1.75;text-wrap:pretty}
 .prose p:last-child{margin-bottom:0}
 h3{
   font-family:"JetBrains Mono",monospace;font-size:9.5px;font-weight:500;
@@ -363,13 +365,13 @@ figure figcaption{
   font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--t4);line-height:1.8;
 }
 
-ul.bul{list-style:none;padding:0;margin:16px 0 0;max-width:64ch}
+ul.bul{list-style:none;padding:0;margin:18px 0 0;max-width:var(--read)}
 ul.bul li{
-  position:relative;padding-left:20px;margin-bottom:11px;
-  line-height:1.72;color:var(--t2);text-wrap:pretty;
+  position:relative;padding-left:22px;margin-bottom:17px;
+  line-height:1.75;color:var(--t2);text-wrap:pretty;
 }
 ul.bul li::before{
-  content:"";position:absolute;left:0;top:11px;width:5px;height:1px;background:var(--acc);
+  content:"";position:absolute;left:0;top:14px;width:7px;height:1px;background:var(--acc);
 }
 ul.bul li:last-child{margin-bottom:0}
 /* a list running straight into the next paragraph read as one block */
@@ -601,11 +603,11 @@ code{
 .toc a.on .tn{color:var(--acc)}
 
 /* tighter reading rhythm on case pages */
-.col .prose p{margin-bottom:14px}
+.col .prose p{margin-bottom:24px}
 .col .prose p:last-child{margin-bottom:0}
 .lead{
-  font-size:17.5px;line-height:1.6;color:var(--t1);
-  letter-spacing:-.014em;max-width:60ch;margin-bottom:16px;text-wrap:balance;
+  font-size:19px;line-height:1.55;color:var(--t1);
+  letter-spacing:-.018em;max-width:var(--read);margin-bottom:22px;text-wrap:balance;
 }
 
 /* flow diagrams get the same framing as figures so they stop floating */
@@ -630,7 +632,7 @@ code{
 }
 
 /* compact supporting notes under a stats block */
-.notes{list-style:none;padding:0;margin:18px 0 0;max-width:64ch}
+.notes{list-style:none;padding:0;margin:18px 0 0;max-width:var(--read)}
 .notes li{
   position:relative;padding-left:16px;margin-bottom:9px;
   font-size:14px;line-height:1.6;color:var(--t3);text-wrap:pretty;
