@@ -181,23 +181,68 @@ ul.pl b{color:var(--ink);font-weight:700}
 .fg .n em{font-style:normal;color:var(--acc)}
 .fg .c{font-size:14.5px;line-height:1.55;color:var(--soft);display:block;margin-top:12px;max-width:30ch}
 
-/* ============ 5. stack + also ============ */
-.defs > div{
-  display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);
-  gap:clamp(16px,3vw,40px);padding-block:22px;
-  border-top:1px solid var(--rule-2);align-items:baseline;
+
+/* ============ 5. tools: a marquee that reacts to scroll speed ============ */
+.mqwrap{margin:6px 0 0;position:relative}
+/* fade the ends so chips arrive and leave instead of popping */
+.mqwrap::before,.mqwrap::after{
+  content:"";position:absolute;top:0;bottom:0;width:clamp(40px,9vw,130px);z-index:2;pointer-events:none;
 }
-.defs > div:last-child{border-bottom:1px solid var(--rule-2)}
-.defs dt{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.014em}
-.defs dd{margin:0;font-size:16px;line-height:1.7;color:var(--soft)}
-.defs dd b{color:var(--body);font-weight:600}
-ul.also{list-style:none;margin:0;padding:0;max-width:64ch}
-ul.also li{
-  font-size:16.5px;line-height:1.65;color:var(--soft);
-  padding:20px 0;border-top:1px solid var(--rule-2);text-wrap:pretty;
+.mqwrap::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.mqwrap::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.mq{overflow:hidden;padding:7px 0}
+.mqtrack{display:flex;gap:14px;width:max-content;will-change:transform}
+.tool{
+  display:inline-flex;align-items:center;gap:11px;flex:none;
+  padding:13px 20px 13px 14px;border-radius:999px;
+  background:var(--surface);border:1px solid var(--rule-2);
+  font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.014em;white-space:nowrap;
 }
-ul.also li:first-child{border-top:none;padding-top:0}
-ul.also b{color:var(--ink);font-weight:700}
+.tool img{width:26px;height:26px;object-fit:contain;flex:none}
+.tool.txt{padding-inline:20px;color:var(--soft);font-weight:500}
+
+.doing{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0 clamp(20px,4vw,56px);margin-top:clamp(34px,4vw,52px);
+}
+.doing div{
+  padding:18px 0;border-top:1px solid var(--rule-2);
+  font-size:16.5px;line-height:1.5;color:var(--body);
+}
+.doing b{display:block;color:var(--ink);font-weight:700;margin-bottom:2px}
+
+/* ============ 6. other builds as cards ============ */
+.bgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.bcard{
+  position:relative;overflow:hidden;
+  background:var(--surface);border:1px solid var(--rule-2);border-radius:18px;
+  padding:26px 24px 24px;
+  transition:transform .28s cubic-bezier(.2,.7,.3,1),border-color .28s ease,background .28s ease;
+}
+.bcard:hover{transform:translateY(-5px);border-color:var(--rule);background:var(--surface-2)}
+/* sits fully inside the card; clipped at the top it read as a mistake */
+.bnum{
+  position:absolute;right:18px;top:14px;
+  font-size:62px;font-weight:800;line-height:.9;letter-spacing:-.05em;
+  color:rgba(255,255,255,.05);pointer-events:none;
+}
+.bcard h3{
+  font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.02em;
+  margin:0 0 10px;line-height:1.25;position:relative;
+}
+.bcard p{font-size:15.5px;line-height:1.6;color:var(--soft);margin:0;position:relative}
+.btags{
+  display:flex;gap:7px;flex-wrap:wrap;margin-top:16px;position:relative;
+}
+.btags span{
+  font-size:12px;font-weight:600;letter-spacing:-.006em;
+  padding:5px 11px;border-radius:999px;
+  background:rgba(255,138,76,.12);color:var(--acc);
+}
+@media (max-width:860px){
+  .bgrid{grid-template-columns:1fr}
+  .doing{grid-template-columns:1fr}
+}
 .tail{
   font-size:15.5px;line-height:1.7;color:var(--faint);max-width:62ch;
   margin:28px 0 0;padding-top:24px;border-top:1px solid var(--rule-2);
@@ -320,14 +365,44 @@ ul.also b{color:var(--ink);font-weight:700}
 </div>
 
 <!-- 5 -->
-<section>
+<section id="tools">
   <div class="wrap">
     <h2 class="shead">What I work with</h2>
-    <p class="ssub">The tools these systems are actually built in.</p>
-    <div class="defs">
-      <div><dt>Automation &amp; workflow</dt><dd><b>n8n</b>, <b>GoHighLevel</b>, REST APIs and webhooks, Airtable, Google Sheets, Cal.com, Boulevard, Shopify</dd></div>
-      <div><dt>AI</dt><dd><b>Claude</b>, prompt and context engineering, evals, QA and regression testing, conversation flow design, Retell AI, VAPI</dd></div>
-      <div><dt>Lifecycle &amp; growth</dt><dd><b>Lead generation systems</b>, Apify, Clay, Meta Ads, Instantly, lifecycle and review automation, KPI tracking and reporting</dd></div>
+    <p class="ssub">Scroll and they move. Scroll faster and they move faster.</p>
+  </div>
+
+  <div class="mqwrap">
+    <div class="mq" data-dir="-1">
+      <div class="mqtrack">
+        <span class="tool"><img src="/logos/tools/n8n.png" alt="">n8n</span>
+        <span class="tool"><img src="/logos/tools/claude.png" alt="">Claude</span>
+        <span class="tool"><img src="/logos/tools/ghl.png" alt="">GoHighLevel</span>
+        <span class="tool"><img src="/logos/tools/shopify.png" alt="">Shopify</span>
+        <span class="tool"><img src="/logos/tools/airtable.png" alt="">Airtable</span>
+        <span class="tool"><img src="/logos/tools/retell.svg" alt="">Retell AI</span>
+        <span class="tool txt">REST APIs</span>
+      </div>
+    </div>
+    <div class="mq" data-dir="1">
+      <div class="mqtrack">
+        <span class="tool"><img src="/logos/tools/apify.png" alt="">Apify</span>
+        <span class="tool"><img src="/logos/tools/clay.png" alt="">Clay</span>
+        <span class="tool"><img src="/logos/tools/heyreach.png" alt="">HeyReach</span>
+        <span class="tool"><img src="/logos/tools/vapi.png" alt="">VAPI</span>
+        <span class="tool"><img src="/logos/tools/linkedin.png" alt="">LinkedIn</span>
+        <span class="tool txt">Meta Ads</span>
+        <span class="tool txt">Instantly</span>
+        <span class="tool txt">Cal.com</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="doing">
+      <div><b>Conversation design and evals</b>Flows, refusal paths, adversarial test cases, regression testing after every prompt change.</div>
+      <div><b>Lead generation systems</b>Scraping, LLM filtering, deduplication by intent, enrichment and scoring.</div>
+      <div><b>Lifecycle and routing</b>Multi-channel capture, qualification, handoff to a human, review generation.</div>
+      <div><b>Prompt and context engineering</b>Getting a model to stay inside a scope it is not allowed to leave.</div>
     </div>
   </div>
 </section>
@@ -336,11 +411,26 @@ ul.also b{color:var(--ink);font-weight:700}
   <div class="wrap">
     <h2 class="shead">Other builds</h2>
     <p class="ssub">Shipped, but without a case study behind them.</p>
-    <ul class="also">
-      <li><b>A full lifecycle system on GoHighLevel</b> for home service businesses. Site, forms, multi-channel capture, lead routing, automated follow-up and review generation, all running as one funnel.</li>
-      <li><b>A 3-location booking agent</b> for a Florida med spa on VAPI and n8n, wired into Boulevard scheduling and a custom services database.</li>
-      <li><b>3 months mentoring</b> the paid community of a voice AI educator, answering n8n and automation questions for a mostly non-technical audience.</li>
-    </ul>
+    <div class="bgrid">
+      <article class="bcard">
+        <span class="bnum" aria-hidden="true">01</span>
+        <h3>Local presence system</h3>
+        <p>Site, forms, multi-channel capture, lead routing, automated follow-up and review generation for home service businesses, all running as one funnel.</p>
+        <div class="btags"><span>GoHighLevel</span><span>Lifecycle</span></div>
+      </article>
+      <article class="bcard">
+        <span class="bnum" aria-hidden="true">02</span>
+        <h3>Med spa booking agent</h3>
+        <p>A 3-location voice agent for a Florida med spa, wired into Boulevard scheduling and a custom services database.</p>
+        <div class="btags"><span>VAPI</span><span>n8n</span><span>Boulevard</span></div>
+      </article>
+      <article class="bcard">
+        <span class="bnum" aria-hidden="true">03</span>
+        <h3>Community mentoring</h3>
+        <p>3 months answering n8n and automation questions for the paid community of a voice AI educator, for a mostly non-technical audience.</p>
+        <div class="btags"><span>n8n</span><span>Teaching</span></div>
+      </article>
+    </div>
     <p class="tail">I ran the largest business club event at GWU with a team of 7. Trilingual in English, Russian and Ukrainian. 4-time US national champion in ballroom dance, which is where I learned what practicing something properly looks like.</p>
   </div>
 </section>
@@ -416,6 +506,38 @@ window.addEventListener('load', function () {
       gsap.from(f, {
         autoAlpha: 0, y: 24, duration: .65, delay: i * .08, ease: 'power2.out',
         scrollTrigger: { trigger: '.band', start: 'top 84%', once: true }
+      });
+    });
+
+    /* ---- tool marquee ----
+       Two rows looping in opposite directions. Scroll speed feeds the
+       timeScale, so flicking the page throws them and stopping settles
+       them back to a drift. No pin, so it never fights the scroll. */
+    var rows = gsap.utils.toArray('.mq').map(function (row) {
+      var track = row.querySelector('.mqtrack');
+      track.innerHTML = track.innerHTML + track.innerHTML;   // seamless loop
+      var dir = +row.dataset.dir || -1;
+      return gsap.fromTo(track,
+        { xPercent: dir < 0 ? 0 : -50 },
+        { xPercent: dir < 0 ? -50 : 0, duration: 34, ease: 'none', repeat: -1 });
+    });
+
+    if (rows.length) {
+      ScrollTrigger.create({
+        start: 0, end: 'max',
+        onUpdate: function (self) {
+          var boost = gsap.utils.clamp(0, 5, Math.abs(self.getVelocity()) / 650);
+          rows.forEach(function (r) {
+            gsap.to(r, { timeScale: 1 + boost, duration: .45, overwrite: true });
+          });
+        }
+      });
+    }
+
+    gsap.utils.toArray('.bcard').forEach(function (c, i) {
+      gsap.from(c, {
+        autoAlpha: 0, y: 34, duration: .7, delay: i * .09, ease: 'power2.out',
+        scrollTrigger: { trigger: '.bgrid', start: 'top 86%', once: true }
       });
     });
   });
