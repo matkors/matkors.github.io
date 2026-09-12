@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Healthcare.com: voice agents that are not allowed to improvise | Matviy Korsunskiy</title>
-<meta name="description" content="Three voice agents built for a national health insurance marketplace, where the agent is not allowed to improvise about coverage, price or eligibility.">
-<meta property="og:title" content="Healthcare.com: voice agents that are not allowed to improvise | Matviy Korsunskiy">
-<meta property="og:description" content="Three voice agents built for a national health insurance marketplace, where the agent is not allowed to improvise about coverage, price or eligibility.">
+<title>Healthcare.com: 3 inbound voice agents built under CMS marketing rules | Matviy Korsunskiy</title>
+<meta name="description" content="Intent routing, loss-of-coverage intake with warm transfer, and a Medicare Advantage line, built where the agent may not assert eligibility, price or coverage.">
+<meta property="og:title" content="Healthcare.com: 3 inbound voice agents built under CMS marketing rules | Matviy Korsunskiy">
+<meta property="og:description" content="Intent routing, loss-of-coverage intake with warm transfer, and a Medicare Advantage line, built where the agent may not assert eligibility, price or coverage.">
 <meta property="og:type" content="article">
 <script>document.documentElement.classList.replace('no-js','js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,45 +32,34 @@
       <img src="/logos/healthcare-logo.png" alt="">Healthcare.com <span class="ex">&#8599;</span>
     </a>
     <p class="cmeta">National health insurance marketplace &nbsp;&middot;&nbsp; contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing</p>
-    <h1>Voice agents that are not allowed to improvise</h1>
+    <h1>3 inbound voice agents built under CMS marketing rules</h1>
   </div>
   <dl class="spec">
-    <div><dt>Built</dt><dd>Three inbound voice agents: intent routing for high call volume, a loss-of-coverage intake line that warm transfers to a licensed human, and a Medicare Advantage agent.</dd></div>
-    <div><dt>Tools</dt><dd><div class="tools"><span>Retell AI</span><span>VAPI</span><span>n8n</span><span>Claude</span></div></dd></div>
-    <div><dt>Results</dt><dd><ul class="res">
-      <li>Built to hold up against <b>CMS marketing rules</b> and AI disclosure requirements</li>
-      <li>Scoped, designed and shipped across <b>product, engineering and compliance</b></li>
-      <li>Figures, flows and platform detail stay private under contract</li>
-    </ul></dd></div>
+    <div><dt>Architecture</dt><dd>3 inbound agents on Retell AI and VAPI, with n8n handling integrations and data handoff.</dd></div>
+    <div><dt>Scope</dt><dd>Intent routing for high call volume, a loss-of-coverage intake line that qualifies and warm transfers to a licensed human, and a Medicare Advantage agent.</dd></div>
+    <div><dt>Hard constraints</dt><dd>AI disclosure, non-government-affiliation statement, the CMS-mandated Medicare marketing disclaimer, and no assertion of eligibility, premium or coverage under any phrasing.</dd></div>
+    <div><dt>My role</dt><dd>Scoped all 3 from scratch, mapped the use cases with senior stakeholders, designed the flows, and coordinated across product, engineering, compliance and operations. No spec was handed over.</dd></div>
+    <div><dt>Confidential</dt><dd>Flows, prompts, platform configuration and every figure stay private under contract.</dd></div>
   </dl>
     <div class="gate">
       <div class="lbl">Under contract</div>
-      <p>Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause. No screenshots, no flows, no prompts, no numbers. What follows is the problem, the constraints, and my own method, which is mine to show. The other 2 case studies have the screenshots and the data.</p>
+      <p>Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause. No screenshots, no flows, no prompts, no numbers. What follows is the constraint set and my own method, which is mine to show. The other 2 case studies have the screenshots and the data.</p>
     </div>
   <section>
     <p class="snum">01</p>
-    <h2>Callers cannot classify themselves</h2>
-    <p class="lead">Health insurance is a category where people call confused.</p>
-    <ul class="pts">
-      <li>They often cannot name the product they are calling about. They can only describe a situation: <em>I lost my job, my daughter ages off my plan in March, my doctor is not on the list any more.</em></li>
-      <li>A phone menu asks that person to self-select into a category they cannot yet identify, so they pick wrong and either hang up or waste a licensed agent&rsquo;s time.</li>
-      <li><b>The right answer is frequently a human.</b> A system optimized for containment will fight that.</li>
-    </ul>
-  </section>
-  <section>
-    <p class="snum">02</p>
-    <h2>What the law requires before the agent is useful at all</h2>
+    <h2>The constraint set</h2>
+    <p class="lead">Everything the agent says has to survive a compliance review, so the build inverts.</p>
     <ul class="pts">
       <li><b>Disclose that it is AI</b>, early enough to matter and clearly enough that a distressed caller registers it.</li>
       <li><b>State it is not the government.</b> Nothing may imply endorsement by Medicare, CMS or any federal agency.</li>
-      <li><b>Carry the Medicare marketing disclaimer.</b> Third-party marketing of Medicare Advantage carries CMS-mandated wording about not offering every plan in the caller&rsquo;s area, plus the pointer to 1-800-MEDICARE.</li>
-      <li><b>Never assert an outcome it was not given.</b> No eligibility, no premium, no coverage decision. Not a hedged version either.</li>
+      <li><b>Carry the Medicare marketing disclaimer.</b> Third-party marketing of Medicare Advantage requires CMS-mandated wording about not offering every plan in the caller&rsquo;s area, plus the pointer to 1-800-MEDICARE.</li>
+      <li><b>Never assert an outcome it was not given.</b> No eligibility, no premium, no coverage decision, and no hedged version of any of them.</li>
     </ul>
-    <p>That inverts the usual build. In a normal voice project the hard part is making the agent sound natural. Here the hard part is making it refuse cleanly, stay inside a defined scope, and hand off <em>before</em> it guesses.</p>
+    <p>In a normal voice project the hard part is making the agent sound natural across a long tail. Here the hard part is making it refuse cleanly, stay inside a defined scope, and hand off <em>before</em> it guesses. Callers also cannot classify themselves: they describe a situation, not a product, so a menu routes them wrong before the agent gets a chance.</p>
   </section>
   <section>
-    <p class="snum">03</p>
-    <h2>How an agent decides what it may say</h2>
+    <p class="snum">02</p>
+    <h2>The decision ladder</h2>
     <p class="lead">My framework, not theirs, so I can show it in full.</p>
     <ul class="pts">
       <li><b>Answer.</b> In scope, and the answer already exists in approved copy.</li>
@@ -81,20 +70,19 @@
     <p class="note">Most teams ship an agent that treats the last rung as an error state. It is not an error, it is the product working. Designing it as a first-class path rather than a fallback is most of the job.</p>
   </section>
   <section>
-    <p class="snum">04</p>
+    <p class="snum">03</p>
     <h2>Testing something that is not allowed to be wrong</h2>
     <p class="lead">The refusal path is the product, so it gets tested hardest.</p>
     <ul class="pts">
-      <li><b>Write the adversarial cases first.</b> &ldquo;So will my insulin be covered?&rdquo; in 6 phrasings, the polite ones and the desperate ones.</li>
-      <li><b>Treat every transfer as an assertion.</b> A handoff that dials into nothing is worse than no agent at all, and it only shows up if you test the receiving end.</li>
+      <li><b>Adversarial cases first.</b> &ldquo;So will my insulin be covered?&rdquo; in 6 phrasings, the polite ones and the desperate ones.</li>
+      <li><b>Every transfer is an assertion.</b> A handoff that dials into nothing is worse than no agent at all, and it only shows up if you test the receiving end rather than the intent to transfer.</li>
       <li><b>Regression-test disclosures after any prompt change.</b> An edit that improves the greeting can stop required wording firing 3 turns later. That is a compliance event, not a bug.</li>
-      <li><b>Tune for silence.</b> A correct answer that arrives 2 seconds late loses the call anyway.</li>
+      <li><b>Tune for latency.</b> A correct answer that arrives 2 seconds late loses the call anyway.</li>
     </ul>
   </section>
   <section>
-    <p class="snum">05</p>
-    <h2>Compliance is a design input, not a gate</h2>
-    <p>I scoped all 3 from scratch: sat with non-technical executives, mapped the use cases, designed the flows, presented them back in plain language, and coordinated across product, engineering, compliance and operations. Nobody handed me a spec.</p>
+    <p class="snum">04</p>
+    <h2>What it taught me</h2>
     <p>Every hour spent agreeing what the agent may <em>not</em> say saves a week of rework. Treating compliance as a design input at the start rather than a review at the end is the difference between an agent that reaches rollout and one that sits in review indefinitely.</p>
   </section>
   <section>
