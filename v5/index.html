@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matviy Korsunskiy | AI systems for marketing and operations</title>
+<meta name="description" content="Lifecycle, CRM and AI systems built end to end. n8n, GoHighLevel, Claude, APIs.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Matviy Korsunskiy">
+<meta property="og:description" content="Lifecycle, CRM and AI systems built end to end.">
+<script>document.documentElement.classList.replace('no-js','js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,400..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   v5. The introduction is the scroll.
+
+   Type system carried over from v4 (read out of arcforma.ai's
+   stylesheet): Instrument Serif for display only, Inter for body,
+   mono for micro-labels. What is new is the structure: a full-height
+   greeting, then a pinned passage where the introduction assembles a
+   sentence at a time, then the work.
+
+   Deliberately kept to 4 sentences. The first project has to be on
+   screen inside about two scrolls or the idea costs more than it earns.
+   ============================================================ */
+:root{
+  --bg:#0a0a0b;
+  --bg-2:#121214;
+  --ink:#f7f7f6;
+  --ink-2:#c9c9cf;
+  --soft:#8a8a94;
+  --faint:#5d5d66;
+  --rule:rgba(255,255,255,.10);
+  --rule-2:rgba(255,255,255,.055);
+  --acc:#f0904f;
+
+  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --pad:clamp(22px,5vw,72px);
+  --max:1180px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink-2);
+  font-family:var(--sans);font-size:16.5px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--acc);color:#0a0a0b}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+
+.eyebrow{
+  font-family:var(--mono);font-size:11.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin:0 0 26px;
+}
+.dim{color:var(--soft)}
+
+/* ============ 1. the greeting ============ */
+.hello{
+  min-height:100svh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:80px var(--pad) 40px;position:relative;
+}
+.face{
+  width:92px;height:92px;border-radius:50%;object-fit:cover;
+  border:1px solid var(--rule);margin-bottom:34px;
+}
+.hello h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(40px,7.4vw,86px);line-height:1.04;letter-spacing:-.028em;
+  color:var(--ink);margin:0;max-width:15ch;text-wrap:balance;
+}
+.hello h1 .nm{display:block;color:var(--acc)}
+.cue{
+  position:absolute;left:50%;bottom:40px;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--faint);
+}
+.cue .arw{font-size:15px;line-height:1;color:var(--acc)}
+@media (prefers-reduced-motion:no-preference){
+  .cue .arw{animation:nudge 1.9s ease-in-out infinite}
+  @keyframes nudge{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(6px);opacity:1}}
+}
+
+/* ============ 2. the introduction, assembled by scrolling ============ */
+.story{position:relative}
+.stage{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  padding-block:80px;
+}
+.line{
+  font-family:var(--serif);font-weight:400;
+  /* all four sentences have to sit inside one viewport while pinned,
+     so the measure is wide and the scale modest */
+  font-size:clamp(22px,3.1vw,38px);line-height:1.2;letter-spacing:-.02em;
+  color:var(--ink);margin:0 0 22px;max-width:30ch;text-wrap:balance;
+}
+.line:last-child{margin-bottom:0}
+.line b{font-weight:400;color:var(--acc)}
+.line.small{
+  font-family:var(--sans);font-size:clamp(15.5px,1.5vw,17.5px);
+  line-height:1.6;color:var(--soft);max-width:56ch;letter-spacing:0;margin-top:4px;
+}
+/* the progress ticks sit in the gutter and fill as each line lands */
+.ticks{
+  position:absolute;left:var(--pad);top:50%;transform:translateY(-50%);
+  display:none;flex-direction:column;gap:9px;
+}
+.ticks i{width:2px;height:22px;background:var(--rule);display:block;border-radius:2px}
+.ticks i.on{background:var(--acc)}
+@media (min-width:1080px){.ticks{display:flex}.stage{padding-left:46px}}
+
+/* ============ 3. work ============ */
+section{padding-block:clamp(64px,8vw,116px)}
+.proj{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);
+  gap:clamp(26px,4vw,60px);align-items:start;
+  padding-block:clamp(38px,4.5vw,58px);border-top:1px solid var(--rule-2);
+}
+.proj:first-of-type{border-top:none;padding-top:0}
+.pmark{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.pmark img{
+  width:34px;height:34px;object-fit:contain;flex:none;
+  border-radius:8px;background:var(--bg-2);border:1px solid var(--rule-2);padding:5px;
+}
+.pmark a{
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--faint);
+  padding-block:13px;transition:color .2s ease;
+}
+.pmark a:hover{color:var(--acc)}
+.proj h2{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(27px,3.2vw,40px);line-height:1.08;letter-spacing:-.022em;
+  color:var(--ink);margin:0;
+}
+.pmeta{
+  font-family:var(--mono);font-size:11px;line-height:1.85;letter-spacing:.04em;
+  color:var(--faint);margin:14px 0 0;
+}
+.pbody p{font-size:17px;line-height:1.62;color:var(--ink-2);margin:0;max-width:50ch;text-wrap:pretty}
+ul.pl{list-style:none;margin:22px 0 0;padding:0;max-width:50ch}
+ul.pl li{
+  font-size:15.5px;line-height:1.6;color:var(--soft);
+  padding:13px 0;border-top:1px solid var(--rule-2);text-wrap:pretty;
+}
+ul.pl li:first-child{border-top:none;padding-top:0}
+ul.pl b{color:var(--ink);font-weight:600}
+.go{
+  display:inline-flex;align-items:center;gap:10px;margin-top:26px;min-height:48px;
+  padding:13px 24px;border-radius:999px;border:1px solid var(--rule);
+  font-size:15px;font-weight:600;color:var(--ink);
+  transition:background .22s ease,border-color .22s ease,color .22s ease,gap .22s ease;
+}
+.go:hover{background:var(--acc);border-color:var(--acc);color:#0a0a0b;gap:14px}
+
+/* ============ 4. numbers, after the work has earned them ============ */
+.band{background:var(--bg-2);border-block:1px solid var(--rule-2)}
+.band .wrap{padding-block:clamp(48px,6vw,76px)}
+.figs{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.fg .n{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(44px,5.4vw,70px);line-height:1;letter-spacing:-.03em;
+  color:var(--ink);display:block;
+}
+.fg .n em{font-style:normal;color:var(--acc)}
+.fg .c{
+  font-family:var(--mono);font-size:11px;line-height:1.7;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--faint);display:block;margin-top:14px;max-width:28ch;
+}
+
+/* ============ 5. stack + also ============ */
+.defs > div{
+  display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr);
+  gap:clamp(18px,3vw,44px);padding-block:21px;
+  border-top:1px solid var(--rule-2);align-items:baseline;
+}
+.defs > div:last-child{border-bottom:1px solid var(--rule-2)}
+.defs dt{font-size:15px;font-weight:600;color:var(--ink)}
+.defs dd{margin:0;font-size:15.5px;line-height:1.7;color:var(--soft)}
+.defs dd b{color:var(--ink-2);font-weight:600}
+ul.also{list-style:none;margin:0;padding:0;max-width:66ch}
+ul.also li{
+  font-size:16px;line-height:1.65;color:var(--soft);
+  padding:19px 0;border-top:1px solid var(--rule-2);text-wrap:pretty;
+}
+ul.also li:first-child{border-top:none;padding-top:0}
+ul.also b{color:var(--ink);font-weight:600}
+.tail{
+  font-size:15px;line-height:1.7;color:var(--faint);max-width:62ch;
+  margin:28px 0 0;padding-top:24px;border-top:1px solid var(--rule-2);
+}
+
+/* ============ 6. close ============ */
+.close{padding-block:clamp(72px,9vw,120px);border-top:1px solid var(--rule-2)}
+.close h2{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(30px,4.4vw,56px);line-height:1.06;letter-spacing:-.024em;
+  color:var(--ink);margin:0 0 30px;max-width:18ch;text-wrap:balance;
+}
+.acts{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;min-height:48px;padding:13px 24px;
+  border-radius:999px;font-size:15px;font-weight:600;
+  transition:background .22s ease,color .22s ease,border-color .22s ease;
+}
+.btn.solid{background:var(--acc);color:#0a0a0b}
+.btn.solid:hover{background:#ffa96f}
+.btn.ghost{border:1px solid var(--rule);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--ink)}
+.fine{
+  font-family:var(--mono);font-size:10.5px;line-height:1.95;letter-spacing:.04em;
+  color:var(--faint);margin:38px 0 0;max-width:62ch;
+}
+
+@media (max-width:860px){
+  .figs{grid-template-columns:1fr;gap:30px}
+  .proj{grid-template-columns:1fr;gap:20px}
+  .defs > div{grid-template-columns:1fr;gap:5px;padding-block:17px}
+}
+@media (max-width:560px){
+  .face{width:78px;height:78px;margin-bottom:26px}
+  .btn,.go{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- 1. greeting -->
+<section class="hello">
+  <img class="face" src="/portrait.jpg" alt="Matviy Korsunskiy" width="92" height="92">
+  <h1>Hi, my name is <span class="nm">Matviy Korsunskiy.</span></h1>
+  <div class="cue"><span>Scroll</span><span class="arw" aria-hidden="true">&darr;</span></div>
+</section>
+
+<!-- 2. the introduction assembles as you scroll -->
+<section class="story">
+  <div class="ticks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div class="stage">
+      <p class="line">I build the automation a business <b>actually runs on</b>.</p>
+      <p class="line">Mostly Claude, n8n and GoHighLevel, wired into the CRM and the software a business already has.</p>
+      <p class="line">Lifecycle automation, lead generation, and voice agents that answer real phone lines.</p>
+      <p class="line small">I sit down with someone non-technical, work out what the system actually has to do, then build it and keep it running.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. work -->
+<section id="work">
+  <div class="wrap">
+    <p class="eyebrow">Recent projects</p>
+
+    <article class="proj">
+      <div>
+        <div class="pmark">
+          <img src="/logos/wol-logo.png" alt="" loading="lazy">
+          <a href="https://worldofluxuryus.com" target="_blank" rel="noopener">worldofluxuryus.com &#8599;</a>
+        </div>
+        <h2>World of Luxury</h2>
+        <p class="pmeta">Luxury watches and jewelry, Aventura FL<br>~$500K/yr on Shopify &nbsp;&middot;&nbsp; Retell + n8n<br>Retained 8 months</p>
+      </div>
+      <div class="pbody">
+        <p>Building a voice agent is the easy part. Keeping one alive on someone&rsquo;s real phone line for 8 months is the part most people never reach.</p>
+        <ul class="pl">
+          <li><b>Answers every inbound call</b>, looks up live order status against Shopify, and writes a qualified lead into the CRM before it hangs up.</li>
+          <li><b>Nearly 9 in 10 calls land outside showroom hours.</b> Every one used to be a voicemail.</li>
+          <li><b>I listen to real conversations every week</b> and fix what it handled badly. That loop is the difference between a demo and a system.</li>
+        </ul>
+        <a class="go" href="/work/world-of-luxury/">Read the case study <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div>
+        <div class="pmark">
+          <img src="/logos/flock-logo.png" alt="" loading="lazy">
+          <a href="https://flockbio.com" target="_blank" rel="noopener">flockbio.com &#8599;</a>
+        </div>
+        <h2>Flock Bio</h2>
+        <p class="pmeta">High-throughput pooled DNA libraries<br>Lead generation &nbsp;&middot;&nbsp; Apify + n8n + Clay<br>42.6% reply rate</p>
+      </div>
+      <div class="pbody">
+        <p>No job title reliably identifies a scientist about to build a DNA library. So the system stopped looking for people and started looking for conversations.</p>
+        <ul class="pl">
+          <li><b>Apify</b> scrapes posts against 19 technical phrases each week. An LLM keeps the genuine industry discussion and throws out the recruiters and press releases.</li>
+          <li><b>Everyone who engaged</b> with those posts is deduplicated by intent, then enriched and scored in Clay.</li>
+          <li><b>HeyReach</b> sends one opener to the person who wrote the post and a different one to the people who engaged with it.</li>
+        </ul>
+        <a class="go" href="/work/flock-bio/">Read the case study <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div>
+        <div class="pmark">
+          <img src="/logos/healthcare-logo.png" alt="" loading="lazy">
+          <a href="https://www.healthcare.com" target="_blank" rel="noopener">healthcare.com &#8599;</a>
+        </div>
+        <h2>Healthcare.com</h2>
+        <p class="pmeta">National health insurance marketplace<br>Contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing<br>3 agents under CMS rules</p>
+      </div>
+      <div class="pbody">
+        <p>Most voice AI books appointments. This one sits inside health insurance, where saying the wrong thing about coverage is a compliance problem, not a bad review.</p>
+        <ul class="pl">
+          <li><b>Routing.</b> Works out what a caller actually needs and sends them to the right place. Built for high inbound volume.</li>
+          <li><b>Loss-of-coverage intake.</b> Qualifies people who just lost their insurance along with their job, then warm transfers to a licensed human.</li>
+          <li><b>Medicare Advantage funnel.</b> Same build, higher bar. AI disclosure and CMS marketing rules constrain every line it is allowed to say.</li>
+        </ul>
+        <a class="go" href="/work/healthcare-com/">Read the case study <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 4. numbers, once the work has earned them -->
+<div class="band">
+  <div class="wrap">
+    <div class="figs">
+      <div class="fg"><span class="n">42.6<em>%</em></span><span class="c">Reply rate on cold LinkedIn outreach, about 10x the channel benchmark</span></div>
+      <div class="fg"><span class="n">5,000<em>+</em></span><span class="c">Products a voice agent looks up live, by name or model number</span></div>
+      <div class="fg"><span class="n">8 <em>mo</em></span><span class="c">Live on a client&rsquo;s phone line, and I still maintain it weekly</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. stack -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Stack</p>
+    <div class="defs">
+      <div><dt>Automation &amp; workflow</dt><dd><b>n8n</b>, <b>GoHighLevel</b>, REST APIs and webhooks, Airtable, Google Sheets, Cal.com, Boulevard, Shopify</dd></div>
+      <div><dt>AI</dt><dd><b>Claude</b>, prompt and context engineering, evals, QA and regression testing, conversation flow design, Retell AI, VAPI</dd></div>
+      <div><dt>Lifecycle &amp; growth</dt><dd><b>Lead generation systems</b>, Apify, Clay, Meta Ads, Instantly, lifecycle and review automation, KPI tracking and reporting</dd></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Also built</p>
+    <ul class="also">
+      <li><b>A full lifecycle system on GoHighLevel</b> for home service businesses. Site, forms, multi-channel capture, lead routing, automated follow-up and review generation, all running as one funnel.</li>
+      <li><b>A 3-location booking agent</b> for a Florida med spa on VAPI and n8n, wired into Boulevard scheduling and a custom services database.</li>
+      <li><b>3 months mentoring</b> the paid community of a voice AI educator, answering n8n and automation questions for a mostly non-technical audience.</li>
+    </ul>
+    <p class="tail">I ran the largest business club event at GWU with a team of 7. Trilingual in English, Russian and Ukrainian. 4-time US national champion in ballroom dance, which is where I learned what practicing something properly looks like.</p>
+  </div>
+</section>
+
+<!-- 6. close -->
+<div class="close">
+  <div class="wrap">
+    <h2>If any of this is the shape of your problem, <span class="dim">I&rsquo;d like to hear about it.</span></h2>
+    <div class="acts">
+      <a class="btn solid" href="mailto:matviykorsunskiy@gmail.com">matviykorsunskiy@gmail.com</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
+    </div>
+    <p class="fine">
+      Eastern time, New Jersey, US &nbsp;&middot;&nbsp; Available for contract<br>
+      Client names and internal details omitted where I am under confidentiality.
+    </p>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
+<script>
+window.addEventListener('load', function () {
+  // Fail safe: without the libraries every sentence is already visible.
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', function () {
+    var lines = gsap.utils.toArray('.line');
+    var ticks = gsap.utils.toArray('.ticks i');
+
+    /* the scroll cue retires once you have taken the hint */
+    gsap.to('.cue', {
+      autoAlpha: 0, duration: .3,
+      scrollTrigger: { trigger: '.hello', start: 'top top-=40', toggleActions: 'play none none reverse' }
+    });
+
+    /* Line one is present the moment the section pins. Animating it in
+       too left a black screen with nothing on it while the scrub caught
+       up, which reads as a broken page rather than a deliberate one.
+       Hidden from JS, never from CSS, so no-JS readers get everything. */
+    var rest = lines.slice(1);
+    gsap.set(rest, { autoAlpha: 0, y: 30, filter: 'blur(7px)' });
+    if (ticks[0]) ticks[0].classList.add('on');
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.story', start: 'top top',
+        end: '+=' + (rest.length * 52) + '%',
+        pin: true, scrub: .5, anticipatePin: 1
+      }
+    });
+
+    rest.forEach(function (line, i) {
+      var at = i * 1.1;
+      tl.to(line, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: .85, ease: 'power2.out' }, at);
+      tl.call(function () { if (ticks[i + 1]) ticks[i + 1].classList.add('on'); }, null, at + .4);
+      tl.call(function () { if (ticks[i + 1]) ticks[i + 1].classList.remove('on'); }, null, at + .39);
+    });
+
+    /* each project arrives on its own */
+    gsap.utils.toArray('.proj').forEach(function (p) {
+      gsap.from(p, {
+        autoAlpha: 0, y: 44, duration: .85, ease: 'power2.out',
+        scrollTrigger: { trigger: p, start: 'top 84%', once: true }
+      });
+    });
+    gsap.utils.toArray('.fg').forEach(function (f, i) {
+      gsap.from(f, {
+        autoAlpha: 0, y: 26, duration: .7, delay: i * .08, ease: 'power2.out',
+        scrollTrigger: { trigger: '.band', start: 'top 82%', once: true }
+      });
+    });
+  });
+});
+</script>
+</body>
+</html>
