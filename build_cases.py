@@ -82,7 +82,7 @@ FOOT = '''
 <dialog class="lb" id="lb" aria-label="Enlarged image">
   <div class="lbinner">
     <button class="lbclose" type="button" aria-label="Close">&times;</button>
-    <img alt="">
+    <div class="lbscroll"><img alt=""></div>
     <p class="lbcap"></p>
   </div>
 </dialog>

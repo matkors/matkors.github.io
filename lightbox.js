@@ -6,6 +6,8 @@
   var dlg = document.getElementById('lb');
   if (!dlg) return;
 
+  var coarse = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+  var scroller = dlg.querySelector('.lbscroll');
   var img = dlg.querySelector('img');
   var cap = dlg.querySelector('.lbcap');
   var closeBtn = dlg.querySelector('.lbclose');
@@ -20,7 +22,8 @@
     // affordance: a small badge that fades in on hover
     var cue = document.createElement('span');
     cue.className = 'zoomcue';
-    cue.innerHTML = '<span aria-hidden="true">&#9906;</span> Click to enlarge';
+    cue.innerHTML = '<span aria-hidden="true">&#9906;</span> '
+                  + (coarse ? 'Tap to enlarge' : 'Click to enlarge');
     frame.appendChild(cue);
 
     frame.setAttribute('role', 'button');
@@ -42,6 +45,20 @@
       if (typeof dlg.showModal === 'function') dlg.showModal();
       else dlg.setAttribute('open', '');
       document.body.style.overflow = 'hidden';
+
+      // a wide screenshot opens taller than the screen and pans; say so,
+      // but only once we know it actually overflows
+      dlg.classList.remove('pannable');
+      if (scroller) {
+        var check = function () {
+          if (scroller.scrollWidth > scroller.clientWidth + 4) {
+            dlg.classList.add('pannable');
+            scroller.scrollLeft = 0;
+          }
+        };
+        if (img.complete) requestAnimationFrame(check);
+        else img.addEventListener('load', check, { once: true });
+      }
     }
 
     frame.addEventListener('click', open);
@@ -59,11 +76,12 @@
 
   // clicking the backdrop closes; clicking the image itself must not
   dlg.addEventListener('click', function (e) {
-    if (e.target === dlg) close();
+    if (e.target === dlg || e.target === dlg.firstElementChild) close();
   });
 
   dlg.addEventListener('close', function () {
     document.body.style.overflow = '';
+    dlg.classList.remove('pannable');
     img.removeAttribute('src');
   });
 })();
