@@ -310,19 +310,27 @@ fb += FOOT.replace('{chips}', chips([('Apify', 'apify.png'), ('n8n', 'n8n.png'),
 
 # ================================================= HEALTHCARE.COM
 hc = HEAD.format(
-    title='Healthcare.com: 3 inbound voice agents built under CMS marketing rules | Matviy Korsunskiy',
-    desc='Intent routing, loss-of-coverage intake with warm transfer, and a Medicare Advantage line, built where the agent may not assert eligibility, price or coverage.',
+    title='Healthcare.com: building voice agents inside a national health insurance company | Matviy Korsunskiy',
+    desc='Three inbound voice agents scoped with the leadership team of a national health insurance marketplace, in a HIPAA-regulated environment where every flow clears compliance before launch.',
     logo='healthcare-logo.png', client='Healthcare.com',
     meta='National health insurance marketplace &nbsp;&middot;&nbsp; contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing',
     url='https://www.healthcare.com',
-    h1='3 voice agents under CMS marketing rules')
+    h1='Building voice agents inside a national health insurance company')
 
 hc += LF.join([
 
     gate('Under contract',
-         'Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause. No screenshots, no flows, no prompts, no numbers. What follows is the constraint set and my own method, which is mine to show. The other 2 case studies have the screenshots and the data.'),
+         'Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause. No screenshots, no flows, no prompts, no call volumes. What follows is how the work was run and the method I brought to it, which is mine to show. The other 2 case studies have the screenshots and the data.'),
 
-    sec('01', 'What the agent is not allowed to say'),
+    sec('01', 'Built with the leadership team, not from a spec'),
+    lead('Nobody handed me a requirements document.'),
+    pts(['I scoped all 3 agents from scratch, sitting with <b>non-technical executives and the leads of the teams</b> whose numbers the agents were going to move.',
+         'Mapped the use cases with those stakeholders, designed the conversation flows, then presented them back in plain language so the people signing off could actually judge them.',
+         'Coordinated the build across <b>product, engineering, marketing, compliance and operations</b>. Inside a company this size, getting those 5 groups to agree is most of the work.',
+         'Every flow had to clear <b>compliance review</b> before it could go near production. In a <b>HIPAA-regulated</b> business that is a gate, not a formality.']),
+    endsec(),
+
+    sec('02', 'What the agent is not allowed to say'),
     lead('Everything the agent says has to survive a compliance review.'),
     pts(['<b>Disclose that it is AI</b>, early enough to matter and clearly enough that a distressed caller registers it.',
          '<b>State it is not the government.</b> Nothing may imply endorsement by Medicare, CMS or any federal agency.',
@@ -331,7 +339,7 @@ hc += LF.join([
     p('In most voice projects the hard part is making the agent sound natural. Here it is the opposite: making it stop cleanly, stay inside what it is allowed to discuss, and hand over <em>before</em> it guesses. Callers make that harder, because they describe a situation rather than a product. <em>I lost my job, my daughter ages off my plan in March.</em> A phone menu sends them to the wrong place before the agent ever gets a chance.'),
     endsec(),
 
-    sec('02', 'How it decides what it can say'),
+    sec('03', 'How it decides what it can say'),
     lead('My framework, not theirs, so I can show it in full.'),
     pts(['<b>Answer.</b> In scope, and the answer already exists in approved copy.',
          '<b>Answer, with the required wording attached.</b> Allowed, but the law attaches specific words to it. Those words go out every single time, not when the model decides they are relevant.',
@@ -340,7 +348,7 @@ hc += LF.join([
     note('Most teams build the last step as a failure case. It is not a failure, it is the agent working correctly. Designing the handoff as a real path rather than a fallback is most of the job.'),
     endsec(),
 
-    sec('03', 'How I test it'),
+    sec('04', 'How I test it'),
     lead('The refusal path is the product, so it gets tested hardest.'),
     pts(['<b>Write the hard questions first.</b> &ldquo;So will my insulin be covered?&rdquo; asked 6 different ways, the polite ones and the desperate ones.',
          '<b>Test where the transfer lands.</b> A handoff that rings into nothing is worse than no agent at all, and you only catch it by calling the other end, not by checking that the agent tried.',

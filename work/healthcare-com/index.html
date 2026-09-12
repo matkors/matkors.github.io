@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Healthcare.com: 3 inbound voice agents built under CMS marketing rules | Matviy Korsunskiy</title>
-<meta name="description" content="Intent routing, loss-of-coverage intake with warm transfer, and a Medicare Advantage line, built where the agent may not assert eligibility, price or coverage.">
-<meta property="og:title" content="Healthcare.com: 3 inbound voice agents built under CMS marketing rules | Matviy Korsunskiy">
-<meta property="og:description" content="Intent routing, loss-of-coverage intake with warm transfer, and a Medicare Advantage line, built where the agent may not assert eligibility, price or coverage.">
+<title>Healthcare.com: building voice agents inside a national health insurance company | Matviy Korsunskiy</title>
+<meta name="description" content="Three inbound voice agents scoped with the leadership team of a national health insurance marketplace, in a HIPAA-regulated environment where every flow clears compliance before launch.">
+<meta property="og:title" content="Healthcare.com: building voice agents inside a national health insurance company | Matviy Korsunskiy">
+<meta property="og:description" content="Three inbound voice agents scoped with the leadership team of a national health insurance marketplace, in a HIPAA-regulated environment where every flow clears compliance before launch.">
 <meta property="og:type" content="article">
 <script>document.documentElement.classList.replace('no-js','js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,14 +32,25 @@
       <img src="/logos/healthcare-logo.png" alt="">Healthcare.com <span class="ex">&#8599;</span>
     </a>
     <p class="cmeta">National health insurance marketplace &nbsp;&middot;&nbsp; contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing</p>
-    <h1>3 voice agents under CMS marketing rules</h1>
+    <h1>Building voice agents inside a national health insurance company</h1>
   </div>
     <div class="gate">
       <div class="lbl">Under contract</div>
-      <p>Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause. No screenshots, no flows, no prompts, no numbers. What follows is the constraint set and my own method, which is mine to show. The other 2 case studies have the screenshots and the data.</p>
+      <p>Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause. No screenshots, no flows, no prompts, no call volumes. What follows is how the work was run and the method I brought to it, which is mine to show. The other 2 case studies have the screenshots and the data.</p>
     </div>
   <section>
     <p class="snum">01</p>
+    <h2>Built with the leadership team, not from a spec</h2>
+    <p class="lead">Nobody handed me a requirements document.</p>
+    <ul class="pts">
+      <li>I scoped all 3 agents from scratch, sitting with <b>non-technical executives and the leads of the teams</b> whose numbers the agents were going to move.</li>
+      <li>Mapped the use cases with those stakeholders, designed the conversation flows, then presented them back in plain language so the people signing off could actually judge them.</li>
+      <li>Coordinated the build across <b>product, engineering, marketing, compliance and operations</b>. Inside a company this size, getting those 5 groups to agree is most of the work.</li>
+      <li>Every flow had to clear <b>compliance review</b> before it could go near production. In a <b>HIPAA-regulated</b> business that is a gate, not a formality.</li>
+    </ul>
+  </section>
+  <section>
+    <p class="snum">02</p>
     <h2>What the agent is not allowed to say</h2>
     <p class="lead">Everything the agent says has to survive a compliance review.</p>
     <ul class="pts">
@@ -51,7 +62,7 @@
     <p>In most voice projects the hard part is making the agent sound natural. Here it is the opposite: making it stop cleanly, stay inside what it is allowed to discuss, and hand over <em>before</em> it guesses. Callers make that harder, because they describe a situation rather than a product. <em>I lost my job, my daughter ages off my plan in March.</em> A phone menu sends them to the wrong place before the agent ever gets a chance.</p>
   </section>
   <section>
-    <p class="snum">02</p>
+    <p class="snum">03</p>
     <h2>How it decides what it can say</h2>
     <p class="lead">My framework, not theirs, so I can show it in full.</p>
     <ul class="pts">
@@ -63,7 +74,7 @@
     <p class="note">Most teams build the last step as a failure case. It is not a failure, it is the agent working correctly. Designing the handoff as a real path rather than a fallback is most of the job.</p>
   </section>
   <section>
-    <p class="snum">03</p>
+    <p class="snum">04</p>
     <h2>How I test it</h2>
     <p class="lead">The refusal path is the product, so it gets tested hardest.</p>
     <ul class="pts">
