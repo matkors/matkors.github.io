@@ -4,216 +4,163 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>World of Luxury: matching 5,000 watches from a spoken sentence | Matviy Korsunskiy</title>
-<meta name="description" content="A production voice agent for a luxury watch dealer: live Shopify catalog, fuzzy model-number matching at 90-95% across 5,000 products, and 89% of calls arriving after hours.">
+<meta name="description" content="A production voice agent for a luxury watch dealer. Live Shopify catalog, fuzzy model-number matching at 90-95% across 5,000 products, 9 in 10 calls arriving after hours.">
 <meta property="og:title" content="World of Luxury: matching 5,000 watches from a spoken sentence | Matviy Korsunskiy">
-<meta property="og:description" content="A production voice agent for a luxury watch dealer: live Shopify catalog, fuzzy model-number matching at 90-95% across 5,000 products, and 89% of calls arriving after hours.">
+<meta property="og:description" content="A production voice agent for a luxury watch dealer. Live Shopify catalog, fuzzy model-number matching at 90-95% across 5,000 products, 9 in 10 calls arriving after hours.">
 <meta property="og:type" content="article">
 <script>document.documentElement.classList.replace('no-js','js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div class="aurora"></div>
-<div class="grain"></div>
 
-<div class="shell">
-  <aside class="rail">
+<div class="bar">
+  <div class="wrap">
     <a class="back" href="/"><span class="ar">&larr;</span> Matviy Korsunskiy</a>
-    <div class="role">Case study</div>
-    <div class="avail"><span class="dot"></span>Available for contract</div>
     <nav>
+      <span class="here"><i></i>Available for contract</span>
       <a href="mailto:matviykorsunskiy@gmail.com">Email</a>
-      <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
     </nav>
-    <div class="tz">Eastern time<br>New Jersey, US</div>
-    <nav class="toc">
-      <a href="#problem"><span class="tn">01</span>The problem</a>
-      <a href="#constraint"><span class="tn">02</span>The constraint</a>
-      <a href="#built"><span class="tn">03</span>What I built</a>
-      <a href="#results"><span class="tn">04</span>The results</a>
-      <a href="#learned"><span class="tn">05</span>What it taught me</a>
-    </nav>
-  </aside>
-
-  <main class="col">
-    <div class="rv">
-      <div class="case-hero">
-        <div class="logo"><img src="/logos/wol-logo.png" alt="World of Luxury"></div>
-        <div>
-          <h1>World of Luxury</h1>
-          <div class="case-meta">Luxury watches and jewelry, Aventura FL &nbsp;&middot;&nbsp; ~$500K/yr on Shopify &nbsp;·&nbsp; <a href="https://worldofluxuryus.com" target="_blank" rel="noopener">worldofluxuryus.com &#8599;</a></div>
-        </div>
-      </div>
-    </div>
-      <div class="glance" data-reveal>
-        <div class="gi"><span class="l">Role</span><span class="v">Built it and run it</span></div>
-        <div class="gi"><span class="l">Period</span><span class="v">8-month retainer</span></div>
-        <div class="gi"><span class="l">Catalog</span><span class="v">~5,000 live products</span></div>
-        <div class="gi"><span class="l">Match rate</span><span class="v">90&ndash;95%</span></div>
-      </div>
-      <div class="pull" data-reveal>
-      <p>The voice was never the hard part. The hard part was matching a misheard watch name against 5,000 products that change every day, fast enough that the caller does not notice the pause.</p>
-      </div>
-      <div data-reveal id="problem">
-        <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
-        <h2 class="sec">They had already tried a human</h2>
-      </div>
-      <p class="lead" data-reveal>The showroom is open Monday to Friday, 10am to 5pm. Their customers are not.</p>
-      <div class="prose" data-reveal>
-      <p>People shop for a $40,000 watch at 11pm and on Sunday afternoons. Those calls used to hit a voicemail box nobody was going to action before Monday.</p>
-      <p>They tried the obvious fix first and hired a virtual assistant. It did not work.</p>
-      <p>A VA who does not know the inventory cannot answer the only question that matters: <em>do you have this piece, and what does it cost</em>. Taking a message is not answering.</p>
-      </div>
-      <div data-reveal id="constraint">
-        <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
-        <h2 class="sec">5,000 products, changing daily</h2>
-      </div>
-      <p class="lead" data-reveal>The agent had to hit live inventory mid-call, and fast. A lookup that takes 8 seconds has already damaged the conversation.</p>
-      <div class="prose" data-reveal>
-      <p>The catalog moves every day as pieces sell and new stock lands, so anything working from a static export is wrong within 24 hours.</p>
-      <p>Then the matching itself, which is where the real difficulty sat:</p>
-      </div>
-      <ul class="bul" data-reveal>
-        <li><b>Speech-to-text mangles the brand names.</b> Jaeger-LeCoultre, Audemars Piguet, Breguet. A mangled string matches nothing.</li>
-        <li><b>Model numbers resist matching.</b> Mixed digits, letters and symbols, inconsistent capitalisation, and a pre-owned marker only some products carry.</li>
-        <li><b>Around 100 products are near-duplicates.</b> Exact match returns nothing; loose match returns the wrong watch, confidently.</li>
-        <li><b>Callers ask about orders too,</b> so the agent has to pick which lookup to run.</li>
-      </ul>
-      <div data-reveal id="built">
-        <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
-        <h2 class="sec">6 workflows in 3 layers</h2>
-      </div>
-      <p class="lead" data-reveal>The agent is the visible part. Underneath it, 6 n8n workflows do the work.</p>
-      <div class="secnum" data-reveal>Layer 1 &nbsp;&middot;&nbsp; Keeping 5,000 products current</div>
-      <div class="prose" data-reveal>
-      <p>The obvious approach broke immediately. n8n&rsquo;s Shopify node returns 50 records per call, and looping it hard enough to finish a full pull kept tripping limits and deactivating the workflow.</p>
-      <p>I replaced it with a custom HTTP request walking Shopify&rsquo;s <code>page_info</code> cursor at roughly 250 records per iteration. 5x the throughput, and stable enough to run unattended.</p>
-      <p>It <b>PATCHes</b> into Airtable rather than creating, so a product that changed price updates in place instead of duplicating.</p>
-      </div>
-      <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 1</b> Product sync, the pagination loop</div>
-        <div class="frame"><img src="/shots/sync-products.png" alt="Product sync, the pagination loop" loading="lazy"></div>
-        <figcaption><b>Build Request</b> assembles the next cursor, the HTTP node pulls a page, results are parsed and batched, then upserted into Airtable. <b>Has More Products?</b> feeds the arrow back round until Shopify stops returning a cursor.</figcaption>
-      </figure>
-      <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 2</b> Order sync, same shape but paced</div>
-        <div class="frame"><img src="/shots/sync-orders.png" alt="Order sync, same shape but paced" loading="lazy"></div>
-        <figcaption>Identical pattern with one addition: a <b>Wait</b> node between iterations. Without it the loop runs fast enough to trip Shopify&rsquo;s rate limit, which is what was silently killing the workflow before.</figcaption>
-      </figure>
-      <div class="secnum" data-reveal>Layer 2 &nbsp;&middot;&nbsp; Finding the right watch mid-call</div>
-      <div class="prose" data-reveal>
-      <p>3 lookup workflows sit behind webhooks the agent calls as tools. Each runs the same shape: extract the argument, normalise it, search Airtable, rank the candidates, format for speech.</p>
-      </div>
-      <div class="figpair" data-reveal>
-        <figure class="fig" style="margin:0">
-          <div class="frame"><img src="/shots/product-page-annotated.png" alt="A product page showing the 3 matchable fields" loading="lazy"></div>
-          <figcaption>A real listing. These 3 fields are everything the agent has to work with.</figcaption>
-        </figure>
-        <ul class="legend">
-          <li><span class="n">1</span><span><b>Product name</b>Long and brand-heavy. This is what callers mispronounce and what speech-to-text mangles.</span></li>
-          <li><span class="n">2</span><span><b>Price</b>The tiebreaker. When a name hits a cluster of near-identical pieces, price separates them.</span></li>
-          <li><span class="n">3</span><span><b>Model number</b>Digits, letters, dots, and a <code>Preowned-</code> prefix only some products carry.</span></li>
-        </ul>
-      </div>
-      <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 3</b> Lookup by name and price</div>
-        <div class="frame"><img src="/shots/lookup-details.png" alt="Lookup by name and price" loading="lazy"></div>
-        <figcaption><b>Extract &amp; Normalize</b> pulls the argument out of the tool call, Airtable returns candidates, then <b>Fuzzy Match &amp; Rank</b> reduces them to one.</figcaption>
-      </figure>
-      <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 4</b> Lookup by model number</div>
-        <div class="frame"><img src="/shots/lookup-reference.png" alt="Lookup by model number" loading="lazy"></div>
-        <figcaption>Same shape pointed at the reference field. Normalisation does the heavy lifting here, stripping the case and punctuation that make a direct match return nothing. <b>90 to 95% correct across 5,000 products.</b></figcaption>
-      </figure>
-      <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 5</b> Order lookup, with a live fallback</div>
-        <div class="frame"><img src="/shots/order-lookup.png" alt="Order lookup, with a live fallback" loading="lazy"></div>
-        <figcaption>Note the branch to <b>Run Order Sync</b>. If the order is not in Airtable yet, this calls a single-page sync to pull the newest orders from Shopify and then answers, rather than telling the caller it cannot find them.</figcaption>
-      </figure>
-      <div class="prose" data-reveal>
-      <p><b>It asks rather than guesses.</b> When a model-number match returns more than one candidate, the agent requests the price or product name and narrows to one. Guessing confidently on a $40,000 watch is the worst available outcome.</p>
-      <p><b>A pronunciation dictionary fixes the input.</b> None of the matching helps if the string leaving the agent is already wrong, so the agent holds the brand and model vocabulary and spells names correctly on the way into the workflow.</p>
-      </div>
-      <div class="secnum" data-reveal>Layer 3 &nbsp;&middot;&nbsp; Turning calls into something the owner uses</div>
-      <div class="prose" data-reveal>
-      <p>Every completed call writes the transcript, the recording and the caller into Airtable, <b>including a link to the exact product they asked about</b>.</p>
-      <p>A scheduled notifier assembles the overnight activity and emails it before the shop opens. The owner never opens a dashboard.</p>
-      </div>
-      <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 6</b> The morning digest</div>
-        <div class="frame"><img src="/shots/notifier.png" alt="The morning digest" loading="lazy"></div>
-        <figcaption>Scheduled trigger, pull the overnight calls, check client limits and usage, format and send. The <b>If</b> gate means a quiet night sends nothing rather than an empty report.</figcaption>
-      </figure>
-      <div class="pull" data-reveal>
-      <p>That report is what turned this from a phone system into something they renewed.</p>
-      </div>
-      <div data-reveal id="results">
-        <div class="secnum">04 &nbsp;&middot;&nbsp; The results</div>
-        <h2 class="sec">Coded by hand, not pulled from a dashboard</h2>
-      </div>
-      <p class="lead" data-reveal>I went through every call in a recent sample and coded each one by arrival time, intent, outcome, and whether a lead was actually captured.</p>
-      <div class="stats" data-stats>
-        <div class="stat hi"><span class="v" data-count="89" data-suffix="%">89%</span><span class="k">of calls arrive after hours</span></div>
-        <div class="stat"><span class="v">90&ndash;95%</span><span class="k">correct product from 5,000 products</span></div>
-        <div class="stat"><span class="v">8 mo</span><span class="k">retained, still running</span></div>
-        <div class="stat"><span class="v">$21&ndash;302K</span><span class="k">range of pieces asked about</span></div>
-      </div>
-      <ul class="notes" data-reveal>
-        <li><b>72% of genuine inquiries</b> become a captured lead, after excluding wrong numbers, a caller chasing a Macy&rsquo;s order, and 2 who were abusive. Counting those would have flattered the number.</li>
-        <li><b>The value range is what callers asked about:</b> Richard Mille $302,500, Jaeger-LeCoultre tourbillon $41,000, Corum $21,000, plus Breguet, Patek Philippe and an AP Royal Oak Grande Complication.</li>
-      </ul>
-      <div data-reveal id="learned">
-        <div class="secnum">05 &nbsp;&middot;&nbsp; What it taught me</div>
-        <h2 class="sec">The failures are invisible in the success rate</h2>
-      </div>
-      <p class="lead" data-reveal>This agent was not good at the start. It got good because I listen to real calls every week and fix what broke.</p>
-      <div class="prose" data-reveal>
-      <p>3 from the last pass, none of which show up in any metric:</p>
-      </div>
-      <ul class="bul" data-reveal>
-        <li><b>A broken email domain.</b> The agent was reading the contact address out as &ldquo;world of luxurious dot com&rdquo;. Every seller routed to email got an address that does not exist, and every one of those calls logged as successful.</li>
-        <li><b>Lead capture asked too late.</b> Callers answered 3 or 4 product questions, then hung up the moment the agent asked for a name. The ask arrived cold at the end instead of being earned earlier.</li>
-        <li><b>No recovery from a misheard name.</b> One caller&rsquo;s name came through as &ldquo;12&rdquo;. The agent had no path back and the call timed out, losing a $21,000 inquiry at the final step.</li>
-      </ul>
-      <div class="pull" data-reveal>
-      <p>A voice agent is not a build, it is an operation. The version that shipped in month one and the version running now share a prompt and almost nothing else.</p>
-      </div>
-      <div class="secnum" data-reveal>Stack</div>
-      <div class="stack" data-reveal>
-        <span class="chip"><img src="/logos/tools/retell.svg" alt="">Retell AI</span>
-        <span class="chip"><img src="/logos/tools/vapi.png" alt="">VAPI</span>
-        <span class="chip"><img src="/logos/tools/n8n.png" alt="">n8n</span>
-        <span class="chip"><img src="/logos/tools/airtable.png" alt="">Airtable</span>
-        <span class="chip"><img src="/logos/tools/shopify.png" alt="">Shopify</span>
-      </div>
-    <h2 class="sec">Other work</h2>
-    <div class="nextprev" data-reveal>
-      <a class="npcard" href="/work/flock-bio/"><span class="l">Case study</span><span class="n">Flock Bio</span></a>
-      <a class="npcard" href="/work/healthcare-com/"><span class="l">Case study</span><span class="n">Healthcare.com</span></a>
-    </div>
-
-    <footer>
-      <div data-reveal>
-        <p class="cta">If any of this is the shape of your problem, I&rsquo;d like to hear about it.</p>
-        <div class="btns">
-          <a class="btn solid magnetic" href="mailto:matviykorsunskiy@gmail.com">matviykorsunskiy@gmail.com</a>
-          <a class="btn ghost magnetic" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
-        </div>
-        <p class="disclaim">
-          Client names and internal details omitted where I am under confidentiality.<br>
-          Happy to go deeper on any of it on a call.
-        </p>
-      </div>
-    </footer>
-  </main>
+  </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
+<div class="wrap">
+  <div class="hero">
+    <a class="client" href="https://worldofluxuryus.com" target="_blank" rel="noopener">
+      <img src="/logos/wol-logo.png" alt="">World of Luxury <span class="ex">&#8599;</span>
+    </a>
+    <p class="cmeta">Luxury watches and jewelry, Aventura FL &nbsp;&middot;&nbsp; ~$500K/yr on Shopify &nbsp;&middot;&nbsp; retained 8 months</p>
+    <h1>Matching 5,000 watches from a spoken sentence</h1>
+  </div>
+  <dl class="spec">
+    <div><dt>Built</dt><dd>An inbound voice receptionist that answers every call, looks up live product and order data against Shopify, and writes a qualified lead into the CRM before it hangs up.</dd></div>
+    <div><dt>Tools</dt><dd><div class="tools"><span>Retell AI</span><span>n8n</span><span>Airtable</span><span>Shopify</span></div></dd></div>
+    <div><dt>Results</dt><dd><ul class="res">
+      <li><b>9 in 10 calls</b> arrive outside showroom hours, now captured</li>
+      <li><b>90&ndash;95%</b> correct product across 5,000 live products</li>
+      <li><b>8 months</b> live, maintained weekly</li>
+    </ul></dd></div>
+  </dl>
+  <section>
+    <p class="snum">01</p>
+    <h2>They had already tried a human</h2>
+    <p class="lead">The showroom is open Monday to Friday, 10am to 5pm. Their customers are not.</p>
+    <ul class="pts">
+      <li>People shop for a <b>$40,000 watch at 11pm</b> and on Sunday afternoons. Those calls hit a voicemail box nobody would action before Monday.</li>
+      <li>They hired a virtual assistant first. A VA who does not know the inventory cannot answer the only question that matters: <em>do you have this piece, and what does it cost</em>.</li>
+      <li>The catalog moves daily as pieces sell and stock lands, so anything built on a static export is wrong within 24 hours.</li>
+      <li><b>Speech-to-text mangles the brand names.</b> Jaeger-LeCoultre, Audemars Piguet, Breguet. Model numbers mix digits, letters and symbols, and around 100 products are near-duplicates.</li>
+    </ul>
+  </section>
+  <section>
+    <p class="snum">02</p>
+    <h2>6 workflows in 3 layers</h2>
+    <p class="lead">The agent is the visible part. Underneath it, 6 n8n workflows do the work.</p>
+    <h3><span>Layer 1</span> &nbsp;Keeping 5,000 products current</h3>
+    <p>n8n&rsquo;s Shopify node returns 50 records per call, and looping it hard enough to finish a full pull kept tripping limits and deactivating the workflow. I replaced it with a custom HTTP request walking Shopify&rsquo;s <code>page_info</code> cursor at roughly 250 records per iteration: <b>5x the throughput</b>, stable enough to run unattended. It PATCHes into Airtable rather than creating, so a product that changed price updates in place instead of duplicating.</p>
+    <figure class="fig">
+      <div class="figlabel"><b>Fig 1</b> Product sync, the pagination loop</div>
+      <div class="frame"><img src="/shots/sync-products.png" alt="Product sync, the pagination loop" loading="lazy"></div>
+      <figcaption><b>Build Request</b> assembles the next cursor, the HTTP node pulls a page, results are parsed and batched, then upserted into Airtable. <b>Has More Products?</b> feeds the arrow back round until Shopify stops returning a cursor.</figcaption>
+    </figure>
+    <figure class="fig">
+      <div class="figlabel"><b>Fig 2</b> Order sync, same shape but paced</div>
+      <div class="frame"><img src="/shots/sync-orders.png" alt="Order sync, same shape but paced" loading="lazy"></div>
+      <figcaption>Identical pattern with one addition: a <b>Wait</b> node between iterations. Without it the loop runs fast enough to trip Shopify&rsquo;s rate limit, which is what was silently killing the workflow before.</figcaption>
+    </figure>
+    <h3><span>Layer 2</span> &nbsp;Finding the right watch mid-call</h3>
+    <p>3 lookup workflows sit behind webhooks the agent calls as tools. Each runs the same shape: extract the argument, normalize it, search Airtable, rank the candidates, format for speech.</p>
+    <div class="figpair">
+      <figure class="fig" style="margin:0">
+        <div class="frame"><img src="/shots/product-page-annotated.png" alt="A product page showing the 3 matchable fields" loading="lazy"></div>
+        <figcaption>A real listing. These 3 fields are everything the agent has to work with.</figcaption>
+      </figure>
+      <ul class="legend">
+        <li><span class="n">1</span><span><b>Product name</b>Long and brand-heavy. This is what callers mispronounce and what speech-to-text mangles.</span></li>
+        <li><span class="n">2</span><span><b>Price</b>The tiebreaker. When a name hits a cluster of near-identical pieces, price separates them.</span></li>
+        <li><span class="n">3</span><span><b>Model number</b>Digits, letters, dots, and a <code>Preowned-</code> prefix only some products carry.</span></li>
+      </ul>
+    </div>
+    <figure class="fig">
+      <div class="figlabel"><b>Fig 3</b> Lookup by name and price</div>
+      <div class="frame"><img src="/shots/lookup-details.png" alt="Lookup by name and price" loading="lazy"></div>
+      <figcaption><b>Extract &amp; Normalize</b> pulls the argument out of the tool call, Airtable returns candidates, then <b>Fuzzy Match &amp; Rank</b> reduces them to one.</figcaption>
+    </figure>
+    <figure class="fig">
+      <div class="figlabel"><b>Fig 4</b> Lookup by model number</div>
+      <div class="frame"><img src="/shots/lookup-reference.png" alt="Lookup by model number" loading="lazy"></div>
+      <figcaption>Same shape pointed at the reference field. Normalization does the heavy lifting, stripping the case and punctuation that make a direct match return nothing. <b>90 to 95% correct across 5,000 products.</b></figcaption>
+    </figure>
+    <figure class="fig">
+      <div class="figlabel"><b>Fig 5</b> Order lookup, with a live fallback</div>
+      <div class="frame"><img src="/shots/order-lookup.png" alt="Order lookup, with a live fallback" loading="lazy"></div>
+      <figcaption>Note the branch to <b>Run Order Sync</b>. If the order is not in Airtable yet, this calls a single-page sync to pull the newest orders from Shopify and then answers, rather than telling the caller it cannot find them.</figcaption>
+    </figure>
+    <p class="note"><b>It asks rather than guesses.</b> When a model-number match returns more than one candidate, the agent requests the price or product name and narrows to one. Guessing confidently on a $40,000 watch is the worst available outcome. A pronunciation dictionary fixes the input before any of the matching runs.</p>
+    <h3><span>Layer 3</span> &nbsp;Turning calls into something the owner uses</h3>
+    <p>Every completed call writes the transcript, the recording and the caller into Airtable, <b>including a link to the exact product they asked about</b>. A scheduled notifier assembles the overnight activity and emails it before the shop opens. The owner never opens a dashboard.</p>
+    <figure class="fig">
+      <div class="figlabel"><b>Fig 6</b> The morning digest</div>
+      <div class="frame"><img src="/shots/notifier.png" alt="The morning digest" loading="lazy"></div>
+      <figcaption>Scheduled trigger, pull the overnight calls, check client limits and usage, format and send. The <b>If</b> gate means a quiet night sends nothing rather than an empty report.</figcaption>
+    </figure>
+  </section>
+  <section>
+    <p class="snum">03</p>
+    <h2>Coded by hand, not pulled from a dashboard</h2>
+    <p class="lead">I went through every call in a recent sample and coded each one by arrival time, intent, outcome, and whether a lead was actually captured.</p>
+    <div class="stats">
+      <div class="stat hi"><span class="v">89%</span><span class="k">of calls arrive after hours</span></div>
+      <div class="stat"><span class="v">90&ndash;95%</span><span class="k">correct product from 5,000</span></div>
+      <div class="stat"><span class="v">72%</span><span class="k">of genuine inquiries become a lead</span></div>
+      <div class="stat"><span class="v">$21&ndash;302K</span><span class="k">range of pieces asked about</span></div>
+    </div>
+    <p class="note"><b>72% is after excluding</b> wrong numbers, a caller chasing a Macy&rsquo;s order, and 2 who were abusive. Counting those would have flattered the number. The value range is what callers actually asked about: Richard Mille $302,500, Jaeger-LeCoultre tourbillon $41,000, Corum $21,000.</p>
+  </section>
+  <section>
+    <p class="snum">04</p>
+    <h2>The failures are invisible in the success rate</h2>
+    <p class="lead">This agent was not good at the start. It got good because I listen to real calls every week and fix what broke.</p>
+    <ul class="pts">
+      <li><b>A broken email domain.</b> The agent read the contact address as &ldquo;world of luxurious dot com&rdquo;. Every seller routed to email got an address that does not exist, and every one of those calls logged as successful.</li>
+      <li><b>Lead capture asked too late.</b> Callers answered 3 or 4 product questions, then hung up the moment the agent asked for a name.</li>
+      <li><b>No recovery from a misheard name.</b> One caller&rsquo;s name came through as &ldquo;12&rdquo;. The agent had no path back and the call timed out, losing a $21,000 inquiry at the final step.</li>
+    </ul>
+    <p class="note">A voice agent is not a build, it is an operation. The version that shipped in month one and the version running now share a prompt and almost nothing else.</p>
+  </section>
+  <section>
+    <p class="snum">Stack</p>
+    <div class="stack">
+      <span class="chip"><img src="/logos/tools/retell.svg" alt="">Retell AI</span>
+      <span class="chip"><img src="/logos/tools/n8n.png" alt="">n8n</span>
+      <span class="chip"><img src="/logos/tools/airtable.png" alt="">Airtable</span>
+      <span class="chip"><img src="/logos/tools/shopify.png" alt="">Shopify</span>
+    </div>
+  </section>
+
+  <section>
+    <p class="snum">More work</p>
+    <div class="np">
+      <a class="npc" href="/work/flock-bio/"><span class="l">Case study</span><span class="n">Flock Bio</span></a>
+      <a class="npc" href="/work/healthcare-com/"><span class="l">Case study</span><span class="n">Healthcare.com</span></a>
+    </div>
+  </section>
+
+  <div class="close">
+    <h2>If any of this is the shape of your problem, <span class="q">I&rsquo;d like to hear about it.</span></h2>
+    <div class="acts">
+      <a class="btn solid" href="mailto:matviykorsunskiy@gmail.com">matviykorsunskiy@gmail.com</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
+    </div>
+    <p class="fine">
+      Eastern time, New Jersey, US<br>
+      Client names and internal details omitted where I am under confidentiality.
+    </p>
+  </div>
+</div>
+
 <dialog class="lb" id="lb" aria-label="Enlarged image">
   <div class="lbinner">
     <button class="lbclose" type="button" aria-label="Close">&times;</button>
@@ -222,7 +169,23 @@
   </div>
 </dialog>
 
-<script src="/motion.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
 <script src="/lightbox.js" defer></script>
+<script>
+window.addEventListener('load', function () {
+  /* Without the libraries the page is already fully visible. */
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', function () {
+    gsap.utils.toArray('section, .spec, .fig, .figpair').forEach(function (el) {
+      gsap.from(el, {
+        autoAlpha: 0, y: 26, duration: .7, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      });
+    });
+  });
+});
+</script>
 </body>
 </html>

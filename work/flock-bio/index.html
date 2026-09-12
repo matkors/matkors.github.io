@@ -3,188 +3,126 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Flock Bio: a 42% reply rate on cold LinkedIn | Matviy Korsunskiy</title>
-<meta name="description" content="Outbound to a narrow technical audience, targeted by what they were talking about this week rather than by job title. Apify, Clay, n8n and HeyReach.">
-<meta property="og:title" content="Flock Bio: a 42% reply rate on cold LinkedIn | Matviy Korsunskiy">
-<meta property="og:description" content="Outbound to a narrow technical audience, targeted by what they were talking about this week rather than by job title. Apify, Clay, n8n and HeyReach.">
+<title>Flock Bio: a 42.6% reply rate on cold LinkedIn | Matviy Korsunskiy</title>
+<meta name="description" content="Outbound to a narrow technical audience, targeted by what people were talking about this week rather than by job title. Apify, Clay, n8n and HeyReach.">
+<meta property="og:title" content="Flock Bio: a 42.6% reply rate on cold LinkedIn | Matviy Korsunskiy">
+<meta property="og:description" content="Outbound to a narrow technical audience, targeted by what people were talking about this week rather than by job title. Apify, Clay, n8n and HeyReach.">
 <meta property="og:type" content="article">
 <script>document.documentElement.classList.replace('no-js','js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div class="aurora"></div>
-<div class="grain"></div>
 
-<div class="shell">
-  <aside class="rail">
+<div class="bar">
+  <div class="wrap">
     <a class="back" href="/"><span class="ar">&larr;</span> Matviy Korsunskiy</a>
-    <div class="role">Case study</div>
-    <div class="avail"><span class="dot"></span>Available for contract</div>
     <nav>
+      <span class="here"><i></i>Available for contract</span>
       <a href="mailto:matviykorsunskiy@gmail.com">Email</a>
-      <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
     </nav>
-    <div class="tz">Eastern time<br>New Jersey, US</div>
-    <nav class="toc">
-      <a href="#problem"><span class="tn">01</span>The problem</a>
-      <a href="#constraint"><span class="tn">02</span>The constraint</a>
-      <a href="#built"><span class="tn">03</span>What I built</a>
-      <a href="#results"><span class="tn">04</span>The results</a>
-      <a href="#learned"><span class="tn">05</span>What it taught me</a>
-    </nav>
-  </aside>
-
-  <main class="col">
-    <div class="rv">
-      <div class="case-hero">
-        <div class="logo"><img src="/logos/flock-logo.png" alt="Flock Bio"></div>
-        <div>
-          <h1>Flock Bio</h1>
-          <div class="case-meta">High-throughput pooled DNA libraries &nbsp;&middot;&nbsp; LinkedIn outbound &nbsp;·&nbsp; <a href="https://flockbio.com" target="_blank" rel="noopener">flockbio.com &#8599;</a></div>
-        </div>
-      </div>
-    </div>
-      <div class="glance" data-reveal>
-        <div class="gi"><span class="l">Role</span><span class="v">Built the system</span></div>
-        <div class="gi"><span class="l">Channel</span><span class="v">LinkedIn, via HeyReach</span></div>
-        <div class="gi"><span class="l">Cadence</span><span class="v">Runs every 3 days</span></div>
-        <div class="gi"><span class="l">Reply rate</span><span class="v">42.6%</span></div>
-      </div>
-      <div class="pull" data-reveal>
-      <p>They came to us with a list of keywords. That was the entire brief, and it turned out to be the right one.</p>
-      </div>
-      <div data-reveal id="problem">
-        <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
-        <h2 class="sec">You cannot find these buyers by job title</h2>
-      </div>
-      <p class="lead" data-reveal>There is no job title that reliably identifies a scientist about to build a DNA library.</p>
-      <div class="prose" data-reveal>
-      <p>Filtering LinkedIn by &ldquo;Scientist&rdquo; at biotech companies returns tens of thousands of people, almost none of whom are building one this quarter.</p>
-      <p>What Flock Bio had instead was a list of the phrases their buyers actually use. That turned out to be a better signal than any firmographic filter.</p>
-      </div>
-      <div data-reveal id="constraint">
-        <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
-        <h2 class="sec">One pass at a small list</h2>
-      </div>
-      <p class="lead" data-reveal>The addressable audience is small enough that burning it has a real cost. There is no version of this where you send 10,000 messages and accept a low hit rate.</p>
-      <ul class="bul" data-reveal>
-        <li><b>The buyers are technical.</b> A generic message marks you as someone who does not understand the work, which is disqualifying in a field where credibility is the product.</li>
-        <li><b>LinkedIn punishes volume.</b> Connection limits and spam signals cap what you can send anyway.</li>
-      </ul>
-      <div data-reveal id="built">
-        <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
-        <h2 class="sec">Target the conversation, not the person</h2>
-      </div>
-      <p class="lead" data-reveal>Rather than search for people who look right, the system finds posts about the right subject each week and harvests everyone who engaged with them.</p>
-      <div class="prose" data-reveal>
-      <p>Someone who comments on a post about directed evolution has self-selected far more precisely than any title filter can manage. 2 n8n workflows do the work, plus a third that exists only to fail safely.</p>
-      </div>
-      <div class="secnum" data-reveal>Workflow 1 &nbsp;&middot;&nbsp; Sourcing and qualification</div>
-      <div class="prose" data-reveal>
-      <p>An Apify scraper runs every 3 days against 19 quoted phrases such as <code>"gene library"</code>, <code>"codon optimization"</code>, <code>"directed evolution"</code>, <code>"AAV cassette design"</code>, pulling the week&rsquo;s posts <b>along with their comments and reactions</b>.</p>
-      </div>
-      <ul class="bul" data-reveal>
-        <li><b>Mechanical filter.</b> Keep posts by people, drop company pages.</li>
-        <li><b>Semantic filter.</b> An LLM judges whether each post is genuine industry discussion, rejecting personal stories and webinar pitches.</li>
-        <li><b>Re-join.</b> The model judges <em>posts</em>, but the leads are the <em>engagers</em>. A code step pulls back every comment and reaction attached to an approved post.</li>
-        <li><b>Dedupe by intent.</b> Post 3, comment 2, reaction 1, keyed by person and post. A commenter is warmer than a reactor, so only their highest-intent action survives.</li>
-      </ul>
-      <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 1</b> Sourcing and qualification</div>
-        <div class="frame"><img src="/shots/flockbio-scraper.png" alt="Sourcing and qualification" loading="lazy"></div>
-        <figcaption>Scrape, filter mechanically, then semantically, then re-attach the engagers and deduplicate them before the batch pushes into Clay.</figcaption>
-      </figure>
-      <div class="prose" data-reveal>
-      <p>Everything lands in Clay, where waterfall enrichment fills in company, size and position, and an LLM scores lead quality.</p>
-      </div>
-      <div class="pull" data-reveal>
-      <p>The scoring prompt was not written in a vacuum. We sent Flock Bio sample lists, they marked each lead good or not, and the criteria were rewritten against their answers until it matched what they actually wanted.</p>
-      </div>
-      <div class="secnum" data-reveal>Workflow 2 &nbsp;&middot;&nbsp; Personalised outreach</div>
-      <div class="prose" data-reveal>
-      <p>Approved leads flow from a Google Sheet into HeyReach every 3 days. An LLM first strips titles, suffixes, emojis and pipes down to a clean first and last name, because &ldquo;Dr. WALLIS MARGRAFF, Ph.D.&rdquo; is not how you open a message.</p>
-      </div>
-      <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 2</b> 2 tracks through HeyReach</div>
-        <div class="frame"><img src="/shots/flockbio-heyreach.png" alt="2 tracks through HeyReach" loading="lazy"></div>
-        <figcaption>The split at <b>Engagement or Post Route</b> is where the personalisation lives. Post authors take the upper path, engagers the lower one. Both loop in small batches with a wait, then stamp the sheet.</figcaption>
-      </figure>
-      <ul class="bul" data-reveal>
-        <li><b>Post authors</b> get a message referencing their own post.</li>
-        <li><b>Engagers</b> get one referencing the post they engaged with, which needs the original author&rsquo;s name in possessive form. A second LLM call formats it, so the opener reads <em>&ldquo;I saw you engaged with Jessica&rsquo;s post&rdquo;</em> rather than something assembled by string concatenation.</li>
-      </ul>
-      <div class="prose" data-reveal>
-      <p>The sheet is then stamped with the date, the workflow ID and the execution ID, so nobody is contacted twice and every send traces back to the run that made it.</p>
-      </div>
-      <div class="secnum" data-reveal>Workflow 3 &nbsp;&middot;&nbsp; Failing safely</div>
-      <div class="prose" data-reveal>
-      <p>When anything throws, the error workflow <b>deactivates the workflow first</b>, then emails.</p>
-      <p>On a finite list that ordering is the point. A bug that keeps running burns prospects you cannot get back, so the system stops itself before anyone reads the alert.</p>
-      </div>
-      <figure class="fig" data-reveal>
-        <div class="figlabel"><b>Fig 3</b> The error workflow</div>
-        <div class="frame"><img src="/shots/flockbio-error.png" alt="The error workflow" loading="lazy"></div>
-        <figcaption>3 nodes, and the order of the middle 2 is the entire design. Reverse them and a broken run keeps sending while the email sits unread.</figcaption>
-      </figure>
-      <div data-reveal id="results">
-        <div class="secnum">04 &nbsp;&middot;&nbsp; The results</div>
-        <h2 class="sec">One month of the campaign, measured in HeyReach</h2>
-      </div>
-      <div class="stats" data-stats>
-        <div class="stat hi"><span class="v" data-count="42" data-suffix=".6%">42.6%</span><span class="k">message reply rate</span></div>
-        <div class="stat"><span class="v" data-count="78" data-suffix=".5%">78.5%</span><span class="k">connection acceptance</span></div>
-        <div class="stat"><span class="v" data-count="20" data-suffix="">20</span><span class="k">replies from 47 messages</span></div>
-        <div class="stat"><span class="v">3 days</span><span class="k">between sending runs</span></div>
-      </div>
-      <ul class="notes" data-reveal>
-        <li><b>Figures are one month of an ongoing campaign:</b> 65 connections sent, 51 accepted, 47 messages, 20 replies. The system has run well past that window.</li>
-        <li><b>Cold LinkedIn benchmarks sit in the low single digits.</b> Replies turned into booked meetings, which is the number that actually matters to them.</li>
-      </ul>
-      <div data-reveal id="learned">
-        <div class="secnum">05 &nbsp;&middot;&nbsp; What it taught me</div>
-        <h2 class="sec">Intent beats firmographics</h2>
-      </div>
-      <p class="lead" data-reveal>The instinct in outbound is to describe the buyer and go find people who match the description.</p>
-      <div class="prose" data-reveal>
-      <p>On a narrow technical list that fails, because the description does not separate the person building a library this quarter from the 10,000 who are not.</p>
-      <p>What someone posted about last week does separate them. Targeting the conversation rather than the person is the single decision that produced the reply rate.</p>
-      </div>
-      <div class="secnum" data-reveal>Stack</div>
-      <div class="stack" data-reveal>
-        <span class="chip"><img src="/logos/tools/apify.png" alt="">Apify</span>
-        <span class="chip"><img src="/logos/tools/n8n.png" alt="">n8n</span>
-        <span class="chip"><img src="/logos/tools/clay.png" alt="">Clay</span>
-        <span class="chip"><img src="/logos/tools/heyreach.png" alt="">HeyReach</span>
-      </div>
-    <h2 class="sec">Other work</h2>
-    <div class="nextprev" data-reveal>
-      <a class="npcard" href="/work/world-of-luxury/"><span class="l">Case study</span><span class="n">World of Luxury</span></a>
-      <a class="npcard" href="/work/healthcare-com/"><span class="l">Case study</span><span class="n">Healthcare.com</span></a>
-    </div>
-
-    <footer>
-      <div data-reveal>
-        <p class="cta">If any of this is the shape of your problem, I&rsquo;d like to hear about it.</p>
-        <div class="btns">
-          <a class="btn solid magnetic" href="mailto:matviykorsunskiy@gmail.com">matviykorsunskiy@gmail.com</a>
-          <a class="btn ghost magnetic" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
-        </div>
-        <p class="disclaim">
-          Client names and internal details omitted where I am under confidentiality.<br>
-          Happy to go deeper on any of it on a call.
-        </p>
-      </div>
-    </footer>
-  </main>
+  </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
+<div class="wrap">
+  <div class="hero">
+    <a class="client" href="https://flockbio.com" target="_blank" rel="noopener">
+      <img src="/logos/flock-logo.png" alt="">Flock Bio <span class="ex">&#8599;</span>
+    </a>
+    <p class="cmeta">High-throughput pooled DNA libraries &nbsp;&middot;&nbsp; LinkedIn outbound</p>
+    <h1>Targeting the conversation, not the job title</h1>
+  </div>
+  <dl class="spec">
+    <div><dt>Built</dt><dd>A LinkedIn outbound pipeline that finds prospects by what they post about, then deduplicates by intent, enriches, scores and sequences them automatically.</dd></div>
+    <div><dt>Tools</dt><dd><div class="tools"><span>Apify</span><span>n8n</span><span>Clay</span><span>HeyReach</span></div></dd></div>
+    <div><dt>Results</dt><dd><ul class="res">
+      <li><b>42.6% reply rate</b> on cold LinkedIn, about 10x the channel benchmark</li>
+      <li><b>78.5%</b> connection acceptance</li>
+      <li><b>19 technical phrases</b> scraped and filtered weekly, unattended</li>
+    </ul></dd></div>
+  </dl>
+  <section>
+    <p class="snum">01</p>
+    <h2>The audience is too small to waste</h2>
+    <p class="lead">No job title reliably identifies a scientist about to build a DNA library.</p>
+    <ul class="pts">
+      <li>Filtering by title and company returns thousands of people, almost none of whom have the problem this quarter.</li>
+      <li>The addressable audience is small enough that burning it with generic outreach is unrecoverable. There is no second list.</li>
+      <li>What someone posted about last week <b>does</b> separate them. It is the only signal available that tracks intent rather than description.</li>
+    </ul>
+  </section>
+  <section>
+    <p class="snum">02</p>
+    <h2>Scrape the conversation, then work backwards</h2>
+    <p class="lead">2 n8n workflows do the work, plus a third that exists only to catch failures.</p>
+    <p>Apify scrapes LinkedIn every 3 days against 19 quoted phrases such as <code>"gene library"</code>, <code>"AAV cassette design"</code> and the rest, pulling the week&rsquo;s posts on those subjects. An LLM reads each one and keeps only genuine industry discussion, discarding recruiters, press releases and reposts.</p>
+    <figure class="fig">
+      <div class="figlabel"><b>Fig 1</b> Scrape, filter, enrich</div>
+      <div class="frame"><img src="/shots/flockbio-scraper.png" alt="Scrape, filter, enrich" loading="lazy"></div>
+      <figcaption>Scheduled trigger into Apify, then the LLM filter, then everyone who engaged with a surviving post is pulled out, deduplicated by intent and pushed to Clay for enrichment and scoring.</figcaption>
+    </figure>
+    <p>Approved leads flow from a Google Sheet into HeyReach every 3 days. An LLM first strips titles, suffixes and credentials from names, because <b>&ldquo;Hi Dr. Sarah Chen PhD&rdquo;</b> reads as automation to the person receiving it.</p>
+    <figure class="fig">
+      <div class="figlabel"><b>Fig 2</b> 2 tracks through HeyReach</div>
+      <div class="frame"><img src="/shots/flockbio-heyreach.png" alt="2 tracks through HeyReach" loading="lazy"></div>
+      <figcaption>The person who wrote the post gets a different opener from the people who engaged with it. Both loop in small batches with a wait, because the platform limits are the real constraint on volume.</figcaption>
+    </figure>
+    <figure class="fig">
+      <div class="figlabel"><b>Fig 3</b> The error workflow</div>
+      <div class="frame"><img src="/shots/flockbio-error.png" alt="The error workflow" loading="lazy"></div>
+      <figcaption>Three nodes, and the order of the middle 2 is the entire design. It deactivates the broken workflow <b>before</b> sending the alert email. Reverse them and a broken run keeps sending while the email sits unread.</figcaption>
+    </figure>
+  </section>
+  <section>
+    <p class="snum">03</p>
+    <h2>One month of an ongoing campaign</h2>
+    <div class="stats">
+      <div class="stat hi"><span class="v">42.6%</span><span class="k">message reply rate</span></div>
+      <div class="stat"><span class="v">78.5%</span><span class="k">connection acceptance</span></div>
+      <div class="stat"><span class="v">20</span><span class="k">replies from 47 messages</span></div>
+      <div class="stat"><span class="v">3 days</span><span class="k">between sending runs</span></div>
+    </div>
+    <p class="note"><b>These figures cover one month</b> of a campaign that has run well past it: 65 connections sent, 51 accepted, 47 messages, 20 replies. Cold LinkedIn benchmarks sit in the low single digits. Replies turned into booked meetings, which is the number that actually matters to them.</p>
+  </section>
+  <section>
+    <p class="snum">04</p>
+    <h2>Intent beats firmographics</h2>
+    <p class="lead">The instinct in outbound is to describe the buyer, then go and find people who match the description.</p>
+    <p>On a narrow technical list that fails, because the description does not separate the person building a library this quarter from the ten thousand who are not. What someone posted about last week does. Targeting the conversation rather than the person is the single decision that produced the reply rate.</p>
+  </section>
+  <section>
+    <p class="snum">Stack</p>
+    <div class="stack">
+      <span class="chip"><img src="/logos/tools/apify.png" alt="">Apify</span>
+      <span class="chip"><img src="/logos/tools/n8n.png" alt="">n8n</span>
+      <span class="chip"><img src="/logos/tools/clay.png" alt="">Clay</span>
+      <span class="chip"><img src="/logos/tools/heyreach.png" alt="">HeyReach</span>
+    </div>
+  </section>
+
+  <section>
+    <p class="snum">More work</p>
+    <div class="np">
+      <a class="npc" href="/work/world-of-luxury/"><span class="l">Case study</span><span class="n">World of Luxury</span></a>
+      <a class="npc" href="/work/healthcare-com/"><span class="l">Case study</span><span class="n">Healthcare.com</span></a>
+    </div>
+  </section>
+
+  <div class="close">
+    <h2>If any of this is the shape of your problem, <span class="q">I&rsquo;d like to hear about it.</span></h2>
+    <div class="acts">
+      <a class="btn solid" href="mailto:matviykorsunskiy@gmail.com">matviykorsunskiy@gmail.com</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
+    </div>
+    <p class="fine">
+      Eastern time, New Jersey, US<br>
+      Client names and internal details omitted where I am under confidentiality.
+    </p>
+  </div>
+</div>
+
 <dialog class="lb" id="lb" aria-label="Enlarged image">
   <div class="lbinner">
     <button class="lbclose" type="button" aria-label="Close">&times;</button>
@@ -193,7 +131,23 @@
   </div>
 </dialog>
 
-<script src="/motion.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
 <script src="/lightbox.js" defer></script>
+<script>
+window.addEventListener('load', function () {
+  /* Without the libraries the page is already fully visible. */
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', function () {
+    gsap.utils.toArray('section, .spec, .fig, .figpair').forEach(function (el) {
+      gsap.from(el, {
+        autoAlpha: 0, y: 26, duration: .7, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      });
+    });
+  });
+});
+</script>
 </body>
 </html>

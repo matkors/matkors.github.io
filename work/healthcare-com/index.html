@@ -3,197 +3,131 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Healthcare.com voice agents under compliance | Matviy Korsunskiy</title>
-<meta name="description" content="3 voice agents built for a national health insurance marketplace, where the agent is not allowed to improvise.">
-<meta property="og:title" content="Healthcare.com voice agents under compliance | Matviy Korsunskiy">
-<meta property="og:description" content="3 voice agents built for a national health insurance marketplace, where the agent is not allowed to improvise.">
+<title>Healthcare.com: voice agents that are not allowed to improvise | Matviy Korsunskiy</title>
+<meta name="description" content="Three voice agents built for a national health insurance marketplace, where the agent is not allowed to improvise about coverage, price or eligibility.">
+<meta property="og:title" content="Healthcare.com: voice agents that are not allowed to improvise | Matviy Korsunskiy">
+<meta property="og:description" content="Three voice agents built for a national health insurance marketplace, where the agent is not allowed to improvise about coverage, price or eligibility.">
 <meta property="og:type" content="article">
 <script>document.documentElement.classList.replace('no-js','js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div class="aurora"></div>
-<div class="grain"></div>
 
-<div class="shell">
-  <aside class="rail">
+<div class="bar">
+  <div class="wrap">
     <a class="back" href="/"><span class="ar">&larr;</span> Matviy Korsunskiy</a>
-    <div class="role">Case study</div>
-    <div class="avail"><span class="dot"></span>Available for contract</div>
     <nav>
+      <span class="here"><i></i>Available for contract</span>
       <a href="mailto:matviykorsunskiy@gmail.com">Email</a>
-      <a href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
     </nav>
-    <div class="tz">Eastern time<br>New Jersey, US</div>
-    <nav class="toc">
-      <a href="#problem"><span class="tn">01</span>The problem</a>
-      <a href="#constraint"><span class="tn">02</span>The constraint</a>
-      <a href="#built"><span class="tn">03</span>What I built</a>
-      <a href="#ladder"><span class="tn">04</span>The decision ladder</a>
-      <a href="#testing"><span class="tn">05</span>How you test it</a>
-      <a href="#results"><span class="tn">06</span>How it is measured</a>
-      <a href="#learned"><span class="tn">07</span>What it taught me</a>
-    </nav>
-  </aside>
-
-  <main class="col">
-    <div class="rv">
-      <div class="case-hero">
-        <div class="logo"><img src="/logos/healthcare-logo.png" alt="Healthcare.com"></div>
-        <div>
-          <h1>Healthcare.com</h1>
-          <div class="case-meta">Contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing &nbsp;·&nbsp; <a href="https://www.healthcare.com" target="_blank" rel="noopener">healthcare.com &#8599;</a></div>
-        </div>
-      </div>
-    </div>
-      <div class="glance" data-reveal>
-        <div class="gi"><span class="l">Role</span><span class="v">Voice AI engineer</span></div>
-        <div class="gi"><span class="l">Period</span><span class="v">May 2026 &ndash; present</span></div>
-        <div class="gi"><span class="l">Built</span><span class="v">3 inbound agents</span></div>
-        <div class="gi"><span class="l">Status</span><span class="v">Built, in rollout</span></div>
-      </div>
-      <div class="pull" data-reveal>
-      <p>Most voice AI is a booking bot for a salon. This one sits inside health insurance, where an agent that says the wrong thing about coverage is not a bad customer experience, it is a compliance problem.</p>
-      </div>
-      <div class="nda" data-reveal>
-        <div class="lbl">Under contract</div>
-        <p class="ndah">I am under contract. I cannot show you this one.</p>
-        <p class="ndab">No screenshots, no flows, no prompts, no numbers. Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause.</p>
-        <p class="ndas">What is left is the problem, the constraints, and my own method. That part is mine to show.</p>
-      </div>
-      <div class="seealso" data-reveal>
-        <div class="lbl">Want the technical detail?</div>
-        <p>Both of the other case studies have the screenshots, the workflows and the numbers.</p>
-        <div class="salinks">
-          <a href="/work/world-of-luxury/"><span class="sn">World of Luxury</span><span class="ss">6 live n8n workflows, real call data</span><span class="sa">&rarr;</span></a>
-          <a href="/work/flock-bio/"><span class="sn">Flock Bio</span><span class="ss">Full scraping and enrichment pipeline</span><span class="sa">&rarr;</span></a>
-        </div>
-      </div>
-      <div data-reveal id="problem">
-        <div class="secnum">01 &nbsp;&middot;&nbsp; The problem</div>
-        <h2 class="sec">Callers arrive without knowing what they need</h2>
-      </div>
-      <p class="lead" data-reveal>Health insurance is a category where people call confused.</p>
-      <div class="prose" data-reveal>
-      <p>They often cannot name the product they are calling about. They can only describe a situation: I lost my job, my daughter ages off my plan in March, my doctor is not on the list any more.</p>
-      <p>A phone menu asks that person to self-select into a category they cannot yet identify. They pick wrong, get routed wrong, and either hang up or spend a licensed agent&rsquo;s time being redirected.</p>
-      </div>
-      <ul class="bul" data-reveal>
-        <li><b>The right answer is frequently a human.</b> Not every call should be contained, and a system optimized for containment will fight that.</li>
-        <li><b>Timing is loaded.</b> Many of these calls come from someone who just lost coverage. The first fifteen seconds matter more than the routing logic.</li>
-      </ul>
-      <div data-reveal id="constraint">
-        <div class="secnum">02 &nbsp;&middot;&nbsp; The constraint</div>
-        <h2 class="sec">The agent is not allowed to improvise</h2>
-      </div>
-      <div class="prose" data-reveal>
-      <p>In a normal voice project the hard part is making the agent sound natural and handle the long tail. Here the hard part is making it refuse cleanly, stay inside a defined scope, and hand off <em>before</em> it guesses. A model that is helpful in the general case is actively dangerous in this one.</p>
-      </div>
-      <div class="reqbox" data-reveal>
-        <div class="lbl">What the law requires before the agent is useful at all</div>
-        <ol class="reqlist">
-          <li><b>Disclose that it is AI</b><span>Early enough to matter, and clear enough that a distressed caller registers it.</span></li>
-          <li><b>State it is not the government</b><span>Nothing may imply endorsement by Medicare, CMS or any federal agency.</span></li>
-          <li><b>Carry the Medicare marketing disclaimer</b><span>Third-party marketing of Medicare Advantage carries CMS-mandated wording about not offering every plan available in the caller&rsquo;s area, plus the pointer to 1-800-MEDICARE.</span></li>
-          <li><b>Handle recording and consent correctly</b><span>Recording notice where required, and consent rules governing who may be called. The company determines the wording; I implement it exactly.</span></li>
-          <li><b>Never assert an outcome it was not given</b><span>No eligibility, no premium, no coverage decision. Not a hedged version either. It routes to someone licensed to say it.</span></li>
-        </ol>
-      </div>
-      <div data-reveal id="built">
-        <div class="secnum">03 &nbsp;&middot;&nbsp; What I built</div>
-        <h2 class="sec">3 agents, one guardrail layer</h2>
-      </div>
-      <ul class="bul" data-reveal>
-        <li><b>A routing agent.</b> Works out what a caller needs from how they describe their situation rather than asking them to pick a menu option. Built for high inbound volume.</li>
-        <li><b>A job loss intake line.</b> Qualifies people who just lost their insurance along with their job, then warm transfers to a licensed human. Not a call an agent should be closing.</li>
-        <li><b>A Medicare Advantage agent.</b> Same build, strictest required wording.</li>
-      </ul>
-      <div class="prose" data-reveal>
-      <p>I scoped all 3 from scratch: sat with non-technical executives, mapped the use cases, designed the flows, presented them back in plain language, and coordinated across product, engineering, compliance and operations to get them live. Nobody handed me a spec.</p>
-      </div>
-      <div data-reveal id="ladder">
-        <div class="secnum">04 &nbsp;&middot;&nbsp; The decision ladder</div>
-        <h2 class="sec">How an agent decides what it may say</h2>
-      </div>
-      <p class="lead" data-reveal>My framework, not theirs, so I can show it in full.</p>
-      <div class="ladderlabel"><b>Framework</b> How a regulated agent decides what it may say</div>
-      <ol class="ladder" data-reveal>
-        <li class="rung"><span class="rn">01</span><span class="rb"><b>Answer</b><span>In scope, and the answer already exists in approved copy.</span></span></li>
-        <li class="rung"><span class="rn">02</span><span class="rb"><b>Answer with attached disclosure</b><span>In scope, but regulation attaches specific words to it. The wording fires every time, not when the model judges it relevant.</span></span></li>
-        <li class="rung"><span class="rn">03</span><span class="rb"><b>Refuse and redirect</b><span>Out of scope but adjacent. Say it cannot answer, say who can, offer the handoff. Never improvise a partial answer to be helpful.</span></span></li>
-        <li class="rung stop"><span class="rn">04</span><span class="rb"><b>Stop and transfer</b><span>Anything touching eligibility, price or a coverage decision. Straight to a licensed human.</span></span></li>
-      </ol>
-      <p class="laddernote" data-reveal>Most teams ship an agent that treats the last rung as an error state. It is not an error, it is the product working. Designing it as a first-class path rather than a fallback is most of the job.</p>
-      <div data-reveal id="testing">
-        <div class="secnum">05 &nbsp;&middot;&nbsp; How you test it</div>
-        <h2 class="sec">Testing something that is not allowed to be wrong</h2>
-      </div>
-      <p class="lead" data-reveal>The refusal path is the product, so it gets tested hardest.</p>
-      <ul class="bul" data-reveal>
-        <li><b>Write the adversarial cases first.</b> &ldquo;So will my insulin be covered?&rdquo; in 6 phrasings, the polite ones and the desperate ones. If the agent breaks, it breaks there.</li>
-        <li><b>Treat every transfer as an assertion.</b> A handoff that dials into nothing is worse than no agent at all, and it only shows up if you test the receiving end.</li>
-        <li><b>Regression-test disclosures after any prompt change.</b> An edit that improves the greeting can stop required wording firing 3 turns later. That is a compliance event, not a bug.</li>
-        <li><b>Tune for silence.</b> A correct answer that arrives 2 seconds late loses the call anyway.</li>
-      </ul>
-      <div data-reveal id="results">
-        <div class="secnum">06 &nbsp;&middot;&nbsp; How it is measured</div>
-        <h2 class="sec">The numbers I watch, and cannot publish</h2>
-      </div>
-      <ul class="bul" data-reveal>
-        <li><b>Transfer success rate.</b> Did the caller actually reach a human. The most important number and the one most often not instrumented.</li>
-        <li><b>Disclosure fire rate.</b> Binary. Either 100% or the system is broken.</li>
-        <li><b>Time to human</b> on the paths where speed matters.</li>
-        <li><b>Containment, read carefully.</b> Useful as a cost measure, dangerous as a goal. An agent that contains a call it should have escalated scores well and is doing the opposite of its job.</li>
-        <li><b>Where it refused.</b> Refusals cluster around gaps in approved copy, which makes them the backlog of what to write next.</li>
-      </ul>
-      <div class="gate" data-reveal>
-        <div class="lbl">What sits behind this line</div>
-        <p>Call volumes, conversion and containment figures, internal product names, platform configuration, the conversation flows themselves, and the commercial terms of my engagement. On a call I can go a layer deeper on reasoning and method, and no deeper on their data.</p>
-      </div>
-      <div data-reveal id="learned">
-        <div class="secnum">07 &nbsp;&middot;&nbsp; What it taught me</div>
-        <h2 class="sec">Compliance review is the project, not overhead</h2>
-      </div>
-      <p class="lead" data-reveal>Get compliance into the design conversation before you build, not after.</p>
-      <div class="prose" data-reveal>
-      <p>Every hour spent agreeing what the agent may not say saves a week of rework. In this category compliance is not a gate at the end of the process, it is a design input at the start, and treating it that way is the difference between an agent that reaches rollout and one that sits in review indefinitely.</p>
-      </div>
-      <div class="secnum" data-reveal>Stack</div>
-      <div class="stack" data-reveal>
-        <span class="chip"><img src="/logos/tools/retell.svg" alt="">Retell AI</span>
-        <span class="chip"><img src="/logos/tools/vapi.png" alt="">VAPI</span>
-        <span class="chip"><img src="/logos/tools/n8n.png" alt="">n8n</span>
-        <span class="chip"><img src="/logos/tools/claude.png" alt="">Claude</span>
-      </div>
-    <h2 class="sec">Other work</h2>
-    <div class="nextprev" data-reveal>
-      <a class="npcard" href="/work/world-of-luxury/"><span class="l">Case study</span><span class="n">World of Luxury</span></a>
-      <a class="npcard" href="/work/flock-bio/"><span class="l">Case study</span><span class="n">Flock Bio</span></a>
-    </div>
-
-    <footer>
-      <div data-reveal>
-        <p class="cta">If any of this is the shape of your problem, I&rsquo;d like to hear about it.</p>
-        <div class="btns">
-          <a class="btn solid magnetic" href="mailto:matviykorsunskiy@gmail.com">matviykorsunskiy@gmail.com</a>
-          <a class="btn ghost magnetic" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
-        </div>
-        <p class="disclaim">
-          Client names and internal details omitted where I am under confidentiality.<br>
-          Happy to go deeper on any of it on a call.
-        </p>
-      </div>
-    </footer>
-  </main>
+  </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
+<div class="wrap">
+  <div class="hero">
+    <a class="client" href="https://www.healthcare.com" target="_blank" rel="noopener">
+      <img src="/logos/healthcare-logo.png" alt="">Healthcare.com <span class="ex">&#8599;</span>
+    </a>
+    <p class="cmeta">National health insurance marketplace &nbsp;&middot;&nbsp; contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing</p>
+    <h1>Voice agents that are not allowed to improvise</h1>
+  </div>
+  <dl class="spec">
+    <div><dt>Built</dt><dd>Three inbound voice agents: intent routing for high call volume, a loss-of-coverage intake line that warm transfers to a licensed human, and a Medicare Advantage agent.</dd></div>
+    <div><dt>Tools</dt><dd><div class="tools"><span>Retell AI</span><span>VAPI</span><span>n8n</span><span>Claude</span></div></dd></div>
+    <div><dt>Results</dt><dd><ul class="res">
+      <li>Built to hold up against <b>CMS marketing rules</b> and AI disclosure requirements</li>
+      <li>Scoped, designed and shipped across <b>product, engineering and compliance</b></li>
+      <li>Figures, flows and platform detail stay private under contract</li>
+    </ul></dd></div>
+  </dl>
+    <div class="gate">
+      <div class="lbl">Under contract</div>
+      <p>Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause. No screenshots, no flows, no prompts, no numbers. What follows is the problem, the constraints, and my own method, which is mine to show. The other 2 case studies have the screenshots and the data.</p>
+    </div>
+  <section>
+    <p class="snum">01</p>
+    <h2>Callers cannot classify themselves</h2>
+    <p class="lead">Health insurance is a category where people call confused.</p>
+    <ul class="pts">
+      <li>They often cannot name the product they are calling about. They can only describe a situation: <em>I lost my job, my daughter ages off my plan in March, my doctor is not on the list any more.</em></li>
+      <li>A phone menu asks that person to self-select into a category they cannot yet identify, so they pick wrong and either hang up or waste a licensed agent&rsquo;s time.</li>
+      <li><b>The right answer is frequently a human.</b> A system optimized for containment will fight that.</li>
+    </ul>
+  </section>
+  <section>
+    <p class="snum">02</p>
+    <h2>What the law requires before the agent is useful at all</h2>
+    <ul class="pts">
+      <li><b>Disclose that it is AI</b>, early enough to matter and clearly enough that a distressed caller registers it.</li>
+      <li><b>State it is not the government.</b> Nothing may imply endorsement by Medicare, CMS or any federal agency.</li>
+      <li><b>Carry the Medicare marketing disclaimer.</b> Third-party marketing of Medicare Advantage carries CMS-mandated wording about not offering every plan in the caller&rsquo;s area, plus the pointer to 1-800-MEDICARE.</li>
+      <li><b>Never assert an outcome it was not given.</b> No eligibility, no premium, no coverage decision. Not a hedged version either.</li>
+    </ul>
+    <p>That inverts the usual build. In a normal voice project the hard part is making the agent sound natural. Here the hard part is making it refuse cleanly, stay inside a defined scope, and hand off <em>before</em> it guesses.</p>
+  </section>
+  <section>
+    <p class="snum">03</p>
+    <h2>How an agent decides what it may say</h2>
+    <p class="lead">My framework, not theirs, so I can show it in full.</p>
+    <ul class="pts">
+      <li><b>Answer.</b> In scope, and the answer already exists in approved copy.</li>
+      <li><b>Answer with attached disclosure.</b> In scope, but regulation attaches specific words. The wording fires every time, not when the model judges it relevant.</li>
+      <li><b>Refuse and redirect.</b> Out of scope but adjacent. Say it cannot answer, say who can, offer the handoff.</li>
+      <li><b>Stop and transfer.</b> Anything touching eligibility, price or a coverage decision goes straight to a licensed human.</li>
+    </ul>
+    <p class="note">Most teams ship an agent that treats the last rung as an error state. It is not an error, it is the product working. Designing it as a first-class path rather than a fallback is most of the job.</p>
+  </section>
+  <section>
+    <p class="snum">04</p>
+    <h2>Testing something that is not allowed to be wrong</h2>
+    <p class="lead">The refusal path is the product, so it gets tested hardest.</p>
+    <ul class="pts">
+      <li><b>Write the adversarial cases first.</b> &ldquo;So will my insulin be covered?&rdquo; in 6 phrasings, the polite ones and the desperate ones.</li>
+      <li><b>Treat every transfer as an assertion.</b> A handoff that dials into nothing is worse than no agent at all, and it only shows up if you test the receiving end.</li>
+      <li><b>Regression-test disclosures after any prompt change.</b> An edit that improves the greeting can stop required wording firing 3 turns later. That is a compliance event, not a bug.</li>
+      <li><b>Tune for silence.</b> A correct answer that arrives 2 seconds late loses the call anyway.</li>
+    </ul>
+  </section>
+  <section>
+    <p class="snum">05</p>
+    <h2>Compliance is a design input, not a gate</h2>
+    <p>I scoped all 3 from scratch: sat with non-technical executives, mapped the use cases, designed the flows, presented them back in plain language, and coordinated across product, engineering, compliance and operations. Nobody handed me a spec.</p>
+    <p>Every hour spent agreeing what the agent may <em>not</em> say saves a week of rework. Treating compliance as a design input at the start rather than a review at the end is the difference between an agent that reaches rollout and one that sits in review indefinitely.</p>
+  </section>
+  <section>
+    <p class="snum">Stack</p>
+    <div class="stack">
+      <span class="chip"><img src="/logos/tools/retell.svg" alt="">Retell AI</span>
+      <span class="chip"><img src="/logos/tools/vapi.png" alt="">VAPI</span>
+      <span class="chip"><img src="/logos/tools/n8n.png" alt="">n8n</span>
+      <span class="chip"><img src="/logos/tools/claude.png" alt="">Claude</span>
+    </div>
+  </section>
+
+  <section>
+    <p class="snum">More work</p>
+    <div class="np">
+      <a class="npc" href="/work/world-of-luxury/"><span class="l">Case study</span><span class="n">World of Luxury</span></a>
+      <a class="npc" href="/work/flock-bio/"><span class="l">Case study</span><span class="n">Flock Bio</span></a>
+    </div>
+  </section>
+
+  <div class="close">
+    <h2>If any of this is the shape of your problem, <span class="q">I&rsquo;d like to hear about it.</span></h2>
+    <div class="acts">
+      <a class="btn solid" href="mailto:matviykorsunskiy@gmail.com">matviykorsunskiy@gmail.com</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/matviykorsunskiy">LinkedIn</a>
+    </div>
+    <p class="fine">
+      Eastern time, New Jersey, US<br>
+      Client names and internal details omitted where I am under confidentiality.
+    </p>
+  </div>
+</div>
+
 <dialog class="lb" id="lb" aria-label="Enlarged image">
   <div class="lbinner">
     <button class="lbclose" type="button" aria-label="Close">&times;</button>
@@ -202,7 +136,23 @@
   </div>
 </dialog>
 
-<script src="/motion.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
 <script src="/lightbox.js" defer></script>
+<script>
+window.addEventListener('load', function () {
+  /* Without the libraries the page is already fully visible. */
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', function () {
+    gsap.utils.toArray('section, .spec, .fig, .figpair').forEach(function (el) {
+      gsap.from(el, {
+        autoAlpha: 0, y: 26, duration: .7, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      });
+    });
+  });
+});
+</script>
 </body>
 </html>
