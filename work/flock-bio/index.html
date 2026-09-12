@@ -32,35 +32,35 @@
       <img src="/logos/flock-logo.png" alt="">Flock Bio <span class="ex">&#8599;</span>
     </a>
     <p class="cmeta">High-throughput pooled DNA libraries &nbsp;&middot;&nbsp; LinkedIn outbound</p>
-    <h1>LinkedIn outbound targeted by post engagement</h1>
+    <h1>Finding leads by what they post, not their job title</h1>
   </div>
   <section>
     <p class="snum">01</p>
-    <h2>Why title-based targeting fails here</h2>
+    <h2>Why searching by job title does not work</h2>
     <ul class="pts">
-      <li>No job title reliably identifies a scientist about to build a DNA library. Filtering by title and company returns thousands of people, almost none of whom have the problem this quarter.</li>
-      <li>The addressable audience is small enough that burning it with generic outreach is unrecoverable. There is no second list.</li>
-      <li><b>What someone posted about last week does separate them.</b> It is the only available signal that tracks intent rather than description.</li>
+      <li>No job title tells you who is about to build a DNA library. Searching by title and company returns thousands of people, and almost none of them have the problem right now.</li>
+      <li>The audience is small enough that burning it with generic outreach cannot be undone. There is no second list.</li>
+      <li><b>What someone posted about last week does tell you.</b> It is the only signal available that shows what they are working on rather than what they are called.</li>
     </ul>
   </section>
   <section>
     <p class="snum">02</p>
     <h2>How it works</h2>
     <figure class="fig">
-      <div class="figlabel"><b>Fig 1</b> Scrape, filter, enrich</div>
-      <div class="frame"><img src="/shots/flockbio-scraper.png" alt="Scrape, filter, enrich" loading="lazy"></div>
-      <figcaption>Scheduled trigger into Apify, then the LLM filter, then everyone who engaged with a surviving post is pulled out, deduplicated by intent and pushed to Clay for enrichment and scoring.</figcaption>
+      <div class="figlabel"><b>Fig 1</b> Finding the posts, then the people who engaged with them</div>
+      <div class="frame"><img src="/shots/flockbio-scraper.png" alt="Finding the posts, then the people who engaged with them" loading="lazy"></div>
+      <figcaption>Runs on a schedule into Apify, then the LLM throws out the posts that are not real discussion. Everyone who liked or commented on what is left gets pulled out, duplicates removed, and sent to Clay to be enriched and scored.</figcaption>
     </figure>
-    <p>Approved leads flow from the Google Sheet into HeyReach every 3 days. An LLM strips titles, suffixes and credentials from names first, because <b>&ldquo;Hi Dr. Sarah Chen PhD&rdquo;</b> reads as automation to the person receiving it.</p>
+    <p>Approved leads move from the Google Sheet into HeyReach every 3 days. An LLM cleans up the names first, stripping titles and credentials, because <b>&ldquo;Hi Dr. Sarah Chen PhD&rdquo;</b> instantly reads as automation.</p>
     <figure class="fig">
-      <div class="figlabel"><b>Fig 2</b> 2 tracks through HeyReach</div>
-      <div class="frame"><img src="/shots/flockbio-heyreach.png" alt="2 tracks through HeyReach" loading="lazy"></div>
-      <figcaption>The author of the post and the people who engaged with it get different openers. Both loop in small batches with a wait between them.</figcaption>
+      <div class="figlabel"><b>Fig 2</b> Two different openers, depending on who they are</div>
+      <div class="frame"><img src="/shots/flockbio-heyreach.png" alt="Two different openers, depending on who they are" loading="lazy"></div>
+      <figcaption>The person who wrote the post gets a different first message from the people who engaged with it. Both send in small batches with a pause in between.</figcaption>
     </figure>
     <figure class="fig">
-      <div class="figlabel"><b>Fig 3</b> The error workflow</div>
-      <div class="frame"><img src="/shots/flockbio-error.png" alt="The error workflow" loading="lazy"></div>
-      <figcaption>3 nodes, and the order of the middle 2 is the entire design. It deactivates the broken workflow <b>before</b> sending the alert email. Reverse them and a broken run keeps sending while the email sits unread.</figcaption>
+      <div class="figlabel"><b>Fig 3</b> What happens when something breaks</div>
+      <div class="frame"><img src="/shots/flockbio-error.png" alt="What happens when something breaks" loading="lazy"></div>
+      <figcaption>3 nodes, and the order of the middle 2 is the whole point. It switches the broken workflow off <b>before</b> sending the alert email. The other way round, a broken run keeps messaging people while the email sits unread.</figcaption>
     </figure>
   </section>
   <section>
@@ -72,7 +72,7 @@
       <div class="stat"><span class="v">20</span><span class="k">replies from 47 messages</span></div>
       <div class="stat"><span class="v">3 days</span><span class="k">between sending runs</span></div>
     </div>
-    <p class="note"><b>These figures cover one month</b> of a campaign that has run well past it: 65 connections sent, 51 accepted, 47 messages, 20 replies. Replies turned into booked meetings, which is the number that actually matters to them.</p>
+    <p class="note"><b>These figures cover one month</b> of a campaign that has run well past it: 65 connection requests, 51 accepted, 47 messages, 20 replies. Those replies turned into booked meetings, which is the number that actually matters to them.</p>
   </section>
   <section>
     <p class="snum">Stack</p>
