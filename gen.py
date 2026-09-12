@@ -222,14 +222,17 @@ wol += LF.join([
 
     sec('02', 'How it works'),
     h3('Layer 1', 'Keeping the product list up to date'),
-    p('n8n&rsquo;s built-in Shopify node only pulls 50 products at a time. Looping it enough times to get through all 5,000 kept hitting Shopify&rsquo;s rate limit and switching the workflow off. I replaced it with a custom request that pages through Shopify <b>250 products at a time</b>, which is 5x faster and runs without me touching it. It updates the existing record rather than adding a new one, so a price change edits the product instead of duplicating it.'),
+    p('n8n&rsquo;s built-in Shopify node only pulls 50 products at a time. Looping it enough times to get through all 5,000 kept hitting Shopify&rsquo;s rate limit and switching the workflow off.',
+      'I replaced it with a custom request that pages through Shopify <b>250 products at a time</b>, which is 5x faster and runs without me touching it.',
+      'It updates the existing record rather than adding a new one, so a price change edits the product instead of duplicating it.'),
     fig('Fig 1', 'Pulling every product out of Shopify, page by page', 'sync-products.png',
         'The arrow from <b>Has More Products?</b> back to <b>Build Request</b> is the loop.'),
     fig('Fig 2', 'The same loop for orders, slowed down so Shopify does not block it', 'sync-orders.png',
         'The same loop with one addition: a <b>Wait</b> node between rounds. Without it the loop goes fast enough to hit Shopify&rsquo;s rate limit, which is what was quietly killing the workflow before.'),
 
     h3('Layer 2', 'Finding the right watch while the caller waits'),
-    p('The agent can call 3 lookups in the middle of a conversation. Each one does the same thing: take what the caller said, clean it up, search the product list, rank the matches, and hand back the best one in a form the agent can read out loud.'),
+    p('The agent can call 3 lookups in the middle of a conversation.',
+      'Each one does the same thing: take what the caller said, clean it up, search the product list, rank the matches, and hand back the best one in a form the agent can read out loud.'),
     figpair('product-page-annotated.png', 'A product page showing the 3 matchable fields',
             [('Product name', 'Long and brand-heavy. This is what callers mispronounce and what speech-to-text mangles.'),
              ('Price', 'The tiebreaker. When a name hits a cluster of near-identical pieces, price separates them.'),
@@ -241,10 +244,11 @@ wol += LF.join([
         'The same flow pointed at the model number instead. Most of the work is stripping out the capitals and punctuation that make an exact search return nothing. <b>90 to 95% correct across 5,000 products.</b>'),
     fig('Fig 5', 'Looking up an order, with a live check if it is missing', 'order-lookup.png',
         'Note the branch to <b>Run Order Sync</b>. If the order has not been saved yet, this fetches the newest orders straight from Shopify and then answers, instead of telling the caller it cannot find them.'),
-    note('<b>It asks instead of guessing.</b> If a model number matches more than one watch, the agent asks for the price and narrows it down. It also holds a pronunciation list for the brands, so the text reaching the workflow is spelled correctly to begin with.'),
+    note('<b>It asks instead of guessing.</b> If a model number matches more than one watch, the agent asks for the price and narrows it down. A pronunciation list keeps the brand names spelled correctly on the way in.'),
 
     h3('Layer 3', 'Turning each call into a lead the owner sees'),
-    p('Every finished call saves the transcript, the recording, the caller&rsquo;s details and <b>a link to the exact product they asked about</b>. A scheduled workflow gathers the overnight calls and emails them before the shop opens, because the owner was never going to log into a dashboard.'),
+    p('Every finished call saves the transcript, the recording, the caller&rsquo;s details and <b>a link to the exact product they asked about</b>.',
+      'A scheduled workflow gathers the overnight calls and emails them before the shop opens, because the owner was never going to log into a dashboard.'),
     fig('Fig 6', 'The email the owner gets before opening', 'notifier.png',
         'The <b>If</b> gate is the part that matters: a quiet night sends nothing rather than an empty report.'),
     endsec(),
@@ -285,7 +289,8 @@ fb += LF.join([
     sec('02', 'How it works'),
     fig('Fig 1', 'Finding the posts, then the people who engaged with them', 'flockbio-scraper.png',
         'Runs on a schedule into Apify, then the LLM throws out the posts that are not real discussion. Everyone who liked or commented on what is left gets pulled out, duplicates removed, and sent to Clay to be enriched and scored.'),
-    p('Approved leads move from the Google Sheet into HeyReach every 3 days. An LLM cleans up the names first, stripping titles and credentials, because <b>&ldquo;Hi Dr. Sarah Chen PhD&rdquo;</b> instantly reads as automation.'),
+    p('Approved leads move from the Google Sheet into HeyReach every 3 days.',
+      'An LLM cleans up the names first, stripping titles and credentials, because <b>&ldquo;Hi Dr. Sarah Chen PhD&rdquo;</b> instantly reads as automation.'),
     fig('Fig 2', 'Two different openers, depending on who they are', 'flockbio-heyreach.png',
         'The person who wrote the post gets a different first message from the people who engaged with it. Both send in small batches with a pause in between.'),
     fig('Fig 3', 'What happens when something breaks', 'flockbio-error.png',
@@ -297,7 +302,7 @@ fb += LF.join([
            ('78.5%', 'connection acceptance', 0),
            ('20', 'replies from 47 messages', 0),
            ('3 days', 'between sending runs', 0)]),
-    note('<b>These figures cover one month</b> of a campaign that has run well past it: 65 connection requests, 51 accepted, 47 messages, 20 replies. Those replies turned into booked meetings, which is the number that actually matters to them.'),
+    note('<b>One month of an ongoing campaign:</b> 65 connection requests, 51 accepted, 47 messages, 20 replies. Those replies became booked meetings, which is the number that matters to them.'),
     endsec(),
 
 ])
@@ -320,7 +325,7 @@ hc = HEAD.format(
 hc += LF.join([
 
     gate('Under contract',
-         'Everything I build for Healthcare.com belongs to Healthcare.com, and their operational detail sits inside a confidentiality clause. No screenshots, no flows, no prompts, no call volumes. What follows is how the work was run and the method I brought to it, which is mine to show. The other 2 case studies have the screenshots and the data.'),
+         'Everything I build for Healthcare.com belongs to them, and their operational detail sits inside a confidentiality clause. No screenshots, no flows, no prompts, no call volumes. What follows is how the work was run, and the method I brought to it.'),
 
     sec('01', 'Built with the leadership team, not from a spec'),
     lead('Nobody handed me a requirements document.'),
@@ -336,7 +341,8 @@ hc += LF.join([
          '<b>State it is not the government.</b> Nothing may imply endorsement by Medicare, CMS or any federal agency.',
          '<b>Read the Medicare disclaimer.</b> Anyone marketing Medicare Advantage has to say specific wording set by CMS: that not every plan in the caller&rsquo;s area is on offer, plus the pointer to 1-800-MEDICARE.',
          '<b>Never state an answer it was not given.</b> Not whether someone qualifies, not what it costs, not whether something is covered, and no softened version of any of those.']),
-    p('In most voice projects the hard part is making the agent sound natural. Here it is the opposite: making it stop cleanly, stay inside what it is allowed to discuss, and hand over <em>before</em> it guesses. Callers make that harder, because they describe a situation rather than a product. <em>I lost my job, my daughter ages off my plan in March.</em> A phone menu sends them to the wrong place before the agent ever gets a chance.'),
+    p('In most voice projects the hard part is making the agent sound natural. Here it is the opposite: making it stop cleanly, stay inside what it is allowed to discuss, and hand over <em>before</em> it guesses.',
+      'Callers make that harder, because they describe a situation rather than a product. <em>I lost my job, my daughter ages off my plan in March.</em> A phone menu sends them to the wrong place before the agent ever gets a chance.'),
     endsec(),
 
     sec('03', 'How it decides what it can say'),

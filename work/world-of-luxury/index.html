@@ -47,7 +47,9 @@
     <p class="snum">02</p>
     <h2>How it works</h2>
     <h3><span>Layer 1</span> &nbsp;Keeping the product list up to date</h3>
-    <p>n8n&rsquo;s built-in Shopify node only pulls 50 products at a time. Looping it enough times to get through all 5,000 kept hitting Shopify&rsquo;s rate limit and switching the workflow off. I replaced it with a custom request that pages through Shopify <b>250 products at a time</b>, which is 5x faster and runs without me touching it. It updates the existing record rather than adding a new one, so a price change edits the product instead of duplicating it.</p>
+    <p>n8n&rsquo;s built-in Shopify node only pulls 50 products at a time. Looping it enough times to get through all 5,000 kept hitting Shopify&rsquo;s rate limit and switching the workflow off.</p>
+    <p>I replaced it with a custom request that pages through Shopify <b>250 products at a time</b>, which is 5x faster and runs without me touching it.</p>
+    <p>It updates the existing record rather than adding a new one, so a price change edits the product instead of duplicating it.</p>
     <figure class="fig">
       <div class="figlabel"><b>Fig 1</b> Pulling every product out of Shopify, page by page</div>
       <div class="frame"><img src="/shots/sync-products.png" alt="Pulling every product out of Shopify, page by page" loading="lazy"></div>
@@ -59,7 +61,8 @@
       <figcaption>The same loop with one addition: a <b>Wait</b> node between rounds. Without it the loop goes fast enough to hit Shopify&rsquo;s rate limit, which is what was quietly killing the workflow before.</figcaption>
     </figure>
     <h3><span>Layer 2</span> &nbsp;Finding the right watch while the caller waits</h3>
-    <p>The agent can call 3 lookups in the middle of a conversation. Each one does the same thing: take what the caller said, clean it up, search the product list, rank the matches, and hand back the best one in a form the agent can read out loud.</p>
+    <p>The agent can call 3 lookups in the middle of a conversation.</p>
+    <p>Each one does the same thing: take what the caller said, clean it up, search the product list, rank the matches, and hand back the best one in a form the agent can read out loud.</p>
     <div class="figpair">
       <figure class="fig" style="margin:0">
         <div class="frame"><img src="/shots/product-page-annotated.png" alt="A product page showing the 3 matchable fields" loading="lazy"></div>
@@ -86,9 +89,10 @@
       <div class="frame"><img src="/shots/order-lookup.png" alt="Looking up an order, with a live check if it is missing" loading="lazy"></div>
       <figcaption>Note the branch to <b>Run Order Sync</b>. If the order has not been saved yet, this fetches the newest orders straight from Shopify and then answers, instead of telling the caller it cannot find them.</figcaption>
     </figure>
-    <p class="note"><b>It asks instead of guessing.</b> If a model number matches more than one watch, the agent asks for the price and narrows it down. It also holds a pronunciation list for the brands, so the text reaching the workflow is spelled correctly to begin with.</p>
+    <p class="note"><b>It asks instead of guessing.</b> If a model number matches more than one watch, the agent asks for the price and narrows it down. A pronunciation list keeps the brand names spelled correctly on the way in.</p>
     <h3><span>Layer 3</span> &nbsp;Turning each call into a lead the owner sees</h3>
-    <p>Every finished call saves the transcript, the recording, the caller&rsquo;s details and <b>a link to the exact product they asked about</b>. A scheduled workflow gathers the overnight calls and emails them before the shop opens, because the owner was never going to log into a dashboard.</p>
+    <p>Every finished call saves the transcript, the recording, the caller&rsquo;s details and <b>a link to the exact product they asked about</b>.</p>
+    <p>A scheduled workflow gathers the overnight calls and emails them before the shop opens, because the owner was never going to log into a dashboard.</p>
     <figure class="fig">
       <div class="figlabel"><b>Fig 6</b> The email the owner gets before opening</div>
       <div class="frame"><img src="/shots/notifier.png" alt="The email the owner gets before opening" loading="lazy"></div>
