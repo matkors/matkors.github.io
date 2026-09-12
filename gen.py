@@ -50,7 +50,7 @@ def glance(items):
 # ===================================================== HEALTHCARE.COM
 hc = HEAD.format(
     title='Healthcare.com &mdash; voice agents under compliance | Matviy Korsunskiy',
-    desc='Three production voice agents inside a national health insurance marketplace, built where the agent is not allowed to improvise.',
+    desc='Three voice agents built for a national health insurance marketplace, where the agent is not allowed to improvise.',
     railrole='Case study', logo='healthcare-logo.png', client='Healthcare.com',
     meta='Contract voice engineering &nbsp;&middot;&nbsp; 2026, ongoing',
     url='https://www.healthcare.com', domain='healthcare.com',
@@ -66,7 +66,7 @@ hc += '\n'.join([
     glance([('Role', 'Voice AI engineer'),
             ('Period', 'May 2026 &ndash; present'),
             ('Built', 'Three inbound agents'),
-            ('Status', 'In production')]),
+            ('Status', 'Built, in rollout')]),
 
     pull('Most voice AI is a booking bot for a salon. This one sits inside health insurance, where an agent that says the wrong thing about coverage is not a bad customer experience, it is a compliance problem.'),
 
@@ -148,7 +148,7 @@ hc += '\n'.join([
 
     sec_id('07', 'What it taught me', 'Compliance review is the project, not overhead', 'learned'),
     lead('Get compliance into the design conversation before you build, not after.'),
-    prose('Every hour spent agreeing what the agent may not say saves a week of rework. In this category compliance is not a gate at the end of the process, it is a design input at the start, and treating it that way is the difference between three agents in production and three agents in a slide deck.'),
+    prose('Every hour spent agreeing what the agent may not say saves a week of rework. In this category compliance is not a gate at the end of the process, it is a design input at the start, and treating it that way is the difference between an agent that reaches rollout and one that sits in review indefinitely.'),
 
     '      <div class="secnum" data-reveal>&mdash; &nbsp;&middot;&nbsp; Stack</div>',
     chips([('Retell AI', 'retell.svg', 0), ('VAPI', 'vapi.png', 0),
