@@ -142,13 +142,13 @@ ul.pts b{color:var(--ink);font-weight:700}
 /* ============ figures ============ */
 .fig{margin:26px 0 32px}
 .figlabel{
-  display:flex;align-items:center;gap:10px;margin-bottom:11px;
+  display:flex;align-items:baseline;gap:11px;margin-bottom:11px;
   font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
   color:var(--faint);line-height:1.5;
 }
 .figlabel b{
   color:var(--acc);font-weight:700;border:1px solid rgba(255,138,76,.32);
-  border-radius:6px;padding:3px 8px;letter-spacing:.08em;
+  border-radius:6px;padding:4px 12px;letter-spacing:.08em;
   white-space:nowrap;flex:none;
 }
 .fig .frame{
@@ -227,6 +227,9 @@ ul.pts b{color:var(--ink);font-weight:700}
 }
 @media (max-width:620px){
   body{font-size:16.5px}
+  /* the label beside the badge wrapped to 2 lines, leaving the badge
+     stranded in the middle of a tall row. Give each its own line. */
+  .figlabel{flex-direction:column;align-items:flex-start;gap:9px;line-height:1.45}
   /* a 6-line paragraph on a phone reads as a wall, so open it up */
   p,.note,.gate p{line-height:1.8}
   p{margin-bottom:24px}
@@ -274,14 +277,25 @@ dialog.lb .lbclose:hover{background:var(--acc);color:#0b0b0e;border-color:var(--
     padding:5px 9px;font-size:9.5px;letter-spacing:.04em;
   }
   .fig .frame{cursor:default}
-  /* a wide workflow screenshot fitted to a phone is unreadable, so let it pan */
-  dialog.lb .lbscroll{
-    max-width:100vw;width:100vw;max-height:74vh;overflow:auto;
-    -webkit-overflow-scrolling:touch;border-radius:0;border-left:none;border-right:none;
-  }
-  dialog.lb img{max-width:none;max-height:none;height:70vh}
+
   dialog.lb .lbinner{max-width:100vw;width:100vw}
   dialog.lb .lbcap{padding:0 18px}
   dialog.lb .lbclose{top:-48px;right:14px}
+
+  /* opens fitted, so the whole diagram is on screen at once */
+  dialog.lb .lbscroll{
+    max-width:100vw;width:100vw;max-height:76vh;overflow:hidden;
+    border-radius:0;border-left:none;border-right:none;
+    display:grid;place-items:center;
+  }
+  dialog.lb img{max-width:100vw;max-height:76vh;width:auto;height:auto}
+
+  /* tapping switches to a size you can read, and drag around */
+  dialog.lb.zoomed .lbscroll{overflow:auto;-webkit-overflow-scrolling:touch;display:block}
+  dialog.lb.zoomed img{max-width:none;max-height:none;height:68vh;width:auto;margin:0}
 }
-dialog.lb.pannable .lbcap::before{content:"Drag to pan \00b7 ";color:var(--acc)}
+
+.lbhint{
+  display:block;margin-bottom:6px;color:var(--acc);
+  font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+}
