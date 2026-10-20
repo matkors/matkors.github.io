@@ -11,6 +11,8 @@
   // Local testing only: ?api=http://localhost:PORT (never another host, so a link can't send answers elsewhere).
   var testApi = /[?&]api=(http:\/\/localhost:\d{2,5})(?:&|$)/.exec(location.search);
   if (testApi) API = testApi[1];
+  // The backup copy (n8n) is skipped in local tests unless ?backup=1.
+  var BACKUP = F.backup && (!testApi || /[?&]backup=1\b/.test(location.search)) ? F.backup : '';
   var LS = 'dbx_form_' + F.form;
   var main = document.getElementById('fmain'), bar = document.getElementById('fbar'), partEl = document.getElementById('fpart'), backBtn = document.getElementById('fback');
 
@@ -268,10 +270,17 @@
     var c = F.contact, missing = [c.name, c.phone, c.email].filter(function (k) { return !S.a[k]; });
     if (missing.length) { err('We still need your name, phone and email. Tap Edit next to "' + (byId(F.contact.screen) ? byId(F.contact.screen).short || title(byId(F.contact.screen)) : 'contact') + '".'); return; }
     btn.disabled = true; btn.textContent = 'Sending…';
-    var go2 = function () { return post('/v1/intake', body({ submit: true, summary: summaryText() })); };
-    (saving || Promise.resolve()).then(go2).then(function (j) {
-      if (j.status >= 300) throw new Error((j.errors || []).join(', ') || 'send');
-      S.sent = true; saveLocal();
+    // Sent two ways at once: our API (saves it, emails info@ the answers, sends the owner a receipt) and a backup
+    // n8n workflow (saves a copy in an n8n data table, emails info@ a short note). One of them landing is enough.
+    var data = body({ submit: true, summary: summaryText() }), why = [];
+    var toApi = (saving || Promise.resolve()).then(function () { return post('/v1/intake', data); })
+      .then(function (j) { if (j.status >= 300) throw new Error((j.errors || []).join(', ') || 'api ' + j.status); return true; });
+    var toBackup = BACKUP ? fetch(BACKUP, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (r) { if (!r.ok) throw new Error('backup ' + r.status); return true; }) : Promise.reject(new Error('no backup'));
+    var settle = function (p) { return p.catch(function (e) { why.push(e.message); return false; }); };
+    Promise.all([settle(toApi), settle(toBackup)]).then(function (r) {
+      if (!r[0] && !r[1]) throw new Error(why.join('; '));
+      S.sent = true; S.sentVia = r; saveLocal();
       var d = ALL.filter(function (x) { return x.type === 'done'; })[0]; if (d) { S.cur = d.id; saveLocal(); render(true); window.scrollTo(0, 0); }
     }).catch(function (e) {
       btn.disabled = false; btn.textContent = 'Send my answers';

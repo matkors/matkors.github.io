@@ -175,6 +175,7 @@
 
   window.FORM = {
     form: 'a1-progressive',
+    backup: 'https://matkors.app.n8n.cloud/webhook/dialbridge-setup-form/submit-q7m2',
     business: 'A1 Progressive Construction',
     logo: 'logo.png',
     contact: { name: 'c_name', phone: 'c_phone', email: 'c_email', business: 'biz_name', screen: 'contact' },
@@ -397,7 +398,7 @@
           fields: [{ id: 'notes_txt', label: 'Notes', optional: true, type: 'textarea', rows: 5, placeholder: 'Jobs you don’t want, busy seasons, how you like to talk to customers...' }] },
         { id: 'review', type: 'review', title: 'Check your answers', short: 'Review', sub: 'Tap Edit to change anything. Then send it to us.' },
         { id: 'done', type: 'done', title: 'We got everything.',
-          text: '<p>We’ll build your booking page with your prices and send you a link to look at, usually within two business days.</p><p>Questions? Reply to the email we just sent you, or write to support@dialbridge.ai.</p>' }
+          text: '<p>We’ll build your booking page with your prices and send you a link to look at, usually within two business days.</p><p>Questions? Reply to the email we just sent you, or write to info@dialbridge.ai.</p>' }
       ] }
     ]
   };
