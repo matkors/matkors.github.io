@@ -782,11 +782,14 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   var rel = $('cRel'); if (rel) rel.addEventListener('change', function () { S.rel = this.checked; $('snip').textContent = snippet(); });
 
   // ---------- leads: "send it to me" and the tap card list ----------
-  function utm() {
+  // Read once at load: showing a result rewrites the address to ?pid=, which drops the utm_ tags.
+  var UTMS = (function () {
     var q = new URLSearchParams(location.search), u = {};
     ['source', 'medium', 'campaign', 'content', 'term'].forEach(function (k) { var v = q.get('utm_' + k); if (v) u[k] = v.slice(0, 120); });
+    if (!u.source && document.referrer && document.referrer.indexOf(location.host) < 0) try { u.source = new URL(document.referrer).hostname.slice(0, 120); u.medium = 'referral'; } catch (e) { }
     return u;
-  }
+  })();
+  function utm() { return UTMS; }
   function lead(form, kind, emailEl, done) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
