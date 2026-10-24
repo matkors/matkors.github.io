@@ -456,6 +456,14 @@ h1,h2,h3{letter-spacing:-.03em;line-height:1.04;margin:0;font-weight:700;text-wr
 .after.single{grid-template-columns:1fr;max-width:640px;margin-inline:auto}
 .rs-h{text-wrap:balance}
 .rs-b{padding-top:5cqw}
+/* card, round 3: less text, bigger QR, long names shrink instead of wrapping into the line above */
+.rcard{grid-template-columns:minmax(0,1fr) 37cqw;gap:5cqw;padding:6cqw 5.5cqw 6cqw 6.5cqw}
+.rc-h{font-size:7.2cqw;margin-top:3.2cqw}
+.rc-p{font-size:3.5cqw;margin-top:2.2cqw;-webkit-line-clamp:2}
+.rc-b{padding-top:3cqw;font-size:3.6cqw}
+.rc-b.l{font-size:3.1cqw}
+.rc-b.xl{font-size:2.7cqw}
+.rc-qb{padding:2cqw}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://matviykorsunskiy.me/tools/google-review-qr-code/#app","name":"Google review QR code and printable cards","url":"https://matviykorsunskiy.me/tools/google-review-qr-code/","description":"Make a Google review QR code and print review cards, a counter sign or truck decal. Pick your colors. Free, no sign-up, never expires.","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Dialbridge","url":"https://dialbridge.ai/","logo":"https://dialbridge.ai/apple-touch-icon.png"},"featureList":["Search a business by name","Google review QR code (PNG and SVG)","Printable review cards (Avery 8371 layout)","Printable counter sign","Your colors and wording"]},{"@type":"HowTo","name":"How to make a Google review QR code","step":[{"@type":"HowToStep","position":1,"text":"Type your business name and city in the search box and pick your business."},{"@type":"HowToStep","position":2,"text":"Choose a card color and change the wording if you like."},{"@type":"HowToStep","position":3,"text":"Print the cards or the counter sign, or download the QR code as PNG or SVG."},{"@type":"HowToStep","position":4,"text":"Scan the printed code with your own phone before handing it out."}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the Google review QR code free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The QR code, the cards and the sign are free with no sign-up. Print as many as you like."}},{"@type":"Question","name":"Does the QR code expire?","acceptedAnswer":{"@type":"Answer","text":"No. It holds your review link directly and does not pass through our servers, so it works for as long as your Google listing exists."}},{"@type":"Question","name":"What size should I print the QR code?","acceptedAnswer":{"@type":"Answer","text":"A QR code scans from about 10 times its width. About 1 inch is right for a business card, 3 to 4 inches for a counter sign, and 10 to 12 inches for a truck."}},{"@type":"Question","name":"Can I change the colors and wording?","acceptedAnswer":{"@type":"Answer","text":"Yes. Pick one of the colors or your own brand color, and change the big and small lines on the card."}},{"@type":"Question","name":"What paper do the cards print on?","acceptedAnswer":{"@type":"Answer","text":"The sheet holds 10 cards in the Avery 8371 and 5371 business card layout. On plain card stock, keep the cut lines on and cut them apart."}},{"@type":"Question","name":"Does Google allow review QR codes?","acceptedAnswer":{"@type":"Answer","text":"Yes. Google offers review QR codes itself. Just do not offer a reward for reviews, and hand the card to every customer, not only the happy ones."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Dialbridge","item":"https://dialbridge.ai/"},{"@type":"ListItem","position":2,"name":"Free tools","item":"https://matviykorsunskiy.me/tools/"},{"@type":"ListItem","position":3,"name":"Google review QR code","item":"https://matviykorsunskiy.me/tools/google-review-qr-code/"}]}]}</script>
 </head>
@@ -676,7 +684,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   // ---------- state ----------
   var SAMPLE_URL = BASE + '/tools/google-review-qr-code/';
   var S = { picked: false, id: '', name: 'Your Business Name', address: '', url: SAMPLE_URL, trade: '', msg: 0, scene: C.scene || 'link',
-    theme: 'cream', custom: '#2d6cdf', logo: '', stars: true, head: 'Happy with the job?', line: 'Scan to leave us a quick Google review. It takes about 30 seconds.',
+    theme: 'cream', custom: '#2d6cdf', logo: '', stars: true, head: 'Happy with the job?', line: 'Scan to leave us a quick Google review.',
     credit: true, cut: true, rel: true };
   var THEMES = {
     cream: { bg: '#fbf7ee', fg: '#20251f', sub: '#4b5148', star: '#f2a900', edge: 'rgba(32,37,31,.08)' },
@@ -702,8 +710,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var t = theme(), top = S.logo ? '<img class="rc-logo" src="' + S.logo + '" alt="">' : (S.stars ? '<div class="rc-stars" style="color:' + t.star + '">' + STARS + '</div>' : '<div></div>');
     return '<div class="rcard" style="background:' + t.bg + ';color:' + t.fg + ';box-shadow:inset 0 0 0 1px ' + t.edge + '">' +
       '<div class="rc-l">' + top + '<div class="rc-h">' + esc(S.head) + '</div><div class="rc-p" style="color:' + t.sub + '">' + esc(S.line) + '</div>' +
-      '<div class="rc-b">' + esc(S.name) + '</div></div>' +
-      '<div class="rc-q"><div class="rc-qb">' + qrSVG(S.url, 'qrm') + '</div><div class="rc-cap" style="color:' + t.sub + '">Point your camera here</div></div></div>';
+      '<div class="rc-b' + (S.name.length > 30 ? ' xl' : S.name.length > 20 ? ' l' : '') + '">' + esc(S.name) + '</div></div>' +
+      '<div class="rc-q"><div class="rc-qb">' + qrSVG(S.url, 'qrm') + '</div></div></div>';
   }
   // The counter sign, a full US Letter page.
   function signHTML() {
