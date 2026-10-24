@@ -424,6 +424,30 @@ h1,h2,h3{letter-spacing:-.03em;line-height:1.04;margin:0;font-weight:700;text-wr
 .soon{margin:22px auto 0;max-width:860px;text-align:left;font-size:14.5px;color:var(--mute)}
 @media (max-width:760px){.tools-list a{grid-template-columns:96px minmax(0,1fr);gap:14px}.tools-list img{width:96px;border-radius:8px}.tools-list svg{display:none}.tools-list b{font-size:17px}}
 @media (max-width:900px){.sample{display:none}}
+
+/* Place ID finder: one answer card, nothing else */
+.pidcard{max-width:660px;margin:36px auto 0;padding:24px;border-radius:22px;background:#fff;box-shadow:var(--frame);text-align:left}
+.pidcard.arrive{animation:rise .5s var(--ease) both}
+.pc-top{display:flex;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.pc-top .pin{display:grid;place-items:center;width:34px;height:34px;flex-shrink:0;border-radius:10px;background:var(--ok);color:#fff}
+.pc-top .pin svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.pc-who{min-width:0}
+.pc-who b{display:block;font-size:17px;line-height:1.3;letter-spacing:-.01em}
+.pc-who span{display:block;font-size:14px;color:var(--mute);line-height:1.4}
+.pc-tag{margin-left:auto;padding:4px 10px;border-radius:999px;background:var(--sage);font-size:12.5px;font-weight:700;color:var(--ink2)}
+.pc-lbl{margin:20px 0 8px;font-size:13px;font-weight:700;color:var(--mute)}
+.pc-id{display:flex;gap:10px;align-items:stretch}
+.pc-id code{flex:1;min-width:0;display:flex;align-items:center;padding:12px 16px;border-radius:12px;background:var(--paper);box-shadow:inset 0 0 0 1px var(--line);font-family:var(--mono);font-size:clamp(14px,2.2vw,19px);font-weight:500;color:var(--ink);overflow-wrap:anywhere}
+.pc-id .btn{height:auto;min-height:50px}
+.pc-row{display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+.pc-row > div{min-width:0}
+.pc-link{display:block;font-family:var(--mono);font-size:13px;color:var(--ink2);overflow-wrap:anywhere;line-height:1.5}
+.pc-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+.pc-next{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14.5px;color:var(--accent-ink);text-decoration:none}
+.pc-next .arw{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pc-next:hover .arw .ln{opacity:1}.pc-next:hover .arw .hd{transform:translateX(3px)}
+#pidcard:has(#sampleTag:not([hidden])) code,#pidcard:has(#sampleTag:not([hidden])) .pc-link{color:var(--mute)}
+@media (max-width:760px){.pidcard{padding:18px;margin-top:26px}.pc-id{flex-direction:column}.pc-row{flex-direction:column;align-items:stretch}.pc-row .btn{width:100%}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","name":"Free tools for home service businesses","url":"https://matviykorsunskiy.me/tools/","description":"Free tools for plumbers, HVAC, garage door, cleaning and other home service businesses: Google review link, review QR code and cards, Place ID finder.","publisher":{"@type":"Organization","name":"Dialbridge","url":"https://dialbridge.ai/","logo":"https://dialbridge.ai/apple-touch-icon.png"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://matviykorsunskiy.me/tools/google-review-link-generator/","name":"Google review link generator"},{"@type":"ListItem","position":2,"url":"https://matviykorsunskiy.me/tools/google-review-qr-code/","name":"Google review QR code and printable cards"},{"@type":"ListItem","position":3,"url":"https://matviykorsunskiy.me/tools/google-place-id-finder/","name":"Google Place ID finder"}]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Dialbridge","item":"https://dialbridge.ai/"},{"@type":"ListItem","position":2,"name":"Free tools","item":"https://matviykorsunskiy.me/tools/"}]}]}</script>
 </head>
@@ -434,7 +458,7 @@ h1,h2,h3{letter-spacing:-.03em;line-height:1.04;margin:0;font-weight:700;text-wr
 <main id="main">
 <section class="hero"><div class="wrap">
 <span class="badge"><i></i>Free, no sign-up</span>
-<h1>Free tools for home service businesses.<em>Small jobs, done in a minute.</em></h1>
+<h1>Free tools for the trades.<em>Each one takes a minute.</em></h1>
 <p class="sub">For plumbers, HVAC techs, garage door companies, cleaners and every other trade. The answer shows up right away.</p>
 <ul class="tools-list"><li><a href="https://matviykorsunskiy.me/tools/google-review-link-generator/"><img src="https://matviykorsunskiy.me/tools/google-review-link-generator/og.png" alt="" width="240" height="126" loading="lazy"><span><b>Google review link generator</b><span>The link that opens your review box, ready to text after a job.</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></li><li><a href="https://matviykorsunskiy.me/tools/google-review-qr-code/"><img src="https://matviykorsunskiy.me/tools/google-review-qr-code/og.png" alt="" width="240" height="126" loading="lazy"><span><b>Google review QR code and printable cards</b><span>A review QR code on leave-behind cards and a counter sign you can print.</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></li><li><a href="https://matviykorsunskiy.me/tools/google-place-id-finder/"><img src="https://matviykorsunskiy.me/tools/google-place-id-finder/og.png" alt="" width="240" height="126" loading="lazy"><span><b>Google Place ID finder</b><span>The Place ID for any business, by name or from a Maps link. No API key.</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></li></ul>
 <p class="soon">Coming next: a pricing calculator for owners, a price list builder and a Google profile check.</p>

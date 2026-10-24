@@ -424,6 +424,30 @@ h1,h2,h3{letter-spacing:-.03em;line-height:1.04;margin:0;font-weight:700;text-wr
 .soon{margin:22px auto 0;max-width:860px;text-align:left;font-size:14.5px;color:var(--mute)}
 @media (max-width:760px){.tools-list a{grid-template-columns:96px minmax(0,1fr);gap:14px}.tools-list img{width:96px;border-radius:8px}.tools-list svg{display:none}.tools-list b{font-size:17px}}
 @media (max-width:900px){.sample{display:none}}
+
+/* Place ID finder: one answer card, nothing else */
+.pidcard{max-width:660px;margin:36px auto 0;padding:24px;border-radius:22px;background:#fff;box-shadow:var(--frame);text-align:left}
+.pidcard.arrive{animation:rise .5s var(--ease) both}
+.pc-top{display:flex;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.pc-top .pin{display:grid;place-items:center;width:34px;height:34px;flex-shrink:0;border-radius:10px;background:var(--ok);color:#fff}
+.pc-top .pin svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.pc-who{min-width:0}
+.pc-who b{display:block;font-size:17px;line-height:1.3;letter-spacing:-.01em}
+.pc-who span{display:block;font-size:14px;color:var(--mute);line-height:1.4}
+.pc-tag{margin-left:auto;padding:4px 10px;border-radius:999px;background:var(--sage);font-size:12.5px;font-weight:700;color:var(--ink2)}
+.pc-lbl{margin:20px 0 8px;font-size:13px;font-weight:700;color:var(--mute)}
+.pc-id{display:flex;gap:10px;align-items:stretch}
+.pc-id code{flex:1;min-width:0;display:flex;align-items:center;padding:12px 16px;border-radius:12px;background:var(--paper);box-shadow:inset 0 0 0 1px var(--line);font-family:var(--mono);font-size:clamp(14px,2.2vw,19px);font-weight:500;color:var(--ink);overflow-wrap:anywhere}
+.pc-id .btn{height:auto;min-height:50px}
+.pc-row{display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+.pc-row > div{min-width:0}
+.pc-link{display:block;font-family:var(--mono);font-size:13px;color:var(--ink2);overflow-wrap:anywhere;line-height:1.5}
+.pc-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+.pc-next{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14.5px;color:var(--accent-ink);text-decoration:none}
+.pc-next .arw{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pc-next:hover .arw .ln{opacity:1}.pc-next:hover .arw .hd{transform:translateX(3px)}
+#pidcard:has(#sampleTag:not([hidden])) code,#pidcard:has(#sampleTag:not([hidden])) .pc-link{color:var(--mute)}
+@media (max-width:760px){.pidcard{padding:18px;margin-top:26px}.pc-id{flex-direction:column}.pc-row{flex-direction:column;align-items:stretch}.pc-row .btn{width:100%}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://matviykorsunskiy.me/tools/google-review-qr-code/#app","name":"Google review QR code and printable cards","url":"https://matviykorsunskiy.me/tools/google-review-qr-code/","description":"Make a Google review QR code and print review cards, a counter sign or truck decal. Add your logo and colors. Free, no sign-up, never expires.","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Dialbridge","url":"https://dialbridge.ai/","logo":"https://dialbridge.ai/apple-touch-icon.png"},"featureList":["Search a business by name","Direct Google review link","Review QR code (PNG and SVG)","Printable review cards and counter sign","Review request texts by trade","Google Place ID"]},{"@type":"HowTo","name":"How to make a Google review QR code","step":[{"@type":"HowToStep","position":1,"text":"Type your business name and city in the search box and pick your business."},{"@type":"HowToStep","position":2,"text":"Choose a card color, change the wording and add your logo."},{"@type":"HowToStep","position":3,"text":"Print the cards or the counter sign, or download the QR code as PNG or SVG."},{"@type":"HowToStep","position":4,"text":"Scan the printed code with your own phone before handing it out."}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the Google review QR code free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The QR code, the cards and the sign are free with no sign-up. Print as many as you like."}},{"@type":"Question","name":"Does the QR code expire?","acceptedAnswer":{"@type":"Answer","text":"No. It holds your review link directly and does not pass through our servers, so it works for as long as your Google listing exists."}},{"@type":"Question","name":"What size should I print the QR code?","acceptedAnswer":{"@type":"Answer","text":"A QR code scans from about 10 times its width. About 1 inch is right for a business card, 3 to 4 inches for a counter sign, and 10 to 12 inches for a truck."}},{"@type":"Question","name":"Can I put my logo and colors on the card?","acceptedAnswer":{"@type":"Answer","text":"Yes. Pick a color or your own brand color and upload your logo. The logo stays in your browser and is not uploaded anywhere."}},{"@type":"Question","name":"What paper do the cards print on?","acceptedAnswer":{"@type":"Answer","text":"The sheet holds 10 cards in the Avery 8371 and 5371 business card layout. On plain card stock, keep the cut lines on and cut them apart."}},{"@type":"Question","name":"Does Google allow review QR codes?","acceptedAnswer":{"@type":"Answer","text":"Yes. Google offers review QR codes itself. Just do not offer a reward for reviews, and hand the card to every customer, not only the happy ones."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Dialbridge","item":"https://dialbridge.ai/"},{"@type":"ListItem","position":2,"name":"Free tools","item":"https://matviykorsunskiy.me/tools/"},{"@type":"ListItem","position":3,"name":"Google review QR code","item":"https://matviykorsunskiy.me/tools/google-review-qr-code/"}]}]}</script>
 </head>
@@ -617,6 +641,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   var all = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var PID = !!document.getElementById('pidcard');
 
   // What the texts call the job, by trade.
   var TRADES = {
@@ -758,6 +783,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function initials(n) { return (String(n).replace(/[^A-Za-z ]/g, '').split(' ').filter(Boolean).map(function (w) { return w[0]; }).join('').slice(0, 2) || 'DB').toUpperCase(); }
   function set(id, v) { var el = $(id); if (el) el.textContent = v; }
   function paint(animateCard) {
+    // The Place ID page keeps its example until a business is picked.
+    if (PID && !S.picked) return;
     var shortUrl = S.url.replace(/^https?:\/\//, '');
     all('[data-name]').forEach(function (el) { el.textContent = S.name; });
     all('[data-ini]').forEach(function (el) { el.textContent = initials(S.name); });
@@ -811,17 +838,19 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     S.url = p.url || ('https://search.google.com/local/writereview?placeid=' + encodeURIComponent(S.id));
     S.name = p.name || (S.name === 'Your Business Name' ? '' : S.name) || 'Your business';
     S.address = p.address || '';
-    $('rname').textContent = S.name;
-    $('raddr').textContent = S.address ? ', ' + S.address.replace(/, USA$/, '') : '';
-    $('who').hidden = false;
+    var addr = S.address.replace(/, USA$/, '');
+    if ($('rname')) { $('rname').textContent = S.name; $('raddr').textContent = addr ? ', ' + addr : ''; $('who').hidden = false; }
+    all('[data-addr]').forEach(function (el) { el.textContent = addr || (S.id ? 'Place ID found' : ''); });
+    var tq = $('toQr'); if (tq && S.id) tq.href = BASE + '/tools/google-review-qr-code/?pid=' + encodeURIComponent(S.id) + '&n=' + encodeURIComponent(S.name);
+    var pc = $('pidcard'); if (pc) { pc.classList.remove('arrive'); void pc.offsetWidth; pc.classList.add('arrive'); }
     var smp = $('sampleTag'); if (smp) smp.hidden = true;
     ['after', 'next'].forEach(function (id) { var el = $(id); if (el) el.hidden = false; });
     var sw = $('sendWrap'); if (sw) sw.hidden = !S.id;
-    $('sendBiz').value = S.name;
+    if ($('sendBiz')) $('sendBiz').value = S.name;
     var cb = $('cBiz'); if (cb) cb.value = S.name;
     paint(true); next();
     track('result');
-    if (scroll) setTimeout(function () { glide($('who')); }, 60);
+    if (scroll) setTimeout(function () { glide(PID ? $('pidcard') : $('who')); }, 60);
     // The address now reopens this result (bookmark it, or come back from the email).
     if (S.id) try { history.replaceState(null, '', location.pathname + '?pid=' + encodeURIComponent(S.id) + (p.name ? '&n=' + encodeURIComponent(p.name) : '') + location.hash); } catch (e) { }
   }
@@ -935,7 +964,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       paint();
     });
   });
-  $('trade').addEventListener('change', function () { S.trade = this.value; paint(); next(); });
+  if ($('trade')) $('trade').addEventListener('change', function () { S.trade = this.value; paint(); next(); });
 
   // card designer
   all('.sw[data-theme]').forEach(function (b) {

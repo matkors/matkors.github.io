@@ -424,6 +424,30 @@ h1,h2,h3{letter-spacing:-.03em;line-height:1.04;margin:0;font-weight:700;text-wr
 .soon{margin:22px auto 0;max-width:860px;text-align:left;font-size:14.5px;color:var(--mute)}
 @media (max-width:760px){.tools-list a{grid-template-columns:96px minmax(0,1fr);gap:14px}.tools-list img{width:96px;border-radius:8px}.tools-list svg{display:none}.tools-list b{font-size:17px}}
 @media (max-width:900px){.sample{display:none}}
+
+/* Place ID finder: one answer card, nothing else */
+.pidcard{max-width:660px;margin:36px auto 0;padding:24px;border-radius:22px;background:#fff;box-shadow:var(--frame);text-align:left}
+.pidcard.arrive{animation:rise .5s var(--ease) both}
+.pc-top{display:flex;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.pc-top .pin{display:grid;place-items:center;width:34px;height:34px;flex-shrink:0;border-radius:10px;background:var(--ok);color:#fff}
+.pc-top .pin svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.pc-who{min-width:0}
+.pc-who b{display:block;font-size:17px;line-height:1.3;letter-spacing:-.01em}
+.pc-who span{display:block;font-size:14px;color:var(--mute);line-height:1.4}
+.pc-tag{margin-left:auto;padding:4px 10px;border-radius:999px;background:var(--sage);font-size:12.5px;font-weight:700;color:var(--ink2)}
+.pc-lbl{margin:20px 0 8px;font-size:13px;font-weight:700;color:var(--mute)}
+.pc-id{display:flex;gap:10px;align-items:stretch}
+.pc-id code{flex:1;min-width:0;display:flex;align-items:center;padding:12px 16px;border-radius:12px;background:var(--paper);box-shadow:inset 0 0 0 1px var(--line);font-family:var(--mono);font-size:clamp(14px,2.2vw,19px);font-weight:500;color:var(--ink);overflow-wrap:anywhere}
+.pc-id .btn{height:auto;min-height:50px}
+.pc-row{display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+.pc-row > div{min-width:0}
+.pc-link{display:block;font-family:var(--mono);font-size:13px;color:var(--ink2);overflow-wrap:anywhere;line-height:1.5}
+.pc-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+.pc-next{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14.5px;color:var(--accent-ink);text-decoration:none}
+.pc-next .arw{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pc-next:hover .arw .ln{opacity:1}.pc-next:hover .arw .hd{transform:translateX(3px)}
+#pidcard:has(#sampleTag:not([hidden])) code,#pidcard:has(#sampleTag:not([hidden])) .pc-link{color:var(--mute)}
+@media (max-width:760px){.pidcard{padding:18px;margin-top:26px}.pc-id{flex-direction:column}.pc-row{flex-direction:column;align-items:stretch}.pc-row .btn{width:100%}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://matviykorsunskiy.me/tools/google-review-link-generator/#app","name":"Google review link generator","url":"https://matviykorsunskiy.me/tools/google-review-link-generator/","description":"Get the link that opens your Google review box in 20 seconds. Search your business, copy the link, print a QR card. Free, no sign-up.","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Dialbridge","url":"https://dialbridge.ai/","logo":"https://dialbridge.ai/apple-touch-icon.png"},"featureList":["Search a business by name","Direct Google review link","Review QR code (PNG and SVG)","Printable review cards and counter sign","Review request texts by trade","Google Place ID"]},{"@type":"HowTo","name":"How to get your Google review link","step":[{"@type":"HowToStep","position":1,"text":"Type your business name and city in the search box."},{"@type":"HowToStep","position":2,"text":"Pick your business from the list."},{"@type":"HowToStep","position":3,"text":"Copy your review link and test it once on your phone."}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this Google review link generator free?","acceptedAnswer":{"@type":"Answer","text":"Yes. There is no sign-up and no limit on how many links you make. We only use the business name you type to find the listing on Google."}},{"@type":"Question","name":"Do I need to own the Google Business Profile?","acceptedAnswer":{"@type":"Answer","text":"No. The review link works for any business listed on Google, so you can make it even if a web person or an old agency set up the profile. Only the owner can reply to reviews, though."}},{"@type":"Question","name":"Do customers need a Google account to leave a review?","acceptedAnswer":{"@type":"Answer","text":"Yes. Google only takes reviews from people signed in to a Google account. Most Android phones are signed in already, and iPhone users are asked to sign in when they open the link."}},{"@type":"Question","name":"Can I make a link that only lets people leave 5 stars?","acceptedAnswer":{"@type":"Answer","text":"No. No link can do that, and Google does not allow asking only happy customers for reviews (review gating). Ask every customer the same way."}},{"@type":"Question","name":"Will my review link stop working?","acceptedAnswer":{"@type":"Answer","text":"It keeps working as long as your Google listing exists. The link goes straight to Google, not through our servers, so it does not depend on us. If you move or Google merges your listings, make a new link here."}},{"@type":"Question","name":"Is this different from the link in my Google Business Profile?","acceptedAnswer":{"@type":"Answer","text":"Both open the same review box. Google's own link starts with g.page and you need to sign in to the profile to get it. This link is built from your Place ID and works without signing in."}},{"@type":"Question","name":"What if I have more than one location?","acceptedAnswer":{"@type":"Answer","text":"Each location has its own listing and its own review link. Search for each one, and check the address under the name before you pick it."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Dialbridge","item":"https://dialbridge.ai/"},{"@type":"ListItem","position":2,"name":"Free tools","item":"https://matviykorsunskiy.me/tools/"},{"@type":"ListItem","position":3,"name":"Google review link","item":"https://matviykorsunskiy.me/tools/google-review-link-generator/"}]}]}</script>
 </head>
@@ -621,6 +645,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   var all = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var PID = !!document.getElementById('pidcard');
 
   // What the texts call the job, by trade.
   var TRADES = {
@@ -762,6 +787,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function initials(n) { return (String(n).replace(/[^A-Za-z ]/g, '').split(' ').filter(Boolean).map(function (w) { return w[0]; }).join('').slice(0, 2) || 'DB').toUpperCase(); }
   function set(id, v) { var el = $(id); if (el) el.textContent = v; }
   function paint(animateCard) {
+    // The Place ID page keeps its example until a business is picked.
+    if (PID && !S.picked) return;
     var shortUrl = S.url.replace(/^https?:\/\//, '');
     all('[data-name]').forEach(function (el) { el.textContent = S.name; });
     all('[data-ini]').forEach(function (el) { el.textContent = initials(S.name); });
@@ -815,17 +842,19 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     S.url = p.url || ('https://search.google.com/local/writereview?placeid=' + encodeURIComponent(S.id));
     S.name = p.name || (S.name === 'Your Business Name' ? '' : S.name) || 'Your business';
     S.address = p.address || '';
-    $('rname').textContent = S.name;
-    $('raddr').textContent = S.address ? ', ' + S.address.replace(/, USA$/, '') : '';
-    $('who').hidden = false;
+    var addr = S.address.replace(/, USA$/, '');
+    if ($('rname')) { $('rname').textContent = S.name; $('raddr').textContent = addr ? ', ' + addr : ''; $('who').hidden = false; }
+    all('[data-addr]').forEach(function (el) { el.textContent = addr || (S.id ? 'Place ID found' : ''); });
+    var tq = $('toQr'); if (tq && S.id) tq.href = BASE + '/tools/google-review-qr-code/?pid=' + encodeURIComponent(S.id) + '&n=' + encodeURIComponent(S.name);
+    var pc = $('pidcard'); if (pc) { pc.classList.remove('arrive'); void pc.offsetWidth; pc.classList.add('arrive'); }
     var smp = $('sampleTag'); if (smp) smp.hidden = true;
     ['after', 'next'].forEach(function (id) { var el = $(id); if (el) el.hidden = false; });
     var sw = $('sendWrap'); if (sw) sw.hidden = !S.id;
-    $('sendBiz').value = S.name;
+    if ($('sendBiz')) $('sendBiz').value = S.name;
     var cb = $('cBiz'); if (cb) cb.value = S.name;
     paint(true); next();
     track('result');
-    if (scroll) setTimeout(function () { glide($('who')); }, 60);
+    if (scroll) setTimeout(function () { glide(PID ? $('pidcard') : $('who')); }, 60);
     // The address now reopens this result (bookmark it, or come back from the email).
     if (S.id) try { history.replaceState(null, '', location.pathname + '?pid=' + encodeURIComponent(S.id) + (p.name ? '&n=' + encodeURIComponent(p.name) : '') + location.hash); } catch (e) { }
   }
@@ -939,7 +968,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       paint();
     });
   });
-  $('trade').addEventListener('change', function () { S.trade = this.value; paint(); next(); });
+  if ($('trade')) $('trade').addEventListener('change', function () { S.trade = this.value; paint(); next(); });
 
   // card designer
   all('.sw[data-theme]').forEach(function (b) {
