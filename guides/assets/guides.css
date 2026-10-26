@@ -1,0 +1,47 @@
+/* Extra pieces for the new guides, in the site's own palette (site.css is dialbridge.ai's stylesheet).
+   Only what the site does not have yet: an in-article call to action, a calculator, fit lists and a note. */
+.prose{font-size:17px}
+.prose h2{scroll-margin-top:24px}
+.prose table{width:100%}
+
+/* in-article call to action: one sentence, one button, where it actually helps */
+.g-cta{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 24px;align-items:center;margin:34px 0;padding:22px 24px;border-radius:12px;background:#252c25;color:#eef2e8}
+.g-cta p{margin:0!important;color:#eef2e8!important;font-size:16.5px!important;line-height:1.55!important}
+.g-cta p b{color:#fff}
+.g-cta .button{min-width:0;min-height:50px;padding:14px 20px;font-size:14px;text-decoration:none!important;color:#fff!important}
+@media (max-width:640px){.g-cta{grid-template-columns:1fr}.g-cta .button{width:100%}}
+
+/* calculator */
+.g-calc{margin:26px 0 30px;border:1px solid #dadfcf;border-radius:12px;background:#fbfbf7;overflow:hidden}
+.g-calc-in{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px;padding:22px 22px 18px}
+.g-calc label{display:block;font-size:13.5px;font-weight:700;color:#20251f;margin-bottom:6px}
+.g-calc label small{display:block;font-weight:500;color:#64675d;font-size:12.5px;margin-top:2px}
+.g-calc .in{display:flex;align-items:center;height:48px;border-radius:9px;background:#fff;box-shadow:inset 0 0 0 1px #d6d8cc;padding:0 12px;font-size:16px;font-weight:650}
+.g-calc .in:focus-within{box-shadow:inset 0 0 0 1.5px #f35427,0 0 0 4px rgba(243,84,39,.12)}
+.g-calc .in span{color:#64675d;font-weight:600}
+.g-calc input{flex:1;min-width:0;height:100%;border:0;background:none;font:inherit;color:#20251f;outline:none;padding:0 4px}
+.g-calc-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #dadfcf;background:#252c25;color:#eef2e8}
+.g-calc-out div{padding:18px 20px}
+.g-calc-out div+div{border-left:1px solid rgba(255,255,255,.12)}
+.g-calc-out b{display:block;font-size:28px;line-height:1.1;letter-spacing:-.02em;color:#fff;font-variant-numeric:tabular-nums}
+.g-calc-out div>span{display:block;margin-top:6px;font-size:13px;color:#b9c0b1}
+.g-calc-note{margin:0!important;padding:12px 22px 14px;font-size:13.5px!important;color:#64675d!important;border-top:1px solid #dadfcf;background:#fbfbf7}
+@media (max-width:640px){.g-calc-in{grid-template-columns:1fr}.g-calc-out{grid-template-columns:1fr}.g-calc-out div+div{border-left:0;border-top:1px solid rgba(255,255,255,.12)}}
+
+/* "worth it if" / "skip it if" */
+.g-fit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0 8px}
+.g-fit .card h3{margin:0 0 8px;font-size:17px}
+.g-fit ul{margin:0;padding:0!important;list-style:none}
+.g-fit li{position:relative;margin:8px 0!important;padding-left:26px;font-size:15.5px;line-height:1.5}
+.g-fit li:before{content:"\2713";position:absolute;left:0;top:0;font-weight:800;color:#3f7a3a}
+.g-fit .no li:before{content:"\2715";color:#c43d17}
+@media (max-width:640px){.g-fit{grid-template-columns:1fr}}
+
+/* a short note that stands apart from the text */
+.g-note{margin:22px 0;padding:14px 18px;border-left:3px solid #f35427;background:#fbfbf7;border-radius:0 10px 10px 0;font-size:15.5px;line-height:1.55}
+.g-note b{color:#20251f}
+
+/* staging banner (matviykorsunskiy.me only) */
+.g-stage{background:#20251f;color:#eef2e8;font-size:13px;text-align:center;padding:8px 16px}
+.g-stage b{color:#fff}
+.g-calc-out i{font-style:normal;color:#fff}
