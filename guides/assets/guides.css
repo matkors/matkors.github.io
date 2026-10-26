@@ -41,7 +41,7 @@
 .g-note{margin:22px 0;padding:14px 18px;border-left:3px solid #f35427;background:#fbfbf7;border-radius:0 10px 10px 0;font-size:15.5px;line-height:1.55}
 .g-note b{color:#20251f}
 
-/* staging banner (matviykorsunskiy.me only) */
+/* preview banner (staging builds only) */
 .g-stage{background:#20251f;color:#eef2e8;font-size:13px;text-align:center;padding:8px 16px}
 .g-stage b{color:#fff}
 .g-calc-out i{font-style:normal;color:#fff}
