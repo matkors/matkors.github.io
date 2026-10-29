@@ -1,0 +1,308 @@
+<!doctype html>
+<!-- The reel body that plays by itself (Oct 29). Built by build_body.py from body_template.html; edit the template.
+     Film it off the monitor with a phone: F11 full screen, then Space to play. Keys: Space play/pause, R back to the
+     start, P play after 3 seconds (time to pick up the phone), S speed (100%, 80%, 65%, 120%), H hide the timer, V show the line to say. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Booking page, the body</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--brand:#B3261E;--ink:#1d221c;--mute:#5f6368;--paper:#f6f5f1;--line:#e7e5de}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111;cursor:none}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--paper);font-family:Manrope,system-ui,sans-serif;color:var(--ink)}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity .45s ease}
+.scene.on{opacity:1}
+
+/* ---- 1. the garage company's own website ---- */
+#site{background:#fff}
+.nav{height:96px;display:flex;align-items:center;gap:44px;padding:0 120px;border-bottom:1px solid #eee;font:600 19px Manrope}
+.logo{display:flex;align-items:center;gap:14px;font:800 26px Manrope;letter-spacing:-.02em}
+.logo i{width:44px;height:44px;border-radius:10px;background:var(--brand);display:grid;place-items:center;color:#fff;font:800 22px Manrope;font-style:normal}
+.nav a{color:#3b4238;text-decoration:none}
+.nav .sp{flex:1}
+.nav .ph{font:700 19px Manrope;color:var(--ink)}
+.btnb{display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 30px;border-radius:12px;background:var(--brand);color:#fff;font:700 20px Manrope;border:0}
+.btnb svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2.2}
+.btno{display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 28px;border-radius:12px;background:#fff;color:var(--ink);font:700 20px Manrope;box-shadow:inset 0 0 0 2px #d9d6cc}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;padding:70px 120px 0}
+.hero h1{margin:0;font:800 68px/1.05 Manrope;letter-spacing:-.035em}
+.hero p{margin:22px 0 0;font:500 24px/1.5 Manrope;color:#4a5047}
+.hero .cta{display:flex;gap:16px;margin-top:36px}
+.hero .cta .btnb{height:68px;padding:0 38px;font-size:23px}
+.hero .cta .btno{height:68px;font-size:22px}
+.trust{display:flex;align-items:center;gap:12px;margin-top:28px;font:600 19px Manrope;color:#4a5047}
+.trust b{color:#e8a200;letter-spacing:2px}
+.himg{height:640px;border-radius:24px;background:url(img/garage-1.webp) center/cover;box-shadow:0 30px 60px -30px rgba(0,0,0,.4)}
+.float{position:absolute;right:46px;bottom:40px;display:flex;align-items:center;gap:10px;height:62px;padding:0 28px;border-radius:31px;background:var(--brand);color:#fff;font:700 20px Manrope;box-shadow:0 12px 30px rgba(179,38,30,.35)}
+.float svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2.2}
+.modal{position:absolute;inset:0;background:rgba(15,18,22,.46);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .35s}
+.modal.on{opacity:1}
+.modal img{height:900px;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.45);transform:translateY(40px) scale(.96);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.modal.on img{transform:none}
+
+/* ---- 2. the Google profile ---- */
+#gbp{background:#f1f3f4;font-family:Roboto,Arial,sans-serif}
+.gsearch{position:absolute;left:0;right:0;top:0;height:120px;background:#fff;border-bottom:1px solid #dadce0;display:flex;align-items:center;justify-content:center}   /* search bar lines up with the profile card (900 wide, centered) */
+.gsearch div{width:900px;height:56px;display:flex;align-items:center;gap:16px;padding:0 24px;border-radius:28px;box-shadow:0 1px 6px rgba(32,33,36,.28);font-size:21px}
+.gsearch svg{width:24px;height:24px;fill:none;stroke:#5f6368;stroke-width:2}
+.gcard{position:absolute;left:50%;top:190px;width:900px;margin-left:-450px;background:#fff;border-radius:16px;box-shadow:0 1px 3px rgba(60,64,67,.3),0 4px 8px 3px rgba(60,64,67,.15);overflow:hidden}
+.gph{display:grid;grid-template-columns:2fr 1fr 1fr;gap:4px;height:260px}
+.gph div{background-size:cover;background-position:center}
+.gbody{padding:26px 36px 34px}
+.gname{font-size:40px;margin:0}
+.grate{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:21px;color:#5f6368}.grate b{color:#202124;font-weight:500}.grate i{font-style:normal;color:#fbbc04;letter-spacing:2px}
+.gmeta{margin-top:6px;font-size:20px;color:#5f6368}
+.gacts{display:flex;align-items:center;gap:28px;margin-top:28px}
+.gact{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:17px;color:#1a73e8;font-weight:500}
+.gact span{width:60px;height:60px;border-radius:50%;border:1px solid #dadce0;display:grid;place-items:center}
+.gact svg{width:26px;height:26px;fill:none;stroke:#1a73e8;stroke-width:2}
+.ginfo{margin-top:26px;padding-top:22px;border-top:1px solid #dadce0;font-size:20px;color:#202124}
+.ginfo p{margin:0 0 12px;display:flex;align-items:center;gap:16px}
+.ginfo svg{flex:none;width:24px;height:24px;fill:none;stroke:#5f6368;stroke-width:2}
+.gopen{color:#188038;font-weight:500}
+.grev{margin-top:14px;padding:18px 22px;border-radius:12px;background:#f8f9fa;font-size:19px;line-height:1.5;color:#3c4043;font-style:italic}
+.grev b{font-size:26px;color:#9aa0a6;margin-right:4px}
+.grev span{display:block;margin-top:6px;font-style:normal;font-size:16px;color:#5f6368}
+.gbook{margin-left:auto;display:flex;align-items:center;gap:12px;height:68px;padding:0 38px;border-radius:34px;background:#1a73e8;color:#fff;font:500 25px Roboto;box-shadow:0 0 0 0 rgba(26,115,232,.45);animation:gp 2.2s infinite}
+.gbook svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2.2}
+@keyframes gp{50%{box-shadow:0 0 0 16px rgba(26,115,232,0)}}
+
+/* ---- 3. the booking page, big, on a clean background ---- */
+#wid{background:var(--paper)}
+#card{position:absolute;left:880px;top:70px;width:596px;height:940px;border-radius:22px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 40px 80px -30px rgba(29,34,28,.35);background:#fff;overflow:hidden}
+#card img{position:absolute;inset:0;width:100%;height:100%;display:block}
+#card img.in{transition:opacity .3s ease,transform .38s cubic-bezier(.2,.8,.2,1)}
+.labels{position:absolute;left:150px;top:0;bottom:0;width:640px;display:flex;flex-direction:column;justify-content:center;gap:26px}
+.lab{display:flex;align-items:center;gap:22px;font:800 46px/1.1 Manrope;letter-spacing:-.025em;color:#c9c6bc;transition:color .3s,transform .3s}
+.lab b{display:grid;place-items:center;flex:none;width:62px;height:62px;border-radius:50%;background:#e8e5dc;color:#8b8f86;font:800 28px Manrope;transition:background .3s,color .3s}
+.lab.on{color:var(--ink);transform:translateX(8px)}
+.lab.on b{background:#f35427;color:#fff}
+.lab.did{color:#8b8f86}
+.lab.did b{background:#2f7d4f;color:#fff}
+
+/* ---- 4. the owner's phone ---- */
+#own{background:radial-gradient(70% 70% at 70% 40%,#2d3a2f,#141a15)}
+.otext{position:absolute;left:150px;top:50%;transform:translateY(-50%);width:640px;color:#eef0ea;font:800 66px/1.08 Manrope;letter-spacing:-.03em}
+.otext span{color:#ffb59c}
+.phone{position:absolute;left:1030px;top:60px;width:470px;height:960px;border-radius:64px;padding:14px;background:#0b0c0b;box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 2px #2a2c2a;transform:translateY(80px);opacity:0;transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .5s}
+#own.on .phone{transform:none;opacity:1}
+.screen{position:relative;width:100%;height:100%;border-radius:52px;overflow:hidden;background:url(img/garage-house.webp) center/cover}
+.screen::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.15) 40%,rgba(0,0,0,.45))}
+.lock{position:absolute;left:0;right:0;top:90px;text-align:center;color:#fff;z-index:2}
+.lock .d{font:600 22px Manrope;opacity:.9}
+.lock .t{font:700 112px/1 Manrope;letter-spacing:-.02em;margin-top:6px}
+.notif{position:absolute;left:18px;right:18px;top:330px;z-index:3;padding:18px 20px;border-radius:26px;background:rgba(245,245,245,.88);backdrop-filter:blur(18px);display:flex;gap:14px;transform:translateY(-40px) scale(.96);opacity:0;transition:transform .55s cubic-bezier(.2,.9,.3,1.2),opacity .35s}
+.notif.on{transform:none;opacity:1}
+.notif .ic{flex:none;width:46px;height:46px;border-radius:11px;background:var(--brand);display:grid;place-items:center;color:#fff;font:800 22px Manrope}
+.notif .h{display:flex;justify-content:space-between;font:700 17px Manrope;color:#1d1d1d}
+.notif .h small{font:500 15px Manrope;color:#6b6b6b}
+.notif p{margin:4px 0 0;font:500 17.5px/1.38 Manrope;color:#2b2b2b}
+
+/* ---- the cursor everyone can follow ---- */
+#cur{position:absolute;left:0;top:0;width:44px;height:44px;z-index:50;pointer-events:none;transform-origin:4px 4px;transition:scale .12s}
+#cur.dn{scale:.82}
+.rip{position:absolute;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;border:4px solid rgba(243,84,39,.85);z-index:49;pointer-events:none;animation:rp .55s ease-out forwards}
+@keyframes rp{to{transform:scale(3.6);opacity:0}}
+#clock{position:absolute;right:14px;bottom:10px;font:600 14px Manrope;color:#9a9d94;z-index:60}
+#clock.off{display:none}
+#cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);max-width:1400px;padding:12px 26px;border-radius:14px;background:rgba(20,22,20,.82);color:#fff;font:700 30px Manrope;z-index:60;text-align:center}
+#cue.off{display:none}
+.float.hl{animation:hl 1.1s ease-out infinite}
+@keyframes hl{0%{box-shadow:0 12px 30px rgba(179,38,30,.35),0 0 0 0 rgba(179,38,30,.5)}100%{box-shadow:0 12px 30px rgba(179,38,30,.35),0 0 0 22px rgba(179,38,30,0)}}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<section class="scene" id="site">
+  <div class="nav"><div class="logo"><i>SP</i>Shore Point Garage Doors</div><a>Repairs</a><a>Openers</a><a>New doors</a><a>Reviews</a><span class="sp"></span><span class="ph">(732) 555-0193</span>
+    <span class="btnb" id="navBook"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Book online</span></div>
+  <div class="hero">
+    <div><h1>Garage door repair in Monmouth and Ocean County</h1>
+      <p>Broken springs, openers, doors off track. Same-day service, and your tech confirms the price before any work starts.</p>
+      <div class="cta"><span class="btnb" id="heroBook"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Book online</span><span class="btno">Call (732) 555-0193</span></div>
+      <div class="trust"><b>★★★★★</b>4.9 from 318 Google reviews</div></div>
+    <div class="himg"></div>
+  </div>
+  <span class="float" id="floatBook"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Book online</span>
+  <div class="modal" id="siteModal"><img id="siteCard" alt=""></div>
+</section>
+
+<section class="scene" id="gbp">
+  <div class="gsearch"><div><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>garage door repair near me</div></div>
+  <div class="gcard">
+    <div class="gph"><div style="background-image:url(img/garage-1.webp)"></div><div style="background-image:url(img/repair.webp)"></div><div style="background-image:url(img/garage-3.webp)"></div></div>
+    <div class="gbody">
+      <h2 class="gname">Shore Point Garage Doors</h2>
+      <div class="grate"><b>4.9</b><i>★★★★★</i>(318)</div>
+      <div class="gmeta">Garage door supplier · Monmouth and Ocean County</div>
+      <div class="gacts">
+        <div class="gact"><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>Website</div>
+        <div class="gact"><span><svg viewBox="0 0 24 24"><path d="m3 11 18-8-8 18-2-8z"/></svg></span>Directions</div>
+        <div class="gact"><span><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>Call</div>
+        <span class="gbook" id="gBook"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Book online</span>
+      </div>
+      <div class="ginfo">
+        <p><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Serves Monmouth and Ocean County</p>
+        <p><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><span class="gopen">Open</span> · Closes 7 PM</span></p>
+        <p><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>(732) 555-0193</p>
+      </div>
+      <div class="grev"><b>"</b>Spring snapped on a Sunday night. Booked online in a minute and they were here Monday morning.<span>Jessica R. · ★★★★★</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="wid">
+  <div class="labels">
+    <div class="lab" data-l="1"><b>1</b>Tap what's wrong</div>
+    <div class="lab" data-l="2"><b>2</b>Leave a name and number</div>
+    <div class="lab" data-l="3"><b>3</b>See the price</div>
+    <div class="lab" data-l="4"><b>4</b>Pick a time</div>
+    <div class="lab" data-l="5"><b>5</b>Add a photo. Done.</div>
+  </div>
+  <div id="card"><img id="cA" alt=""><img id="cB" alt=""></div>
+</section>
+
+<section class="scene" id="own">
+  <div class="otext">The job lands on your phone, <span>right away.</span></div>
+  <div class="phone"><div class="screen">
+    <div class="lock"><div class="d">Thursday, October 29</div><div class="t">12:48</div></div>
+    <div class="notif" id="notif"><div class="ic">D</div><div style="flex:1"><div class="h">New request<small>now</small></div>
+      <p>Maria G., Freehold. Broken spring, one door. Today 1 to 3 PM. Photo attached. (732) 555-0142</p></div></div>
+  </div></div>
+</section>
+
+<svg id="cur" viewBox="0 0 24 24"><path d="M4 2.5v17.2l4.6-4.5 3 6.6 3-1.4-3-6.4h6.3z" fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+<div id="clock">0.0</div>
+<div id="cue" class="off"></div>
+</div>
+
+<script>
+var FRAMES = ["cap/s00.webp", "cap/s01.webp", "cap/s02.webp", "cap/s03.webp", "cap/s04.webp", "cap/s05.webp", "cap/s06.webp", "cap/s07.webp", "cap/s08.webp", "cap/s09.webp", "cap/s10.webp", "cap/s11.webp", "cap/s12.webp", "cap/s13.webp", "cap/s14.webp", "cap/s15.webp", "cap/s16.webp", "cap/s17.webp", "cap/s18.webp", "cap/s19.webp", "cap/s20.webp", "cap/s21.webp", "cap/s22.webp", "cap/s23.webp", "cap/s24.webp", "cap/s25.webp", "cap/s26.webp", "cap/s27.webp", "cap/s28.webp", "cap/s29.webp", "cap/s30.webp", "cap/s31.webp", "cap/s32.webp", "cap/s33.webp", "cap/s34.webp", "cap/s35.webp", "cap/s36.webp", "cap/s37.webp", "cap/s38.webp", "cap/s39.webp", "cap/s40.webp", "cap/s41.webp", "cap/s42.webp", "cap/s43.webp", "cap/s44.webp", "cap/s45.webp", "cap/s46.webp", "cap/s47.webp", "cap/s48.webp", "cap/s49.webp", "cap/s50.webp", "cap/s51.webp", "cap/s52.webp"], BOXES = [{"x": 70, "y": 357, "w": 380, "h": 46}, {"x": 70, "y": 357, "w": 380, "h": 46}, {"x": 70, "y": 357, "w": 380, "h": 46}, {"x": 70, "y": 357, "w": 380, "h": 46}, {"x": 16, "y": 158, "w": 238, "h": 196}, null, {"x": 16, "y": 357, "w": 156, "h": 189}, null, {"x": 16, "y": 530, "w": 156, "h": 170}, null, {"x": 16, "y": 495, "w": 156, "h": 206}, null, {"x": 16, "y": 515, "w": 156, "h": 186}, null, {"x": 16, "y": 279, "w": 239, "h": 205}, null, {"x": 182, "y": 528, "w": 156, "h": 173}, null, {"x": 16, "y": 224, "w": 488, "h": 46}, {"x": 16, "y": 224, "w": 488, "h": 46}, {"x": 16, "y": 224, "w": 488, "h": 46}, {"x": 16, "y": 224, "w": 488, "h": 46}, {"x": 16, "y": 224, "w": 488, "h": 46}, {"x": 16, "y": 224, "w": 488, "h": 46}, {"x": 16, "y": 224, "w": 488, "h": 46}, {"x": 16, "y": 224, "w": 488, "h": 46}, {"x": 16, "y": 307, "w": 488, "h": 46}, {"x": 16, "y": 307, "w": 488, "h": 46}, {"x": 16, "y": 307, "w": 488, "h": 46}, {"x": 16, "y": 307, "w": 488, "h": 46}, {"x": 16, "y": 307, "w": 488, "h": 46}, {"x": 16, "y": 307, "w": 488, "h": 46}, {"x": 264, "y": 735, "w": 240, "h": 46}, null, {"x": 16, "y": 407, "w": 488, "h": 48}, null, {"x": 16, "y": 184, "w": 488, "h": 46}, {"x": 16, "y": 184, "w": 488, "h": 46}, {"x": 16, "y": 184, "w": 488, "h": 46}, {"x": 16, "y": 184, "w": 488, "h": 46}, {"x": 16, "y": 184, "w": 488, "h": 46}, {"x": 16, "y": 184, "w": 488, "h": 46}, {"x": 16, "y": 184, "w": 488, "h": 46}, {"x": 16, "y": 267, "w": 488, "h": 46}, {"x": 16, "y": 267, "w": 488, "h": 46}, {"x": 16, "y": 267, "w": 488, "h": 46}, {"x": 16, "y": 267, "w": 488, "h": 46}, {"x": 16, "y": 267, "w": 488, "h": 46}, {"x": 16, "y": 355, "w": 131, "h": 40}, null, {"x": 264, "y": 735, "w": 240, "h": 46}, null, null];
+var $ = function (s) { return document.querySelector(s); };
+// The stage is 1920 x 1080 and scales to fit the screen; FIT holds the scale and offset, for cursor targets.
+var FIT = { s: 1, x: 0, y: 0 };
+function fit() { var s = Math.min(innerWidth / 1920, innerHeight / 1080); FIT = { s: s, x: (innerWidth - 1920 * s) / 2, y: (innerHeight - 1080 * s) / 2 };
+  $('#stage').style.transform = 'translate(' + FIT.x + 'px,' + FIT.y + 'px) scale(' + s + ')'; }
+fit(); addEventListener('resize', fit);
+// The booking page card on the clean background: 520 x 820 CSS px captured, shown 940 px tall.
+var K = 940 / 820, CX = 880, CY = 70;
+FRAMES.forEach(function (f) { var i = new Image(); i.src = f; });   // preload every frame
+
+// ---------------- the timeline (seconds) ----------------
+var EV = [];
+function at(t, fn) { EV.push({ t: t, fn: fn }); }
+var curP = { x: 1500, y: 860 }, mv = null;
+function move(t0, t1, target) { at(t0, function () { var to = typeof target === 'function' ? target() : target; mv = { t0: t0, t1: t1, from: { x: curP.x, y: curP.y }, to: to }; }); }
+function el(sel) { return function () { var r = $(sel).getBoundingClientRect(); return { x: (r.left + r.width * .5 - FIT.x) / FIT.s, y: (r.top + r.height * .55 - FIT.y) / FIT.s }; }; }
+function box(i) { var b = BOXES[i]; return { x: CX + (b.x + b.w * .5) * K, y: CY + (b.y + b.h * .55) * K }; }
+function click(t) { at(t, function () { var c = $('#cur'); c.classList.add('dn'); setTimeout(function () { c.classList.remove('dn'); }, 140);
+  var r = document.createElement('div'); r.className = 'rip'; r.style.left = (curP.x + 4) + 'px'; r.style.top = (curP.y + 4) + 'px'; $('#stage').appendChild(r); setTimeout(function () { r.remove(); }, 600); }); }
+// The card's screen. 'fade': the new screen fades in and rises 14px over the old one (a new question; Oct 29, Matt:
+// the taps looked like teleporting). 'cut': swap at once (typing, or the tapped answer lighting up).
+var top_ = $('#cA'), back_ = $('#cB'), shown = -1;
+function show(i, mode) {
+  if (i === shown) return; shown = i;
+  if (mode === 'cut') { top_.classList.remove('in'); top_.style.opacity = 1; top_.style.transform = 'none'; top_.src = FRAMES[i]; back_.style.opacity = 0; return; }
+  var nw = back_, old = top_; nw.classList.remove('in'); nw.src = FRAMES[i]; nw.style.opacity = 0; nw.style.transform = 'translateY(14px)'; nw.style.zIndex = 2; old.style.zIndex = 1;
+  void nw.offsetWidth; nw.classList.add('in'); nw.style.opacity = 1; nw.style.transform = 'none';
+  top_ = nw; back_ = old;
+}
+show(4, 'cut');
+function frame(t, i, mode) { at(t, function () { show(i, mode || 'fade'); }); }
+function frames(t0, t1, from, to) { var n = to - from + 1; for (var k = 0; k < n; k++) frame(t0 + (t1 - t0) * k / Math.max(1, n - 1), from + k, 'cut'); }
+function scene(t, id) { at(t, function () { document.querySelectorAll('.scene').forEach(function (s) { s.classList.toggle('on', s.id === id); }); }); }
+function cue(t, text) { at(t, function () { $('#cue').textContent = text; }); }
+function label(t, n) { at(t, function () { document.querySelectorAll('.lab').forEach(function (l) { var k = +l.getAttribute('data-l'); l.classList.toggle('on', k === n); l.classList.toggle('did', k < n); }); }); }
+function tap(t, i, next, mt) { move(t - (mt || .45), t - .05, function () { return box(i); }); frame(t - .5, i); click(t); if (next !== undefined) frame(t + .14, next, 'cut'); }
+
+// Timed to Matt's voiceover at a normal talking pace (Oct 29: "match it to the speaking script"). 100% = real time.
+// Each cue() is the line he says from that moment (key V shows it on screen while practicing).
+var dur = 41;
+scene(0, 'site');
+at(0, function () { shown = -1; show(4, 'cut'); $('#siteModal').classList.remove('on'); $('#siteCard').src = FRAMES[0]; $('#floatBook').classList.remove('hl');
+  document.querySelectorAll('.lab').forEach(function (l) { l.classList.remove('on', 'did'); }); $('#notif').classList.remove('on'); $('#cur').style.opacity = 1; });
+
+// 1. The website: "This is a booking page. It goes on your website, right in the bottom corner, looking clean and professional."
+cue(0, 'This is a booking page.');
+cue(1.2, 'It goes on your website, right in the bottom corner,');
+move(1.4, 3.6, el('#floatBook'));
+at(3.6, function () { $('#floatBook').classList.add('hl'); });
+cue(3.8, 'looking clean and professional.');
+click(5.4); at(5.55, function () { $('#floatBook').classList.remove('hl'); $('#siteModal').classList.add('on'); });
+move(5.8, 6.8, { x: 1400, y: 760 });
+
+// 2. The Google profile: "Or on your Google Business Profile, as a Book online button."
+scene(7.6, 'gbp'); cue(7.6, 'Or on your Google Business Profile, as a Book online button.');
+move(8.3, 10.2, el('#gBook')); click(11.0);
+
+// 3. The booking page: "Here's how your customer uses it. They tap what's wrong with the door, leave their name and number,
+//    see the price, pick a time, and add a photo of the door. Done."
+scene(12.0, 'wid'); at(12.0, function () { show(4, 'cut'); });
+move(12.1, 12.9, { x: 1700, y: 620 });
+cue(12.0, "Here's how your customer uses it.");
+label(13.4, 1); cue(13.6, "They tap what's wrong with the door,");
+tap(14.6, 4, 5, .9); frame(15.2, 6);
+tap(15.9, 6, 7, .7); frame(16.4, 8);
+tap(17.0, 8, 9, .6); frame(17.5, 10);
+tap(18.1, 10, 11, .6); frame(18.6, 12);
+tap(19.2, 12, 13, .6); frame(19.7, 14);
+tap(20.3, 14, 15, .6); frame(20.8, 16);
+tap(21.4, 16, 17, .6);
+label(21.9, 2); cue(21.9, 'leave their name and number,');
+move(21.8, 22.4, function () { return box(18); }); frame(22.3, 18); click(22.5);
+frames(22.6, 23.7, 19, 25);
+move(23.8, 24.1, function () { return box(26); }); click(24.2); frames(24.3, 25.2, 26, 31);
+tap(26.0, 32, 34, .5);   // s33 is mid fade-in; s34 is the same screen, fully drawn
+label(26.2, 3); cue(26.2, 'see the price,');
+label(28.3, 4); cue(28.3, 'pick a time,');
+tap(29.2, 34, 35, .7);
+frames(30.7, 31.1, 36, 42); frames(31.15, 31.45, 43, 47);   // the picked time stays on screen first
+label(31.5, 5); cue(31.5, 'and add a photo of the door.');
+tap(32.5, 48, 49, .7);
+tap(34.0, 50, 51, .8); frame(34.3, 52); cue(34.0, 'Done.');
+move(34.6, 35.4, { x: 1730, y: 560 });
+
+// 4. The owner's phone: "And the job lands on your phone right away."
+scene(36.0, 'own'); at(36.0, function () { $('#cur').style.opacity = 0; });
+cue(36.0, 'And the job lands on your phone right away.');
+at(37.2, function () { $('#notif').classList.add('on'); });
+EV.sort(function (a, b) { return a.t - b.t; });
+
+// ---------------- the player ----------------
+// 100% = the voiceover's own pace (S: 100%, 80%, 65%, 120%).
+var SPEEDS = [1, .8, .65, 1.2], si = 0, t = 0, last = 0, playing = false, speed = SPEEDS[0], next = 0;
+function reset() { t = 0; next = 0; mv = null; curP = { x: 1500, y: 860 }; run(0); draw(); }
+function run(now) { while (next < EV.length && EV[next].t <= now) { EV[next].fn(); next++; } }
+function ease(k) { return k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; }
+function draw() {
+  if (mv) { var k = Math.min(1, Math.max(0, (t - mv.t0) / (mv.t1 - mv.t0))), e = ease(k); curP.x = mv.from.x + (mv.to.x - mv.from.x) * e; curP.y = mv.from.y + (mv.to.y - mv.from.y) * e; }
+  var c = $('#cur'); c.style.left = curP.x + 'px'; c.style.top = curP.y + 'px';
+  $('#clock').textContent = t.toFixed(1) + ' s at ' + Math.round(speed * 100) + '%';
+}
+function loop(ts) {
+  if (playing) { t += Math.min(.05, (ts - last) / 1000) * speed; if (t >= dur) { t = dur; playing = false; } run(t); }
+  last = ts; draw(); requestAnimationFrame(loop);
+}
+document.addEventListener('keydown', function (e) {
+  var k = e.key.toLowerCase();
+  if (k === ' ') { e.preventDefault(); if (t >= dur) reset(); playing = !playing; }
+  else if (k === 'r') { playing = false; reset(); }
+  else if (k === 'p') { reset(); setTimeout(function () { playing = true; }, 3000); }
+  else if (k === 's') { si = (si + 1) % SPEEDS.length; speed = SPEEDS[si]; }
+  else if (k === 'h') $('#clock').classList.toggle('off');
+  else if (k === 'v') $('#cue').classList.toggle('off');
+});
+// ?t=12.3 opens paused at that moment (for checking stills)
+var qt = parseFloat(new URLSearchParams(location.search).get('t'));
+reset();
+if (qt > 0) { var step = 1 / 60; while (t < qt) { t = Math.min(qt, t + step); run(t); draw(); } }
+requestAnimationFrame(function (ts) { last = ts; loop(ts); });
+</script>
+</body>
+</html>
