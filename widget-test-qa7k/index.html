@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Widget test page</title>
+<style>
+  :root{--ink:#1d221c;--mute:#5f6368;--line:#e4e4de;--bg:#f6f5f1}
+  *{box-sizing:border-box}
+  body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+  header{padding:18px 24px;border-bottom:1px solid var(--line);background:#fff;font-weight:700}
+  main{max-width:760px;margin:0 auto;padding:48px 24px 140px}
+  h1{font-size:34px;line-height:1.15;margin:0 0 14px}
+  p{color:var(--mute);margin:0 0 14px}
+  .box{margin-top:28px;padding:20px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+  .box b{color:var(--ink)}
+  a{color:var(--ink)}
+  @media (max-width:600px){h1{font-size:28px}main{padding:32px 16px 140px}}
+</style>
+</head>
+<body>
+<header>Widget test page</header>
+<main>
+  <h1>Private test page for the booking widget</h1>
+  <p>Not a real business website. It exists to test the live booking widget the way it runs on an owner's site.</p>
+  <div class="box">
+    <p><b>The Book online button, bottom right,</b> is Quick Access Garage Door's live booking widget, the same code that goes on their website.</p>
+    <p><b>The same booking page as a link</b> (for the Google profile): <a href="https://book.dialbridge.ai/quick-access-garage-door">book.dialbridge.ai/quick-access-garage-door</a></p>
+    <p>Use a ZIP in their area, like 75243. Lead texts go to the test phone only.</p>
+  </div>
+</main>
+<script async src="https://book.dialbridge.ai/w.js" data-business="quick-access-garage-door" data-color="#E63946" data-live="1"></script>
+</body>
+</html>
